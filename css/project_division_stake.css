@@ -1,0 +1,24 @@
+.field-key,.field-value{
+    line-height: 40px;
+    float: left;
+}
+.field-key{
+    width: 15%;
+}
+.field-value{
+    width: 17%;
+}
+.input-text{
+    margin: 4px 20px 0px 10px;
+    height: 30px;
+    line-height: 30px;
+}
+.icon{
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    background: url("../imgs/icon-button.png") no-repeat;
+}
+.icon-delete{
+    background-position: -148px -4px;
+}

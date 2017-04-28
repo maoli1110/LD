@@ -1,0 +1,382 @@
+<!-- <div>first</div> -->
+<link rel="stylesheet" href="css/siderbar.css">
+<link rel="stylesheet" href="css/project_manage_constract.css">
+<link rel="stylesheet" href="css/project_manage_modal.css">
+<div class="LubanLD-container">
+    <!--顶部导航-->
+    <header ng-include="'template/core/header.html'"></header>
+
+
+
+    <!--主体内容-->
+    <article class="main-container">
+
+        <!--左侧树节点导航-->
+        <aside class="menu-nav" ng-include="'template/core/sidebar.html'" ></aside>
+        <!--右侧数据内容展示-->
+        <section class="content-wrapper">
+            <!--固定导航-->
+            <div class="top-navbar" tab-active>
+                <a href="javascript:;" class="active tab" ui-sref="first">
+                    <span>合同管理</span>
+                </a>
+                <a href="javascript:;" class="tab" ui-sref="second.projectDivisionContract">
+                    <span>工程划分-合同段</span>
+                </a>
+                <a href="javascript:;" class="tab" ui-sref="second.projectDivisionStake">
+                    <span>工程划分-桩号</span>
+                </a>
+                <a href="javascript:;" class="tab" ui-sref="second.listManageContract">
+                    <span>清单管理</span>
+                </a>
+            </div>
+            <div class="contract-content" style="height: calc(100% - 40px);">
+                <div class="content">
+                    <div class="contract-name">合同1</div>
+                    <div class="contract-operate">
+                        <button class="contract-construction active"  ng-click="createConstructModal()">新增施工合同</button>
+                        <button class="contract-inspection" ng-click="createSuperviseModal()">新增监理合同</button>
+                        <button class="contract-laboratory" ng-click="createLabModal()">新增试验室合同</button>
+                        <button class="edit-contract" ng-click="editModal()">编辑合同</button>
+                        <button class="delete-contract" ng-click="deleteModal()">删除合同</button>
+                    </div>
+                    <div class="attachment" arrow-swiper>
+                        <div class="arrow-left"></div>
+                        <div class="wrapper">
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a><a class="attachment-operate">
+                            <i class="ico-pdf"></i>
+                            <p class="attachment-name">高速高速高速合同段1</p>
+                            <div class="attachment-btn">
+                                <button class="download">
+                                    <i class="ico-download"></i>
+                                    <span class="txt-download">下载</span>
+                                </button>
+                                <button class="preview">
+                                    <i class="ico-preview"></i>
+                                    <span class="txt-preview">预览</span>
+                                </button>
+                            </div>
+                        </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a><a class="attachment-operate">
+                            <i class="ico-pdf"></i>
+                            <p class="attachment-name">高速高速高速合同段1</p>
+                            <div class="attachment-btn">
+                                <button class="download">
+                                    <i class="ico-download"></i>
+                                    <span class="txt-download">下载</span>
+                                </button>
+                                <button class="preview">
+                                    <i class="ico-preview"></i>
+                                    <span class="txt-preview">预览</span>
+                                </button>
+                            </div>
+                        </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                            <a class="attachment-operate">
+                                <i class="ico-pdf"></i>
+                                <p class="attachment-name">高速高速高速合同段1</p>
+                                <div class="attachment-btn">
+                                    <button class="download">
+                                        <i class="ico-download"></i>
+                                        <span class="txt-download">下载</span>
+                                    </button>
+                                    <button class="preview">
+                                        <i class="ico-preview"></i>
+                                        <span class="txt-preview">预览</span>
+                                    </button>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="arrow-right"></div>
+                    </div>
+                    <div class="contract-data">
+                        <div class="table-list" style="height: calc(100vh - 400px);overflow-y: scroll">
+                            <div class="table-construct">
+                                <div style="width: 12%" class="bold">合同编号：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">标段号：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">合同金额：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">项目名称：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">合同签订日期：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">合同类型：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">建设单位：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">监理单位：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">施工单位：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">总监理工程师：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">施工负责人：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">项目总工：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">起始桩号：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">结束桩号：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">合同段长度：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">关联工程：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">计划开工日期：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">计划完工日期：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">实际开工日期：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">实际完工日期：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%;margin-bottom: 0;" class="bold">工期：</div>
+                                <div style="width: 37%;margin-bottom: 0;" class="default">222</div>
+                                <div style="width: 12%;margin-bottom: 0;" class="bold">已完成产值：</div>
+                                <div style="width: 35%;margin-bottom: 0;" class="default">222</div>
+                            </div>
+                            <div class="table-supervisor" style="display: none">
+                                <div style="width: 12%" class="bold">合同编号：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">标段号：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">合同金额：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">项目名称：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">合同签订日期：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">合同类型：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">建设单位：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">监理单位：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">总监理工程师：</div>
+                                <div style="width: 85%" class="default">444</div>
+                            </div>
+                            <div class="table-lab"  style="display: none">
+                                <div style="width: 12%" class="bold">合同编号：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">标段号：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">合同金额：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">项目名称：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">合同签订日期：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">合同类型：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">建设单位：</div>
+                                <div style="width: 37%" class="default">222</div>
+                                <div style="width: 12%" class="bold">监理单位：</div>
+                                <div style="width: 35%" class="default">444</div>
+                                <div style="width: 12%" class="bold">总监理工程师：</div>
+                                <div style="width: 37%" class="default">444</div>
+                                <div style="width: 12%" class="bold">监理试验室单位：</div>
+                                <div style="width: 35%" class="default">444</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+</div>

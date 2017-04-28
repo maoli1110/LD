@@ -1,0 +1,199 @@
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-name {
+    height: 54px;
+    line-height: 54px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-operate {
+    font-size: 0;
+    margin-bottom: 20px;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-operate button {
+    font-size: 12px;
+    background-color: #BDC4CE;
+    border: 0 none;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 6px 9px 7px 18px;
+    margin-right: 20px;
+    color: #fff;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-operate button:hover {
+    background-color: #99A1AE;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-operate button:focus {
+    outline: none !important;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-operate button:last-child {
+    margin-right: 0;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-operate button.delete-contract {
+    background-color: #fff;
+    border: 0 none;
+    border: 2px solid #99A1AE;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 5px 8px 6px 17px;
+    color: #99A0B0;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-operate button.delete-contract:hover {
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    background-color: #99A1AE;
+    color: #fff;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment {
+    padding: 20px 42px 15px 30px;
+    height: 130px;
+    border: 1px solid #DBDEE7;
+    border-left: 0;
+    border-right: 0;
+    position: relative;
+    font-size: 0;
+    overflow: hidden;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .arrow-left,
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .arrow-right {
+    position: absolute;
+    width: 18px;
+    height: 44px;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+    background: url("../imgs/icon-button.png") no-repeat;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .arrow-left {
+    left: 0;
+    background-position: -74px -46px;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .arrow-right {
+    right: 0;
+    background-position: -92px -46px;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate {
+    width: 140px;
+    display: inline-block;
+    text-align: center;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .ico-pdf {
+    display: inline-block;
+    width: 43px;
+    height: 48px;
+    background: url("../imgs/icon-pdf.png") -27px -1px;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-name {
+    width: 140px;
+    font-size: 12px;
+    margin: 10px 0;
+    color: #323232;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .download,
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .preview {
+    outline: none;
+    border: 0 none;
+    width: 50px;
+    height: 20px;
+    padding: 0;
+    background-color: #fff;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    color: #A5ACBC;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .download:hover,
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .preview:hover {
+    background-color: #dde3ef;
+    color: #5D87CF;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .download:hover .ico-download,
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .preview:hover .ico-download {
+    background: url("../imgs/icon-button.png") -17px -28px no-repeat;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .download:hover .ico-preview,
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .preview:hover .ico-preview {
+    background: url("../imgs/icon-button.png") -55px -28px no-repeat;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .download {
+    font-size: 0;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .download .ico-download {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url("../imgs/icon-button.png") 0 -28px no-repeat;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .download .txt-download {
+    display: inline-block;
+    font-size: 10px;
+    line-height: 20px;
+    vertical-align: top;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .preview {
+    font-size: 0;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .preview .ico-preview {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url("../imgs/icon-button.png") -36px -28px no-repeat;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .attachment .wrapper .attachment-operate .attachment-btn .preview .txt-preview {
+    font-size: 10px;
+    line-height: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-data {
+    padding-top: 18px;
+    width: 100%;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-data .table-list .table-construct div,
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-data .table-list .table-lab div,
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-data .table-list .table-supervisor div {
+    display: inline-block;
+    font-size: 12px;
+    margin-bottom: 35px;
+}
+
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-data .table-list .table-construct .bold,
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-data .table-list .table-lab .bold,
+.LubanLD-container .main-container .content-wrapper .contract-content .content .contract-data .table-list .table-supervisor .bold {
+    font-weight: 700;
+}

@@ -1,0 +1,39 @@
+/*搜索框样式开始*/
+.contract-search1 {
+    height: 40px;
+    /*border: 1px solid #DADBDF;*/
+    padding: 3px;
+    position: relative;
+    font-size: 0;
+    width: 40%;
+}
+.input-search {
+    width: 100%;
+    height: 32px;
+    font-size: 11px;
+    padding-left: 6px;
+}
+.contract-search1 .clear {
+    right: 32px;
+    position: absolute;
+    top: 10px;
+}
+.contract-search1 .btn-wrap {
+    /*right: 3px;*/
+    right: 8px;
+    position: absolute;
+    top: 10px;
+}
+.contract-search1 .clear .btn-close,.contract-search1 .btn-wrap .btn-search {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url("../imgs/icon-button.png") no-repeat;
+}
+.contract-search1 .clear .btn-close{
+    background-position: -54px -9px;
+}
+.contract-search1 .btn-wrap .btn-search {
+    background-position: -36px -9px;
+}
+/*搜索框样式结束*/

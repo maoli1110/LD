@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="css/index.css">
+<div class="LubanLD-container">
+    <!--顶部导航-->
+	<header ng-include="'template/core/header.html'"></header>
+
+    <!--主体内容-->
+    <article class="main-container clearfix" style="height: calc(100% - 73px)">
+        <!--左侧树节点导航-->
+        <aside class="menu-nav" ng-include="'template/core/sidebar.html'"></aside>
+
+		<!-- <div style="color:#fff" class="content-main" ui-view></div> -->
+		<!--右侧数据内容展示-->
+		<section class="content-wrapper">
+			 <!--固定导航-->
+		    <div class="top-navbar" tab-active>
+		        <a href="javascript:;" class="tab" ui-sref="first">
+		            <span>合同管理</span>
+		        </a>
+		        <a href="javascript:;" class="active tab" ui-sref="second.projectDivisionContract">
+		            <span>工程划分-合同段</span>
+		        </a>
+				<a href="javascript:;" class="tab" ui-sref="second.projectDivisionStake">
+					<span>工程划分-桩号</span>
+				</a>
+		        <a href="javascript:;" class="tab" ui-sref="second.listManageContract">
+		            <span>清单管理</span>
+		        </a>
+		    </div>
+		    <div class="contract-content" style="height: calc(100% - 40px);" ui-view>
+
+		    </div>
+		</section>
+    </article>
+</div>

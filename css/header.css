@@ -1,0 +1,195 @@
+html,
+body {
+    height: 100%;
+    font-family: "Microsoft yahei";
+    font-size: 14px;
+    background-color: #2B2F38;
+}
+
+.LubanLD-container header {
+    height: 70px;
+    background-color: #2B2F38;
+    padding: 0 2px 0 10px;
+    position: relative;
+    z-index: 10;
+}
+
+.LubanLD-container header .LubanLD-user {
+    padding: 12px 0 0;
+    font-size: 0;
+}
+
+.LubanLD-container header .LubanLD-user .LubanLD-head {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.LubanLD-container header .LubanLD-user .LubanLD-head .LubanLD-pic {
+    display: inline-block;
+}
+
+.LubanLD-container header .LubanLD-user .LubanLD-head .LubanLD-pic img {
+    border-radius: 50%;
+}
+
+.LubanLD-container header .LubanLD-user .LubanLD-username {
+    display: inline-block;
+    cursor: pointer;
+    color: #fff;
+    font-size: 12px;
+    vertical-align: top;
+    margin-top: 17px;
+}
+
+.LubanLD-container header .LubanLD-user .LubanLD-username .name {
+    margin-right: 10px;
+}
+
+.LubanLD-container header .main-navbar {
+    width: 540px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.LubanLD-container header .main-navbar .btn-control {
+    margin-left: 7.2%;
+    font-size: 0;
+    height: 60px;
+    padding-top: 10px;
+}
+
+.LubanLD-container header .main-navbar .btn-control .btn-projectmng,
+.LubanLD-container header .main-navbar .btn-control .btn-changemng,
+.LubanLD-container header .main-navbar .btn-control .btn-qualityAssess,
+.LubanLD-container header .main-navbar .btn-control .btn-meter,
+.LubanLD-container header .main-navbar .btn-control .btn-analysis {
+    display: inline-block;
+    margin: 0px 45px 0px 0;
+    width: 50px;
+    height: 60px;
+    position: relative;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.LubanLD-container header .main-navbar .btn-control .btn-projectmng.active,
+.LubanLD-container header .main-navbar .btn-control .btn-changemng.active,
+.LubanLD-container header .main-navbar .btn-control .btn-qualityAssess.active,
+.LubanLD-container header .main-navbar .btn-control .btn-meter.active,
+.LubanLD-container header .main-navbar .btn-control .btn-analysis.active {
+    text-decoration: none;
+}
+
+.LubanLD-container header .main-navbar .btn-control .btn-projectmng.active::after,
+.LubanLD-container header .main-navbar .btn-control .btn-changemng.active::after,
+.LubanLD-container header .main-navbar .btn-control .btn-qualityAssess.active::after,
+.LubanLD-container header .main-navbar .btn-control .btn-meter.active::after,
+.LubanLD-container header .main-navbar .btn-control .btn-analysis.active::after {
+    content: "";
+    width: 30px;
+    height: 2px;
+    background-color: #FED928;
+    position: absolute;
+    left: 11px;
+    bottom: 0px;
+}
+
+.LubanLD-container header .main-navbar .btn-control .btn-projectmng .logo-projectmng,
+.LubanLD-container header .main-navbar .btn-control .btn-changemng .logo-projectmng,
+.LubanLD-container header .main-navbar .btn-control .btn-qualityAssess .logo-projectmng,
+.LubanLD-container header .main-navbar .btn-control .btn-meter .logo-projectmng,
+.LubanLD-container header .main-navbar .btn-control .btn-analysis .logo-projectmng,
+.LubanLD-container header .main-navbar .btn-control .btn-projectmng .logo-changemng,
+.LubanLD-container header .main-navbar .btn-control .btn-changemng .logo-changemng,
+.LubanLD-container header .main-navbar .btn-control .btn-qualityAssess .logo-changemng,
+.LubanLD-container header .main-navbar .btn-control .btn-meter .logo-changemng,
+.LubanLD-container header .main-navbar .btn-control .btn-analysis .logo-changemng,
+.LubanLD-container header .main-navbar .btn-control .btn-projectmng .logo-analysis,
+.LubanLD-container header .main-navbar .btn-control .btn-changemng .logo-analysis,
+.LubanLD-container header .main-navbar .btn-control .btn-qualityAssess .logo-analysis,
+.LubanLD-container header .main-navbar .btn-control .btn-meter .logo-analysis,
+.LubanLD-container header .main-navbar .btn-control .btn-analysis .logo-analysis,
+.LubanLD-container header .main-navbar .btn-control .btn-projectmng .logo-qualityAssess,
+.LubanLD-container header .main-navbar .btn-control .btn-changemng .logo-qualityAssess,
+.LubanLD-container header .main-navbar .btn-control .btn-qualityAssess .logo-qualityAssess,
+.LubanLD-container header .main-navbar .btn-control .btn-meter .logo-qualityAssess,
+.LubanLD-container header .main-navbar .btn-control .btn-analysis .logo-qualityAssess,
+.LubanLD-container header .main-navbar .btn-control .btn-projectmng .logo-meter,
+.LubanLD-container header .main-navbar .btn-control .btn-changemng .logo-meter,
+.LubanLD-container header .main-navbar .btn-control .btn-qualityAssess .logo-meter,
+.LubanLD-container header .main-navbar .btn-control .btn-meter .logo-meter,
+.LubanLD-container header .main-navbar .btn-control .btn-analysis .logo-meter {
+    display: inline-block;
+    width: 32px;
+    height: 30px;
+    margin-bottom: 5px;
+    -webkit-background-size: 32px 30px;
+    background-size: 32px 30px;
+}
+
+.LubanLD-container header .main-navbar .btn-control .btn-projectmng .logo-projectmng {
+    background: url(../imgs/icon-nav.png) 0 0 no-repeat;
+}
+
+.LubanLD-container header .main-navbar .btn-control .btn-changemng .logo-changemng {
+    background: url(../imgs/icon-nav.png) -32px 0 no-repeat;
+}
+
+.LubanLD-container header .main-navbar .btn-control .btn-qualityAssess .logo-qualityAssess {
+    background: url(../imgs/icon-nav.png) -64px 0 no-repeat;
+}
+
+.LubanLD-container header .main-navbar .btn-control .btn-meter .logo-meter {
+    background: url(../imgs/icon-nav.png) -96px 0 no-repeat;
+}
+
+.LubanLD-container header .main-navbar .btn-control .btn-analysis .logo-analysis {
+    background: url(../imgs/icon-nav.png) -128px 0 no-repeat;
+}
+
+.LubanLD-container header .window-state {
+    font-size: 0;
+    cursor: default;
+    width: 180px;
+    position: absolute;
+    top: 25px;
+    right: 10px;
+}
+
+.LubanLD-container header .window-state .min_window,
+.LubanLD-container header .window-state .max_window,
+.LubanLD-container header .window-state .close_window {
+    width: 28px;
+    height: 20px;
+    transition: all 0.2s ease-out;
+}
+
+.LubanLD-container header .window-state .min_window {
+    margin-right: 6px;
+    margin-left: 28%;
+    background: url(../imgs/icon-window.png) -1px 1px no-repeat;
+}
+
+.LubanLD-container header .window-state .min_window:hover {
+    background: url(../imgs/icon-window.png) -2px -23px no-repeat;
+}
+
+.LubanLD-container header .window-state .max_window {
+    margin-right: 6px;
+    background: url(../imgs/icon-window.png) -33px 0 no-repeat;
+}
+
+.LubanLD-container header .window-state .max_window:hover {
+    background: url(../imgs/icon-window.png) -34px -23px no-repeat;
+}
+
+.LubanLD-container header .window-state .close_window {
+    background: url(../imgs/icon-window.png) -64px 0 no-repeat;
+}
+
+.LubanLD-container header .window-state .close_window:hover {
+    background: url(../imgs/icon-window.png) -65px -23px no-repeat;
+}
