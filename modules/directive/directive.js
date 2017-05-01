@@ -146,3 +146,47 @@ angular.module('core').directive('windowResize', function () {
     }
 });
 
+
+//左侧导航手风琴动效
+angular.module('core').directive('according', function () {
+    return {
+        restrict: 'AE',
+        link: function (scope, element, attr) {
+            //点击一级图标
+            $('.project-name-span').click(function(ele){
+                // debugger
+                // $('.contract-list').css('display','none');
+                if($(ele.target).siblings('ul').css('display')==='none'){
+                    $(ele.target).siblings('ul').slideDown(300);
+                } else {
+                    $(ele.target).siblings('ul').slideUp(300);
+                }
+                $(ele.target).parent().siblings().find('ul').slideUp(300)
+                
+            });
+            //点击二级图标
+            $('.icon').click(function(ele){
+                console.log(ele.target);
+                // $('.tree-list').css('display','none');
+                if($(ele.target).siblings('ul').css('display')==='none'){
+                    $(ele.target).siblings('ul').slideDown(300);
+                } else {
+                    $(ele.target).siblings('ul').slideUp(300);
+                }
+                $(ele.target).parent().siblings().find('ul').slideUp(300)
+
+            });
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
