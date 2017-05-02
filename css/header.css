@@ -10,8 +10,9 @@ body {
     height: 70px;
     background-color: #2B2F38;
     padding: 0 2px 0 10px;
-    position: relative;
+    position: fixed;
     z-index: 10;
+    width: 100%;
 }
 
 .LubanLD-container header .LubanLD-user {

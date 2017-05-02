@@ -1,0 +1,244 @@
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.contractUnit.$invalid && !formConstract.contractUnit.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="contract_unit" class="form-control" style="border: none">施工单位：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="contract_unit" name="contractUnit" required
+               ng-maxlength="100" ng-model="ct_unit">
+        <p class="help-block">
+            <a ng-show="formConstract.contractUnit.$error.required">该项为必填项</a>
+            <span ng-show="formConstract.contractUnit.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+    <div class="col-xs-2">
+        <span></span>
+    </div>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.csEngineer.$error.maxlength}">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="chief_supervisory_engineer" class="form-control"
+               style="border: none">总监理工程师：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="chief_supervisory_engineer" ng-model="cs_engineer"
+               name="csEngineer"
+               ng-maxlength="100">
+        <p class="help-block">
+            <span ng-show="formConstract.csEngineer.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.contractManager.$invalid && !formConstract.contractManager.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="contract_manager" class="form-control" style="border: none">施工负责人：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="contract_manager" name="contractManager" required
+               ng-maxlength="100" ng-model="ct_manager">
+        <p class="help-block">
+            <span ng-show="formConstract.contractManager.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+    <div class="col-xs-2">
+        <span></span>
+    </div>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.cpEngineer.$invalid && !formConstract.cpEngineer.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="chief_project_engineer" class="form-control" style="border: none">项目总工：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="chief_project_engineer" name="cpEngineer" required
+               ng-maxlength="100" ng-model="cp_engineer">
+        <p class="help-block">
+            <span ng-show="formConstract.cpEngineer.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+    <br>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.initialNumber.$invalid && !formConstract.initialNumber.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="initial_number" class="form-control" style="border: none">起始桩号：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="initial_number" name="initialNumber" required
+               ng-maxlength="100" ng-model="initial_num" ng-pattern="/^[0-9a-zA-Z]+$/">
+        <p class="help-block">
+            <a ng-show="formConstract.initialNumber.$error.pattern">请输入数字或英文字符</a>
+            <a ng-show="formConstract.initialNumber.$error.required">该项为必填项</a>
+            <span ng-show="formConstract.initialNumber.$error.maxlength">该项不能超过100个字符</span>
+
+        </p>
+    </div>
+    <div class="col-xs-2">
+        <span></span>
+    </div>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.endNumber.$invalid && !formConstract.endNumber.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="end_number" class="form-control" style="border: none">结束桩号：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="end_number" name="endNumber" required
+               ng-maxlength="100" ng-model="end_num" ng-pattern="/^[0-9a-zA-Z]+$/">
+        <p class="help-block">
+            <a ng-show="formConstract.endNumber.$error.pattern">请输入数字或英文字符</a>
+            <a ng-show="formConstract.endNumber.$error.required">该项为必填项</a>
+            <span ng-show="formConstract.endNumber.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+    <br>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.contractLength.$invalid && !formConstract.contractLength.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="contract_length" class="form-control" style="border: none">合同段长度：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="contract_length" name="contractLength" required
+               ng-maxlength="100" ng-model="ct_length" ng-pattern="/^[0-9a-zA-Z]+$/">
+        <p class="help-block">
+            <a ng-show="formConstract.contractLength.$error.pattern">请输入数字或英文字符</a>
+            <a ng-show="formConstract.contractLength.$error.required">该项为必填项</a>
+            <span ng-show="formConstract.contractLength.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+    <div class="col-xs-7">
+        <span class="meter">千米</span>
+    </div>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.psDate.$invalid && !formConstract.psDate.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="plan_start_date" class="form-control" style="border: none">计划开工日期：</label>
+    </div>
+    <div class="col-xs-3">
+        <div class="controls input-append date form_date" data-date="" data-date-format="yyyy-mm-dd"
+             data-link-field="start_date" data-link-format="yyyy-mm-dd">
+            <input size="16" type="text" class="form-control" id="plan_start_date" name="psDate"
+                   required
+                   ng-maxlength="100" ng-model="ps_date">
+            <span class="add-on"><i class="icon-th"></i></span>
+            <p class="help-block">
+                <a ng-show="formConstract.psDate.$error.required">该项为必填项</a>
+            <span ng-show="formConstract.psDate.$error.maxlength">该项不能超过100个字符</span>
+            </p>
+        </div>
+        <input type="hidden" id="start_date" value=""/>
+    </div>
+    <div class="col-xs-2">
+        <span></span>
+    </div>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.peDate.$invalid && !formConstract.peDate.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="plan_end_date" class="form-control" style="border: none">计划完工日期：</label>
+    </div>
+    <div class="col-xs-3">
+        <div class="controls input-append date form_date" data-date=""
+             data-date-format="yyyy-mm-dd"
+             data-link-field="end_date" data-link-format="yyyy-mm-dd">
+            <input size="16" type="text" class="form-control" id="plan_end_date" name="peDate" required
+                   ng-maxlength="100" ng-model="pe_date">
+            <span class="add-on"><i class="icon-th"></i></span>
+            <p class="help-block">
+                <a ng-show="formConstract.peDate.$error.required">该项为必填项</a>
+            <span ng-show="formConstract.peDate.$error.maxlength">该项不能超过100个字符</span>
+            </p>
+        </div>
+        <input type="hidden" id="end_date" value=""/>
+    </div>
+    <br>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.ctsDate.$invalid && !formConstract.ctsDate.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="contract_start_date" class="form-control"
+               style="border: none">实际开工日期：</label>
+    </div>
+    <div class="col-xs-3">
+        <div class="controls input-append date form_date" data-date=""
+             data-date-format="yyyy-mm-dd"
+             data-link-field="acture-start_date" data-link-format="yyyy-mm-dd">
+            <input size="16" type="text" class="form-control" id="contract_start_date" name="ctsDate"
+                   required
+                   ng-maxlength="100" ng-model="cts_date">
+            <span class="add-on"><i class="icon-th"></i></span>
+            <p class="help-block">
+                <span ng-show="formConstract.ctsDate.$error.maxlength">该项不能超过100个字符</span>
+            </p>
+        </div>
+        <input type="hidden" id="acture-start_date" value=""/>
+    </div>
+    <div class="col-xs-2">
+        <span></span>
+    </div>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.cteDate.$invalid && !formConstract.cteDate.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="contract_end_date" class="form-control"
+               style="border: none">实际完工日期：</label>
+    </div>
+    <div class="col-xs-3 dropdown">
+        <div class="controls input-append date form_date" data-date=""
+             data-date-format="yyyy-mm-dd"
+             data-link-field="acture-end_date" data-link-format="yyyy-mm-dd">
+            <input size="16" type="text" class="form-control" id="contract_end_date" name="cteDate"
+                   required
+                   ng-maxlength="100" ng-model="cte_date">
+            <span class="add-on"><i class="icon-th"></i></span>
+            <p class="help-block">
+                <span ng-show="formConstract.cteDate.$error.maxlength">该项不能超过100个字符</span>
+            </p>
+        </div>
+        <input type="hidden" id="acture-end_date" value=""/>
+    </div>
+    <br>
+
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.projectTime.$invalid && !formConstract.projectTime.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="project_time" class="form-control"
+               style="border: none">工期：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="project_time" name="projectTime" required
+               ng-maxlength="100" ng-model="pt_time" ng-pattern="/^[0-9a-zA-Z]+$/">
+        <p class="help-block">
+            <a ng-show="formConstract.projectTime.$error.pattern">请输入数字或英文字符</a>
+            <a ng-show="formConstract.projectTime.$error.required">该项为必填项</a>
+            <span ng-show="formConstract.projectTime.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+    <div class="col-xs-2">
+        <span class="month">月</span>
+    </div>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.associatedEngineer.$invalid && !formConstract.associatedEngineer.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="associated_engineer" class="form-control"
+               style="border: none">关联工程：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="associated_engineer" id="associated_engineer"
+               name="associatedEngineer" required
+               ng-maxlength="100" ng-model="as_engineer">
+        <a class="btn-associate">
+            <span class="ico-associate"></span>
+        </a>
+        <p class="help-block">
+            <a ng-show="formConstract.associatedEngineer.$error.required">该项为必填项</a>
+            <span ng-show="formConstract.associatedEngineer.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+</div>

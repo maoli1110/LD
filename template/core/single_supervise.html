@@ -1,0 +1,17 @@
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.csEngineer.$invalid && !formConstract.csEngineer.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="chief_supervisory_engineer" class="form-control"
+               style="border: none">总监理工程师：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="chief_supervisory_engineer" name="csEngineer" required
+               ng-maxlength="100" ng-model="cs_engineer">
+        <p class="help-block">
+            <span ng-show="formConstract.csEngineer.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+    <div class="col-xs-7">
+        <span></span>
+    </div>
+</div>

@@ -1,0 +1,258 @@
+.model-content {
+  border-radius: 0;
+  border: 1px solid #2b2f38;
+}
+.model-content .modal-header {
+  height: 30px;
+  background-color: #E9ECF5;
+  padding: 0 10px;
+  position: relative;
+}
+.model-content .modal-header .modal-title p {
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.model-content .modal-header .modal-title .btn-close {
+  position: absolute;
+  right: 0px;
+  padding: 8px 10px 0px 10px;
+  top: 0;
+  cursor: pointer;
+}
+.model-content .modal-header .modal-title .btn-close .ico-close {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url("../imgs/icon-button.png") -91px -10px no-repeat;
+}
+.model-content .modal-body {
+  padding: 0 40px;
+}
+.model-content .modal-body .top-content {
+  margin: 20px 0;
+  border: 1px solid #BDC4CE;
+  padding: 20px 30px;
+  height: 78px;
+  position: relative;
+  overflow: hidden;
+}
+.model-content .modal-body .top-content .attachment-arrow-left,
+.model-content .modal-body .top-content .attachment-arrow-right {
+  cursor: pointer;
+  position: absolute;
+  padding: 3px 7px;
+  top: 20px;
+}
+.model-content .modal-body .top-content .attachment-arrow-left .ico-left,
+.model-content .modal-body .top-content .attachment-arrow-right .ico-right {
+  width: 14px;
+  height: 30px;
+  display: inline-block;
+  background: url("../imgs/icon-button.png") no-repeat;
+}
+.model-content .modal-body .top-content .attachment-arrow-left {
+  left: 0;
+}
+.model-content .modal-body .top-content .attachment-arrow-left .ico-left {
+  background-position: -110px -53px;
+}
+.model-content .modal-body .top-content .constract {
+  display: flex;
+  overflow: hidden;
+}
+.model-content .modal-body .top-content .constract .btn-upload {
+  display: inline-block;
+  flex: 0 0 88px;
+  width: 84px;
+  height: 34px;
+  background-color: #fff;
+  line-height: 34px;
+  padding: 0;
+  margin-right: 10px;
+  border: 1px solid #99A0B0;
+  text-align: center;
+  font-size: 14px;
+}
+.model-content .modal-body .top-content .constract .attachment-wrapper {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.model-content .modal-body .top-content .constract .attachment-wrapper .wrapper-pdf {
+  display: inline-block;
+  margin-right: 10px;
+  width: 158px;
+  height: 34px;
+  background-color: #F5F6FA;
+  border: 1px solid #99A0B0;
+  padding: 0 7px;
+  font-size: 0;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+.model-content .modal-body .top-content .constract .attachment-wrapper .wrapper-pdf:hover .inner-mask {
+  top: 0;
+}
+.model-content .modal-body .top-content .constract .attachment-wrapper .wrapper-pdf .inner-mask {
+  position: absolute;
+  text-align: center;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  -moz-transition: top ease 200ms;
+  -o-transition: top ease 200ms;
+  -webkit-transition: top ease 200ms;
+  transition: top ease 200ms;
+}
+.model-content .modal-body .top-content .constract .attachment-wrapper .wrapper-pdf .inner-mask .delete-attachment {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-top: 2px;
+  cursor: pointer;
+  background: url("../imgs/icon-button.png") -137px -54px no-repeat;
+}
+.model-content .modal-body .top-content .constract .attachment-wrapper .wrapper-pdf:last-child {
+  margin-right: 0;
+}
+.model-content .modal-body .top-content .constract .attachment-wrapper .wrapper-pdf .ico-pdf,
+.model-content .modal-body .top-content .constract .attachment-wrapper .wrapper-pdf .txt-pdf {
+  display: inline-block;
+}
+.model-content .modal-body .top-content .constract .attachment-wrapper .wrapper-pdf .ico-pdf {
+  width: 21px;
+  height: 26px;
+  background: url("../imgs/icon-pdf.png") -2px -2px no-repeat;
+  margin-right: 7px;
+  margin-top: 4px;
+}
+.model-content .modal-body .top-content .constract .attachment-wrapper .wrapper-pdf .txt-pdf {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 34px;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #000;
+  vertical-align: top;
+}
+.model-content .modal-body .top-content .attachment-arrow-right {
+  right: 0;
+}
+.model-content .modal-body .top-content .attachment-arrow-right .ico-right {
+  background-position: -124px -53px;
+}
+.model-content .modal-body .bottom-content {
+  border-top: 1px solid #DBDEE7;
+  padding-top: 20px;
+}
+.model-content .modal-body .bottom-content .table-construct {
+  height: 580px;
+}
+.model-content .modal-body .bottom-content .table-construct .common-content {
+  height: 200px;
+}
+.model-content .modal-body .bottom-content .table-construct .form-group {
+  margin: 0;
+}
+.model-content .modal-body .bottom-content .table-construct .col-xs-2 {
+  height: 30px;
+}
+.model-content .modal-body .bottom-content .table-construct .col-xs-3 {
+  height: 51px;
+}
+.model-content .modal-body .bottom-content .table-construct .col-xs-2,
+.model-content .modal-body .bottom-content .table-construct .col-xs-3 {
+  padding: 0;
+}
+.model-content .modal-body .bottom-content .table-construct .col-xs-3:last-child {
+  font-size: 0;
+}
+.model-content .modal-body .bottom-content .table-construct .col-xs-7 {
+  padding: 0;
+  height: 51px;
+}
+.model-content .modal-body .bottom-content .table-construct div .unit,
+.model-content .modal-body .bottom-content .table-construct div .meter,
+.model-content .modal-body .bottom-content .table-construct div .month {
+  display: inline-block;
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+}
+.model-content .modal-body .bottom-content .table-construct div label {
+  box-shadow: none;
+  padding: 0;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+}
+.model-content .modal-body .bottom-content .table-construct div .has-error .form-control:focus {
+  border: 1px solid #FFD011;
+  box-shadow: inset 1px 1px 1px rgba(255, 208, 17, 0.6), 1px 1px 1px rgba(255, 208, 17, 0.6);
+}
+.model-content .modal-body .bottom-content .table-construct div .has-error .help-block {
+  margin: 0;
+}
+.model-content .modal-body .bottom-content .table-construct div .has-error .help-block span {
+  color: #FFD011;
+}
+.model-content .modal-body .bottom-content .table-construct div .has-error .help-block a {
+  font-size: 12px;
+  color: #FFD011;
+}
+.model-content .modal-body .bottom-content .table-construct div input {
+  padding: 0 12px;
+  border: 1px solid #BDC4CE;
+  border-radius: 3px;
+}
+.model-content .modal-body .bottom-content .table-construct div input:focus {
+  border: 1px solid #5d87d1;
+  box-shadow: inset 1px 1px 1px rgba(93, 135, 209, 0.6), 1px 1px 1px rgba(93, 135, 209, 0.6);
+}
+.model-content .modal-body .bottom-content .table-construct div p {
+  display: inline-block;
+  height: 15px;
+  line-height: 15px;
+  font-size: 12px;
+  margin: 0;
+}
+.model-content .modal-body .bottom-content .table-construct div p a {
+  color: #FFF;
+}
+.model-content .modal-body .bottom-content .table-construct div .associated_engineer {
+  width: 80%;
+  height: 32px;
+}
+.model-content .modal-body .bottom-content .table-construct div .btn-associate {
+  display: inline-block;
+  vertical-align: top;
+  height: 34px;
+  padding: 6px 10px 0 10px;
+}
+.model-content .modal-body .bottom-content .table-construct div .btn-associate .ico-associate {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background: url("../imgs/icon-button.png") -126px -7px no-repeat;
+}
+.delete-constract-wrapper {
+  padding: 30px 0;
+  text-align: center;
+}
+.delete-constract-wrapper p {
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+.delete-constract-wrapper h3 {
+  font-size: 18px;
+  font-weight: 700;
+}

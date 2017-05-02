@@ -17,7 +17,7 @@ angular.module('core').controller('constractManageCtrl', ['$scope', '$http', '$u
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 size: 'lg',
-                templateUrl: 'template/core/create_construct_contract.html',
+                templateUrl: 'template/category_first/modal_create_construct_contract.html',
                 controller: 'ModalCtrl',
                 resolve: {
                     items: function () {
@@ -28,6 +28,7 @@ angular.module('core').controller('constractManageCtrl', ['$scope', '$http', '$u
             modalInstance.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
             }, function () {
+                
             });
         };
 
@@ -35,7 +36,7 @@ angular.module('core').controller('constractManageCtrl', ['$scope', '$http', '$u
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 size: 'lg',
-                templateUrl: 'template/core/create_supervise_contract.html',
+                templateUrl: 'template/category_first/modal_create_supervise_contract.html',
                 controller: 'ModalCtrl',
                 resolve: {
                     items: function () {
@@ -54,7 +55,7 @@ angular.module('core').controller('constractManageCtrl', ['$scope', '$http', '$u
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 size: 'lg',
-                templateUrl: 'template/core/create_Lab_contract.html',
+                templateUrl: 'template/category_first/modal_create_Lab_contract.html',
                 controller: 'ModalCtrl',
                 resolve: {
                     items: function () {
@@ -91,8 +92,8 @@ angular.module('core').controller('constractManageCtrl', ['$scope', '$http', '$u
         $scope.deleteModal = function () {
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
-                size: 'sm',
-                templateUrl: 'template/core/delete_constract.html',
+                // size: 'sm',
+                templateUrl: 'template/category_first/modal_delete_constract.html',
                 controller: 'ModalCtrl',
                 resolve: {
                     items: function () {

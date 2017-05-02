@@ -70,31 +70,24 @@ angular.module('core').directive('btnWrapper', function () {
     return {
         restrict: 'AE',
         link: function (scope, element, attr) {
-            const LEFT_DIV_WIDTH_MIN = $('.main-container').width() * 0.15;
-            const LEFT_DIV_WIDTH_MAX = $('.main-container').width() * 0.2;
-
-            let $a = $(window).height() - 70;
-
-            $(".menu-nav").stop().animate({width: LEFT_DIV_WIDTH_MAX + 'px'}, 10);
-            $(".content-wrapper").stop().animate({width: $(window).width() - LEFT_DIV_WIDTH_MAX - 4 + 'px',left: LEFT_DIV_WIDTH_MAX - 4 + 'px'}, 10);
-
-            $(".menu-nav").height($a);
+            const LEFT_DIV_WIDTH_MIN = 15;
+            const LEFT_DIV_WIDTH_MAX = 20;
             let isClicked = true;
             $(".btn-wrapper").click(function () {
                 if (isClicked) {
-                    $(".menu-nav").stop().animate({width: LEFT_DIV_WIDTH_MIN + 'px'}, 500);
-                    $(".content-wrapper").stop().animate({width: $(window).width() - LEFT_DIV_WIDTH_MIN - 4 + 'px',left: LEFT_DIV_WIDTH_MIN - 4 + 'px'}, 500);
+                    $(".menu-nav").stop().animate({width: LEFT_DIV_WIDTH_MIN + '%'}, 500);
+                    $(".content-wrapper").stop().animate({width: 100 - LEFT_DIV_WIDTH_MIN  + '%',left: LEFT_DIV_WIDTH_MIN  + '%'}, 500);
                     $('.btn-wrapper>.btn-arrow').css({background: 'url(imgs/icon-button.png) -132px -31px no-repeat'});
                     isClicked = !isClicked;
                 } else {
-                    $(".menu-nav").stop().animate({width: LEFT_DIV_WIDTH_MAX + 'px'}, 500);
-                    $(".content-wrapper").stop().animate({width: $(window).width() - LEFT_DIV_WIDTH_MAX - 4 + 'px',left: LEFT_DIV_WIDTH_MAX - 4 + 'px'}, 500);
+                    $(".menu-nav").stop().animate({width: LEFT_DIV_WIDTH_MAX + '%'}, 500);
+                    $(".content-wrapper").stop().animate({width: 100 - LEFT_DIV_WIDTH_MAX  + '%',left: LEFT_DIV_WIDTH_MAX  + '%'}, 500);
                     $('.btn-wrapper>.btn-arrow').css({background: 'url(imgs/icon-button.png) -114px -31px no-repeat'});
                     isClicked = !isClicked;
                 }
             });
 
-            //    搜索框操作
+            //搜索框操作
             $('.clear').on('click', function () {
                 $('.input-search').val('');
             });
@@ -108,44 +101,107 @@ angular.module('core').directive('arrowSwiper', function () {
     return {
         restrict: 'AE',
         link: function (scope, element, attr) {
-            var $swiper = $('.attachment');
-            var $wrapper = $swiper.find(".wrapper");
-            var $preBtn = $swiper.find(".arrow-left");
-            var $nextBtn = $swiper.find(".arrow-right");
 
-            var COSNT_SCROLL_ONCE = 300;
-            $preBtn.click(function (e) {
-                if ($wrapper.is(':animated') || $wrapper.scrollLeft() <= 0)
-                    return;
-                $wrapper.animate({scrollLeft: $wrapper.scrollLeft() - COSNT_SCROLL_ONCE + "px"}, 300);
-            })
-            $nextBtn.click(function (e) {
-                // console.log($wrapper.scrollLeft(), $wrapper[0].scrollWidth, $wrapper[0].clientWidth, $wrapper[0].scrollWidth - $wrapper[0].clientWidth);
-                if ($wrapper.is(':animated') || $wrapper.scrollLeft() >= $wrapper[0].scrollWidth - $wrapper[0].clientWidth)
-                    return;
-                $wrapper.animate({scrollLeft: $wrapper.scrollLeft() + COSNT_SCROLL_ONCE + "px"}, 300);
-            })
+            arrowSwiper('attachment','wrapper','arrow-left','arrow-right');
+            
+            arrowSwiper('attachment','attachment-wrapper','attachment-arrow-left','attachment-arrow-right');
+            
+            function arrowSwiper(swiper,wrapper,left,right) {
+
+                var $swiper = $('.'+swiper);
+                var $wrapper = $swiper.find("."+wrapper);
+                var $preBtn = $swiper.find("."+left);
+                var $nextBtn = $swiper.find("."+right);
+                var COSNT_SCROLL_ONCE = 300;
+                $preBtn.click(function (e) {
+                    if ($wrapper.is(':animated') || $wrapper.scrollLeft() <= 0)
+                        return;
+                    $wrapper.animate({scrollLeft: $wrapper.scrollLeft() - COSNT_SCROLL_ONCE + "px"}, 300);
+                })
+                $nextBtn.click(function (e) {
+                    // console.log($wrapper.scrollLeft(), $wrapper[0].scrollWidth, $wrapper[0].clientWidth, $wrapper[0].scrollWidth - $wrapper[0].clientWidth);
+                    if ($wrapper.is(':animated') || $wrapper.scrollLeft() >= $wrapper[0].scrollWidth - $wrapper[0].clientWidth)
+                        return;
+                    $wrapper.animate({scrollLeft: $wrapper.scrollLeft() + COSNT_SCROLL_ONCE + "px"}, 300);
+                })
+            }
         }
     }
 });
 
 //窗口拉伸 滚动时
-angular.module('core').directive('windowResize', function () {
+// angular.module('core').directive('windowResize', function () {
+//     return {
+//         restrict: 'AE',
+//         link: function (scope, element, attr) {
+//             "use strict";
+//             window.onresize = function () {
+//                 debugger
+//                 var H = Math.max(document.body.clientHeight, 580);
+//                 var W = Math.max(document.body.clientWidth, 650);
+//                 // $('.menu-nav').css('height', (H - 70) + 'px');
+//                 // $('.content-wrapper').css('width', (W - $('.menu-nav').width()) + 'px');
+//             };
+//             window.onresize();
+//         }
+//     }
+// });
+
+
+// 日期控件时间选择
+angular.module('core').directive('datePicker', function () {
     return {
         restrict: 'AE',
         link: function (scope, element, attr) {
             "use strict";
-            window.onresize = function () {
-                var H = Math.max(document.body.clientHeight, 580);
-                var W = Math.max(document.body.clientWidth, 650);
-                $('.menu-nav').css('height', (H - 70) + 'px');
-                $('.content-wrapper').css('width', (W - $('.menu-nav').width()) + 'px');
-            };
-            window.onresize();
+            $('.form_date').datetimepicker({
+                language:  'zh-CN',
+                weekStart: 1,
+                todayBtn:  1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+            });
         }
     }
 });
 
+angular.module('core').directive('dropDown', function () {
+    return {
+        restrict: 'AE',
+        link: function (scope, element, attr) {
+            scope.constructName=['施工合同','监理合同','监理实验室合同'];
+        }
+    }
+});
+
+angular.module('core').directive('deleteAttachment', function ($uibModal) {
+    return {
+        restrict: 'AE',
+        link: function (scope, element, attr) {
+            scope.deleteAttachmentModal = function () {
+                var modalInstance = $uibModal.open({
+                    animation: scope.animationsEnabled,
+                    // size: 'sm',
+                    templateUrl: 'template/core/delete_attachment.html',
+                    controller: 'ModalCtrl',
+                    resolve: {
+                        items: function () {
+                            return scope.items;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) {
+                    scope.selected = selectedItem;
+                }, function () {
+
+                });
+            };
+        }
+    }
+});
 
 //左侧导航手风琴动效
 angular.module('core').directive('according', function () {
@@ -154,39 +210,24 @@ angular.module('core').directive('according', function () {
         link: function (scope, element, attr) {
             //点击一级图标
             $('.project-name-span').click(function(ele){
-                // debugger
-                // $('.contract-list').css('display','none');
                 if($(ele.target).siblings('ul').css('display')==='none'){
                     $(ele.target).siblings('ul').slideDown(300);
                 } else {
                     $(ele.target).siblings('ul').slideUp(300);
                 }
-                $(ele.target).parent().siblings().find('ul').slideUp(300)
+                $(ele.target).parent().siblings().find('>ul').slideUp(300)
                 
             });
             //点击二级图标
             $('.icon').click(function(ele){
                 console.log(ele.target);
-                // $('.tree-list').css('display','none');
                 if($(ele.target).siblings('ul').css('display')==='none'){
                     $(ele.target).siblings('ul').slideDown(300);
                 } else {
                     $(ele.target).siblings('ul').slideUp(300);
                 }
-                $(ele.target).parent().siblings().find('ul').slideUp(300)
-
+                $(ele.target).parent().siblings().find('>ul').slideUp(300)
             });
         }
     }
 });
-
-
-
-
-
-
-
-
-
-
-

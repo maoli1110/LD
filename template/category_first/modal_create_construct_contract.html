@@ -1,0 +1,35 @@
+<div class="model-content">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            <p>新增/编辑施工合同</p>
+            <a class="btn-close">
+                <i ng-click="cancel()" class="ico-close"></i>
+            </a>
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <!--新建施工合同、新建监理合同、新建试验室合同以及编辑合同界面公共部分-->
+        <div ng-include="'template/core/topCommonModal.html'"></div>
+        <div class="bottom-content">
+            <form class="table-construct" name="formConstract" ng-submit="submitForm(formConstract.$valid)" novalidate>
+                <!--新建施工合同、新建监理合同、新建试验室合同以及编辑合同界面公共部分-->
+                <div ng-include="'template/core/contentCommonModal.html'" class="common-content" date-picker></div>
+                <div ng-include="'template/core/single_construct.html'" date-picker></div>
+            </form>
+        </div>
+    </div>
+    <div class="window-bottom">
+        <div style="text-align: right">
+            <button class="btn ok fiveLetter" type="button" ng-click="ok()">保存</button>
+        </div>
+        <div style="text-align: left">
+            <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</div>
+<!--<ul>-->
+<!--<li ng-repeat="item in items">-->
+<!--<a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--Selected: <b>{{selected.item}}</b>-->

@@ -1,17 +1,18 @@
 <!-- 工程管理-工程划分-合同页面展示css -->
+<!-- <link rel="stylesheet" href="css/index.css"> -->
 <link rel="stylesheet" href="css/project_division_contract.css">
 
-
 <!-- 工程管理-工程划分-合同段数据展示页面 -->
-<div class="content">
+<div class="content division-contract">
+    <div class="inner-wrapper" style="height: calc(100vh - 120px)">
     <div class="contract-name">合同1</div>
     <!-- 搜索框 -->
-    <div class="contract-search1">
-        <input type="text" class="input-search input-border" placeholder="快速搜索合同">
-        <a class="clear">
+    <div class="contract-search" style="margin-bottom: 20px;">
+        <input type="text" class="input-search input-border" placeholder="快速搜索合同" style="width: 40%;">
+        <a class="clear" style="right: 56px;position: relative;top: 5px;">
             <i class="btn-close"></i>
         </a>
-        <a class="btn-wrap">
+        <a class="btn-wrap" style="right: 50px;position: relative;top: 5px;">
             <i class="btn-search"></i>
         </a>
     </div>
@@ -80,12 +81,13 @@
         <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" previous-text="上一页" next-text="下一页" last-text="尾页"></ul>
         <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
     </div>-->
-    <div style="text-align: center;margin-top: 20px;font-size: 16px;">
+    <div style="text-align: center;margin-top: 10px;font-size: 14px;">
         <span style="margin-right: 40px;">共n条</span>
         <i class="first page"></i>
         <i class="previous page"></i>
         <input type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;"/> / <span>n</span>
         <i class="next page"></i>
         <i class="last page"></i>
+    </div>
     </div>
 </div>

@@ -5,47 +5,23 @@
  */
 angular.module('core').controller('projectDivisionStakeCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile',
     function ($scope, $http,$uibModal,commonService,$timeout,$compile) {
-        //    控制左侧导航栏左右移动
-        var $sliderMoving = false;
-        const LEFT_DIV_WIDTH_MIN = 150;
-        const LEFT_DIV_WIDTH_MAX = 200;
-
-
-        let isClicked = true;
-        $(".btn-wrapper").click(function () {
-            if (isClicked) {
-                $(".menu-nav").stop().animate({width: LEFT_DIV_WIDTH_MIN + 'px'}, 500);
-                $(".content-wrapper").stop().animate({width: $(window).width() - LEFT_DIV_WIDTH_MIN - 4 + 'px'}, 500);
-                $('.btn-wrapper>.btn-arrow').css({background: 'url(imgs/icon-button.png) -132px -31px no-repeat'});
-                isClicked = !isClicked;
-            } else {
-                $(".menu-nav").stop().animate({width: LEFT_DIV_WIDTH_MAX + 'px'}, 500);
-                $(".content-wrapper").stop().animate({width: $(window).width() - LEFT_DIV_WIDTH_MAX - 4 + 'px'}, 500);
-                $('.btn-wrapper>.btn-arrow').css({background: 'url(imgs/icon-button.png) -114px -31px no-repeat'});
-                isClicked = !isClicked;
-            }
-        });
-
-        $('.clear').on('click', function () {
-            $('.input-search').val('');
-        });
-
         // TODO 后台请求数据 此处先造假数据
-        var data = new Array();
+        var compGroupData = new Array();
         for(var i=0;i<99;i++) {
-            data.push("GK0+358.213~GK3+145.253土方工程构件组"+i);
+            compGroupData.push("GK0+358.213~GK3+145.253土方工程构件组"+i);
         }
-        $scope.items = data;
-        $scope.animationsEnabled = true;
+        // 更改构件组弹框控制开始
+        $scope.compGroupInfos = compGroupData;
+        $scope.editCompGroupAnimationsEnabled = true;
         $scope.editCompGroup = function () {
             var modalInstance = $uibModal.open({
-                animation: $scope.animationsEnabled,
+                animation: $scope.editCompGroupAnimationsEnabled,
                 size: 'lg',
                 templateUrl: 'template/category_second/edit_comp_group.html',
                 controller: 'editCompGroupCtrl',
                 resolve: {
-                    items: function () {
-                        return $scope.items;
+                    compGroupInfos: function () {
+                        return $scope.compGroupInfos;
                     }
                 }
             });
@@ -55,20 +31,72 @@ angular.module('core').controller('projectDivisionStakeCtrl', ['$scope', '$http'
                 //console.info('Modal dismissed at: ' + new Date());
             });
         };
-    }]);
+        // 更改构件组弹框控制结束
+
+        // 编辑合同图号
+        $scope.editContNum = function () {
+            $("#editContNum").css("display","none");
+            var input = $("#editContNumInput");
+            input.removeAttr("disabled");
+            var temp = input.val();
+            input.val("").focus().val(temp);
+        };
+
+        // 删除构件组弹框控制开始
+        $scope.delCompGroupAnimationsEnabled = true;
+        $scope.deleteCompGroup = function () {
+            var modalInstance = $uibModal.open({
+                animation: $scope.delCompGroupAnimationsEnabled,
+                size: 'sm',
+                templateUrl: 'template/category_second/del_comp_group.html',
+                controller: 'delCompGroupCtrl'/*,
+                resolve: {
+                    compGroupInfos: function () {
+                        return $scope.compGroupInfos;
+                    }
+                }*/
+            });
+            modalInstance.result.then(function (selectedItem) {
+                //$scope.selected = selectedItem;
+            }, function () {
+                //console.info('Modal dismissed at: ' + new Date());
+            });
+        };
+        // 删除构件组弹框控制结束
+
+    }
+]);
 
 /**
  * 工程管理-工程划分-桩号-更该构件组弹框
  */
-angular.module('core').controller('editCompGroupCtrl', ['$scope', '$http', '$uibModalInstance', 'items', '$timeout', 'commonService',
-    function ($scope, $http, $uibModalInstance, items, $timeout, commonService) {
-        $scope.items = items;
+angular.module('core').controller('editCompGroupCtrl', ['$scope', '$http', '$uibModalInstance', 'compGroupInfos', '$timeout', 'commonService',
+    function ($scope, $http, $uibModalInstance, compGroupInfos, $timeout, commonService) {
+        $scope.compGroupInfos = compGroupInfos;
         $scope.selected = {
-            item: $scope.items[0]
+            item: $scope.compGroupInfos[0]
         };
 
         $scope.ok = function () {
             $uibModalInstance.close($scope.selected.item);
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+    }
+]);
+/**
+ * 工程管理-工程划分-桩号-删除构件组弹框
+ */
+angular.module('core').controller('delCompGroupCtrl', ['$scope', '$http', '$uibModalInstance', '$timeout', 'commonService',
+    function ($scope, $http, $uibModalInstance, $timeout, commonService) {
+        /*$scope.selected = {
+            item: $scope.compGroupInfos[0]
+        };*/
+
+        $scope.ok = function () {
+            $uibModalInstance.close();
         };
 
         $scope.cancel = function () {

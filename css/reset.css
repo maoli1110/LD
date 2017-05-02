@@ -94,6 +94,10 @@ body {
     background-color: #ffffff;
 }
 
+button,input {
+    outline: none;
+}
+
 /*清除浮动*/
 .clearfix:before, .clearfix:after {
     content: "";

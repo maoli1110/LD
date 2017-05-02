@@ -1,45 +1,51 @@
 <!-- 工程管理-工程划分-桩号页面展示css -->
 <link rel="stylesheet" href="css/project_division_stake.css">
 <!-- 工程管理-工程划分-桩号数据展示页面 -->
-<div class="content">
-    <div class="contract-name" style="float: left;">合同1</div>
-    <div style="float: right;line-height: 40px;margin-right: 10px;">发起时间：yyyy-MM-dd</div>
-    <div style="clear: both;"></div>
-    <div class="field-key">合同段：</div>
-    <div class="field-value">C1合同段</div>
-    <div class="field-key">分项工程：</div>
-    <div class="field-value">石方路基</div>
-    <div class="field-key">分部工程：</div>
-    <div class="field-value">路基土石方工程</div>
-    <div class="field-key">单位工程：</div>
-    <div class="field-value">路基工程</div>
-    <div class="field-key">子分项工程：</div>
-    <div class="field-value">填方</div>
-    <div class="field-key">子分部工程：</div>
-    <div class="field-value">子分部工程1</div>
-    <div class="field-key">子单位工程：</div>
-    <div class="field-value">子单位工程1</div>
-    <div class="field-key">编号：</div>
-    <div class="field-value">C1-LJ1-1-2</div>
-    <div class="field-key">编号：</div>
-    <div class="field-value">C1-LJ1-1</div>
-    <div class="field-key">编号：</div>
-    <div class="field-value">C1-LJ1</div>
-    <div class="field-key">桩号：</div>
-    <div class="field-value">GK3+354.115~GK3+454.265</div>
-    <hr style="clear: both"/>
-    <div style="height: 40px;line-height: 40px;">
-        <div class="" style="float: left;">合同图号：</div>
-        <input type="text" class="input-text input-border"/>
-        <button class="button" style="margin-top: 4px;position: absolute;">编辑</button>
+<div class="content division-stake">
+    <div class="inner-wrapper" style="height: calc(100vh - 120px)">
+        <div class="contract-name" style="float: left;">合同1</div>
+        <div style="float: right;line-height: 54px;margin-right: 10px;font-size: 12px;">发起时间：yyyy-MM-dd</div>
+        <div style="clear: both;"></div>
+        <div class="field-key">合同段：</div>
+        <div class="field-value">C1合同段</div>
+        <div class="field-key">分项工程：</div>
+        <div class="field-value">石方路基</div>
+        <div class="field-key">分部工程：</div>
+        <div class="field-value">路基土石方工程</div>
+        <div class="field-key">单位工程：</div>
+        <div class="field-value">路基工程</div>
+        <div class="field-key">子分项工程：</div>
+        <div class="field-value">填方</div>
+        <div class="field-key">子分部工程：</div>
+        <div class="field-value">子分部工程1</div>
+        <div class="field-key">子单位工程：</div>
+        <div class="field-value">子单位工程1</div>
+        <div class="field-key">编号：</div>
+        <div class="field-value">C1-LJ1-1-2</div>
+        <div class="field-key">编号：</div>
+        <div class="field-value">C1-LJ1-1</div>
+        <div class="field-key">编号：</div>
+        <div class="field-value">C1-LJ1</div>
+        <div class="field-key">桩号：</div>
+        <div class="field-value">GK3+354.115~GK3+454.265</div>
+        <hr style="clear: both"/>
+        <div style="height: 40px;line-height: 40px;">
+            <div class="" style="float: left;font-size: 12px;">合同图号：</div>
+            <input id="editContNumInput" type="text" class="input-text input-border" disabled value="aaaaa"
+                   style="width: 199px;"/>
+            <button class="button twoLetter" style="margin-top: 5px;position: absolute;height: 30px;"
+                    ng-click="editContNum()" id="editContNum">编辑
+            </button>
+        </div>
+        <div style="height: 40px;line-height: 40px;">
+            <div class="" style="float: left;height: 80px;line-height: 40px;width: 70px;font-size: 12px;">关联：</div>
+            <button class="button fiveLetter" style="margin-right: 85px;">查看构件组</button>
+            <button class="button fiveLetter" ng-click="editCompGroup()">更改构件组</button>
+        </div>
+        <div style="height: 40px;line-height: 40px;">
+            <input type="text" class="input-text input-border" style="width: 265px;margin-left: 0px;"/>
+            <div class="icon icon-delete" ng-click="deleteCompGroup()"></div>
+        </div>
     </div>
-    <div style="height: 40px;line-height: 40px;">
-        <div class="" style="float: left;height: 80px;line-height: 40px;width: 70px;">关联：</div>
-        <button class="button" style="margin: 6px 84px 10px 10px;">查看构件组</button>
-        <button class="button" ng-click="editCompGroup()">更改构件组</button>
-    </div>
-    <div style="height: 40px;line-height: 40px;">
-        <input type="text" class="input-text input-border" style="width: 217px;"/>
-        <div class="icon icon-delete"></div>
-    </div>
+
 </div>

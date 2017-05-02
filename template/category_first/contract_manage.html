@@ -1,42 +1,44 @@
 <!-- <div>first</div> -->
-<link rel="stylesheet" href="css/siderbar.css">
-<link rel="stylesheet" href="css/project_manage_constract.css">
 <link rel="stylesheet" href="css/project_manage_modal.css">
-<div class="LubanLD-container">
-    <!--顶部导航-->
-    <header ng-include="'template/core/header.html'"></header>
+<!--顶部导航-->
+<header ng-include="'template/core/header.html'"></header>
 
+<!--主体内容-->
+<article class="main-container">
 
-
-    <!--主体内容-->
-    <article class="main-container">
-
-        <!--左侧树节点导航-->
-        <aside class="menu-nav" ng-include="'template/core/sidebar.html'" ></aside>
-        <!--右侧数据内容展示-->
-        <section class="content-wrapper">
-            <!--固定导航-->
-            <div class="top-navbar" tab-active>
-                <a href="javascript:;" class="active tab" ui-sref="first">
-                    <span>合同管理</span>
-                </a>
-                <a href="javascript:;" class="tab" ui-sref="second.projectDivisionContract">
-                    <span>工程划分-合同段</span>
-                </a>
-                <a href="javascript:;" class="tab" ui-sref="second.projectDivisionStake">
-                    <span>工程划分-桩号</span>
-                </a>
-                <a href="javascript:;" class="tab" ui-sref="second.listManageContract">
-                    <span>清单管理</span>
-                </a>
-            </div>
-            <div class="contract-content" style="height: calc(100% - 40px);">
-                <div class="content">
+    <!--左侧树节点导航-->
+    <aside class="menu-nav" ng-include="'template/core/sidebar.html'"></aside>
+    <!--右侧数据内容展示-->
+    <section class="content-wrapper">
+        <!--固定导航-->
+        <div class="top-navbar" tab-active>
+            <a href="javascript:;" class="active tab" ui-sref="first">
+                <span>合同管理</span>
+            </a>
+            <a href="javascript:;" class="tab" ui-sref="second.projectDivisionContract">
+                <span>工程划分-合同段</span>
+            </a>
+            <a href="javascript:;" class="tab" ui-sref="second.projectDivisionStake">
+                <span>工程划分-桩号</span>
+            </a>
+            <a href="javascript:;" class="tab" ui-sref="second.listManageContract">
+                <span>清单管理</span>
+            </a>
+        </div>
+        <div class="main-content" style="height: calc(100% - 40px);">
+            <div class="content contract-content">
+                <div class="inner-wrapper" style="height: calc(100vh - 120px)">
                     <div class="contract-name">合同1</div>
-                    <div class="contract-operate">
-                        <button class="contract-construction active"  ng-click="createConstructModal()">新增施工合同</button>
-                        <button class="contract-inspection" ng-click="createSuperviseModal()">新增监理合同</button>
-                        <button class="contract-laboratory" ng-click="createLabModal()">新增试验室合同</button>
+                    <div class="contract-operate" drop-down>
+                        <button class="contract-construction active" ng-click="createConstructModal()" ng-show="constructName
+                    [0]">新增施工合同
+                        </button>
+                        <button class="contract-inspection" ng-click="createSuperviseModal()" ng-show="constructName
+                    [1]">新增监理合同
+                        </button>
+                        <button class="contract-laboratory" ng-click="createLabModal()" ng-show="constructName
+                    [2]">新增试验室合同
+                        </button>
                         <button class="edit-contract" ng-click="editModal()">编辑合同</button>
                         <button class="delete-contract" ng-click="deleteModal()">删除合同</button>
                     </div>
@@ -351,7 +353,7 @@
                                 <div style="width: 12%" class="bold">总监理工程师：</div>
                                 <div style="width: 85%" class="default">444</div>
                             </div>
-                            <div class="table-lab"  style="display: none">
+                            <div class="table-lab" style="display: none">
                                 <div style="width: 12%" class="bold">合同编号：</div>
                                 <div style="width: 37%" class="default">222</div>
                                 <div style="width: 12%" class="bold">标段号：</div>
@@ -377,6 +379,7 @@
                     </div>
                 </div>
             </div>
-        </section>
-    </article>
-</div>
+
+        </div>
+    </section>
+</article>

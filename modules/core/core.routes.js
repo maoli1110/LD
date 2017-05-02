@@ -22,7 +22,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				displayName: 'constractManageCtrl'
 			}
 		}).state('second',{
-			url:'/second',//第二类 second.html暂时没用到
+			url:'/second',//第二类
 			templateUrl:'template/category_second/second.html',
 			controller:'secondCtrl',
 			displayName:{
@@ -36,7 +36,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				displayName:"projectDivisionContract"
 			}
 		}).state('second.projectDivisionStake',{
-			url:'/projectDivisionContract',//第二类-工程管理-工程划分-桩号
+			url:'/projectDivisionStake',//第二类-工程管理-工程划分-桩号
 			controller:'projectDivisionStakeCtrl',
 			templateUrl:'template/category_second/project_division_stake.html',
 			displayName:{

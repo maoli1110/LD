@@ -1,0 +1,35 @@
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.csEngineer.$invalid && !formConstract.csEngineer.$pristine }">
+    <div class="col-xs-2" style="text-align: left">
+        <label for="chief_supervisory_engineer" class="form-control"
+               style="border: none">总监理工程师：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="chief_supervisory_engineer" name="csEngineer"
+               required
+               ng-maxlength="100" ng-model="cs_engineer">
+        <p class="help-block">
+            <span ng-show="formConstract.csEngineer.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+    <div class="col-xs-2">
+        <span></span>
+    </div>
+</div>
+<div class="form-group"
+     ng-class="{ 'has-error' : formConstract.slUnits.$invalid && !formConstract.slUnits.$pristine }">
+
+    <div class="col-xs-2" style="text-align: left">
+        <label for="supervision_laboratory_units" class="form-control"
+               style="border: none">监理试验室单位：</label>
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" id="supervision_laboratory_units" name="slUnits"
+               required
+               ng-maxlength="100" ng-model="sl_units">
+        <p class="help-block">
+            <a ng-show="formConstract.slUnits.$error.required">该项为必填项</a>
+            <span ng-show="formConstract.slUnits.$error.maxlength">该项不能超过100个字符</span>
+        </p>
+    </div>
+</div>

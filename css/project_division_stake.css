@@ -1,24 +1,28 @@
-.field-key,.field-value{
+.division-stake .field-key,.division-stake .field-value{
     line-height: 40px;
     float: left;
+    font-size: 12px;
 }
-.field-key{
+.division-stake  .field-key{
     width: 15%;
 }
-.field-value{
+.division-stake  .field-value{
     width: 17%;
 }
-.input-text{
+.division-stake .input-text{
     margin: 4px 20px 0px 10px;
     height: 30px;
     line-height: 30px;
 }
-.icon{
+.division-stake .icon{
     display: inline-block;
     width: 23px;
-    height: 23px;
+    height: 22px;
     background: url("../imgs/icon-button.png") no-repeat;
+    position: relative;
+    top: 6px;
+    left: -20px;
 }
-.icon-delete{
+.division-stake .icon-delete{
     background-position: -148px -4px;
 }

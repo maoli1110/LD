@@ -1,21 +1,17 @@
 <link rel="stylesheet" href="css/edit_comp_group.css">
 <div class="window-title">
-    <!--<h3 class="modal-title" id="modal-title">-->
         <span>更改构件组</span>
         <div ng-click="cancel()" class="window-close">
             <div class="window-close-left"></div>
             <div class="window-close-right"></div>
         </div>
-        <!--<i ng-click="cancel()" class="close-window"></i>-->
-        <!--<span>{{items}}</span>-->
-    <!--</h3>-->
 </div>
 <div class="window-body">
     <div class="window-body-1">
         <div style="float: left;margin-top: 10px;">请选择关联的构件组</div>
         <!-- 搜索框 -->
         <div class="contract-search input-border" style="float: right; width: 50%;">
-            <input type="text" class="input-search" placeholder="快速搜索合同" style="width: 80%;">
+            <input type="text" class="input-search" placeholder="快速搜索构件组" style="width: 80%;">
             <a class="clear" style="position: relative;top: 3px;">
                 <i class="btn-close"></i>
             </a>
@@ -26,7 +22,7 @@
     </div>
     <div class="content" style="">
         <ul style="">
-            <li ng-repeat="item in items" style="">
+            <li ng-repeat="item in compGroupInfos" style="">
                 <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
             </li>
         </ul>
@@ -35,9 +31,9 @@
 </div>
 <div class="window-bottom">
     <div>
-        <button class="button ok" type="button" ng-click="ok()">确定</button>
+        <button class="button btn ok twoLetter" type="button" ng-click="ok()">确定</button>
     </div>
     <div>
-        <button class="button cancel" type="button" ng-click="cancel()">取消</button>
+        <button class="button btn cancel twoLetter" type="button" ng-click="cancel()">取消</button>
     </div>
 </div>

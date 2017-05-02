@@ -1,20 +1,181 @@
-<div class="modal-header">
-    <h3 class="modal-title" id="modal-title">
-        <p>新增/编辑施工合同</p>
-        <i ng-click="cancel()"></i>
-        <span>{{items}}</span>
-    </h3>
-</div>
-<div class="modal-body" id="modal-body">
+<link rel="stylesheet" href="css/edit_comp_group.css">
 
-    <ul>
-        <li ng-repeat="item in items">
-            <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
-        </li>
-    </ul>
-    Selected: <b>{{selected.item}}</b>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+<div class="model-content">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            <p>新增/编辑施工合同</p>
+            <a class="btn-close">
+                <i ng-click="cancel()" class="ico-close"></i>
+            </a>
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <!--新建施工合同、新建监理合同、新建试验室合同以及编辑合同界面公共部分-->
+        <div ng-include="'template/core/topCommonModal.html'"></div>
+        <div class="bottom-content">
+            <div class="table-construct">
+                <!--新建施工合同、新建监理合同、新建试验室合同以及编辑合同界面公共部分-->
+                <div ng-include="'template/core/contentCommonModal.html'" class="common-content"></div>
+
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="contract_unit" class="form-control" style="border: none">施工单位：</label>
+                </div>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control" id="contract_unit">
+                </div>
+                <div class="col-xs-2">
+                    <span></span>
+                </div>
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="chief_supervisory_engineer" class="form-control" style="border: none">总监理工程师：</label>
+                </div>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control" id="chief_supervisory_engineer">
+                </div>
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="contract_manager" class="form-control" style="border: none">施工负责人：</label>
+                </div>
+                <div class="col-xs-3">
+
+                    <input type="text" class="form-control" id="contract_manager">
+                </div>
+                <div class="col-xs-2">
+                    <span></span>
+                </div>
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="chief_project_engineer" class="form-control" style="border: none">项目总工：</label>
+                </div>
+                <div class="col-xs-3">
+
+                    <input type="text" class="form-control" id="chief_project_engineer">
+                </div>
+
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="initial_number" class="form-control" style="border: none">起始桩号：</label>
+                </div>
+                <div class="col-xs-3">
+
+                    <input type="text" class="form-control" id="initial_number">
+                </div>
+                <div class="col-xs-2">
+                    <span></span>
+                </div>
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="end_number" class="form-control" style="border: none">结束桩号：</label>
+                </div>
+                <div class="col-xs-3">
+
+                    <input type="text" class="form-control" id="end_number">
+                </div>
+
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="contract_length" class="form-control" style="border: none">合同段长度：</label>
+                </div>
+                <div class="col-xs-3">
+
+                    <input type="text" class="form-control" id="contract_length">
+                </div>
+                <div class="col-xs-7">
+                    <span></span>
+                </div>
+
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="plan_start_date" class="form-control" style="border: none">计划开工日期：</label>
+                </div>
+                <div class="col-xs-3 dropdown">
+                    <a class="dropdown-toggle" id="aaaa" role="button" data-toggle="dropdown" data-target="#">
+                        <input type="text" class="form-control" id="plan_start_date" data-ng-model="time"
+                               datepicker-popup="yyyy-MM-dd HH:mm:ss">
+                        <!--<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>-->
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="time"
+                                        data-datetimepicker-config="{ dropdownSelector: '#aaaa' }">
+                        </datetimepicker>
+                    </ul>
+                </div>
+                <div class="col-xs-2">
+                    <span></span>
+                </div>
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="plan_end_date" class="form-control" style="border: none">计划完工日期：</label>
+                </div>
+                <div class="col-xs-3 dropdown">
+                    <a class="dropdown-toggle" id="aaaa" role="button" data-toggle="dropdown" data-target="#">
+
+                        <input type="text" class="form-control" id="plan_end_date" data-ng-model="time"
+                               datepicker-popup="yyyy-MM-dd HH:mm:ss">
+                        <!--<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>-->
+
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="time"
+                                        data-datetimepicker-config="{ dropdownSelector: '#aaaa' }">
+                        </datetimepicker>
+                    </ul>
+                </div>
+
+
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="contract_date" class="form-control" style="border: none">实际开工日期：</label>
+                </div>
+                <div class="col-xs-3 dropdown">
+
+                    <input type="text" class="form-control" id="contract_date" data-ng-model="time"
+                           datepicker-popup="yyyy-MM-dd HH:mm:ss">
+                    <!--<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>-->
+
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="time"
+                                        data-datetimepicker-config="{ dropdownSelector: '#aaaa' }">
+                        </datetimepicker>
+                    </ul>
+                </div>
+                <div class="col-xs-2">
+                    <span></span>
+                </div>
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="contract_date" class="form-control" style="border: none">实际完工日期：</label>
+                </div>
+                <div class="col-xs-3 dropdown">
+                    <input type="text" class="form-control" id="contract_date" data-ng-model="time"
+                           datepicker-popup="yyyy-MM-dd HH:mm:ss">
+                    <!--<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>-->
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="time"
+                                        data-datetimepicker-config="{ dropdownSelector: '#aaaa' }">
+                        </datetimepicker>
+                    </ul>
+                </div>
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="project_time" class="form-control" style="border: none">工期：</label>
+                </div>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control" id="project_time">
+                </div>
+                <div class="col-xs-2">
+                    <span></span>
+                </div>
+                <div class="col-xs-2" style="text-align: left">
+                    <label for="associated_engineer" class="form-control" style="border: none">关联工程：</label>
+                </div>
+                <div class="col-xs-3">
+                    <input type="text" class="associated_engineer" id="associated_engineer">
+                    <a class="btn-associate">
+                        <span class="ico-associate"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="window-bottom">
+        <div style="text-align: right">
+            <button class="button ok" type="button" ng-click="ok()">保存</button>
+        </div>
+        <div style="text-align: left">
+            <button class="button cancel" type="button" ng-click="cancel()">取消</button>
+        </div>
+    </div>
 </div>
