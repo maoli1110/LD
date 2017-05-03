@@ -65,24 +65,58 @@ angular.module('core').directive('sideOperation', function () {
         }
     }
 });
+angular.module('core').directive('side2Operation', function () {
+    return {
+        restrict: 'AE',
+        link: function (scope, element, attr) {
+            //合同段active样式控制
+            $('.contract-name > a').on('click', function () {
+                $(this).addClass('active').parent().siblings().find('>a').removeClass('active');
+            });
+            //下拉菜单arrow切换
+            $('.menu').on('click', function () {
+                if ($('.dropdown').hasClass('open')) {
+                    $('.arrow').css({transform: 'rotate(0deg)'});
+                } else {
+                    $('.arrow').css({transform: 'rotate(180deg)'});
+                }
+                $('.dropdown-menu >li').on('click', function () {
+                    $('.menu-name').text($(this).text());
+                    if ($('.dropdown').hasClass('open')) {
+                        $('.arrow').css({transform: 'rotate(0deg)'});
+                    } else {
+                        $('.arrow').css({transform: 'rotate(180deg)'});
+                    }
+                });
+            });
+        }
+    }
+});
 //控制左侧导航栏左右移动
 angular.module('core').directive('btnWrapper', function () {
     return {
         restrict: 'AE',
         link: function (scope, element, attr) {
-            const LEFT_DIV_WIDTH_MIN = 15;
-            const LEFT_DIV_WIDTH_MAX = 20;
+
             let isClicked = true;
             $(".btn-wrapper").click(function () {
+                const windowWidth = $(window).width();
+                const LEFT_DIV_WIDTH_MIN = 6;
+                const LEFT_DIV_WIDTH_MAX = 20;
                 if (isClicked) {
-                    $(".menu-nav").stop().animate({width: LEFT_DIV_WIDTH_MIN + '%'}, 500);
-                    $(".content-wrapper").stop().animate({width: 100 - LEFT_DIV_WIDTH_MIN  + '%',left: LEFT_DIV_WIDTH_MIN  + '%'}, 500);
+                    $(".menu-nav").stop().animate({width: LEFT_DIV_WIDTH_MIN + 'px'}, 500);
+                    $(".content-wrapper").stop().animate({width: windowWidth - LEFT_DIV_WIDTH_MIN  + 'px',left: LEFT_DIV_WIDTH_MIN  + 'px'}, 500);
+                //.LubanLD-container .menu-nav .btn-wrapper .btn-slide
+                    $('.btn-wrapper>.btn-slide').css({borderRadius: '0 5px 5px 0'});
                     $('.btn-wrapper>.btn-arrow').css({background: 'url(imgs/icon-button.png) -132px -31px no-repeat'});
+                    $(".contract-manage").css("display","none");
                     isClicked = !isClicked;
                 } else {
                     $(".menu-nav").stop().animate({width: LEFT_DIV_WIDTH_MAX + '%'}, 500);
                     $(".content-wrapper").stop().animate({width: 100 - LEFT_DIV_WIDTH_MAX  + '%',left: LEFT_DIV_WIDTH_MAX  + '%'}, 500);
+                    $('.btn-wrapper>.btn-slide').css({borderRadius: '5px 0 0 5px'});
                     $('.btn-wrapper>.btn-arrow').css({background: 'url(imgs/icon-button.png) -114px -31px no-repeat'});
+                    $(".contract-manage").css("display","block");
                     isClicked = !isClicked;
                 }
             });
@@ -220,13 +254,17 @@ angular.module('core').directive('according', function () {
             });
             //点击二级图标
             $('.icon').click(function(ele){
-                console.log(ele.target);
-                if($(ele.target).siblings('ul').css('display')==='none'){
-                    $(ele.target).siblings('ul').slideDown(300);
+                // console.log(ele.target);
+                if($(ele.target).parent().siblings('ul').css('display')==='none'){
+                    $(ele.target).parent().siblings('ul').slideDown(300);
+                    $(ele.target).removeClass('state-down').addClass('state-up');
                 } else {
-                    $(ele.target).siblings('ul').slideUp(300);
+                    $(ele.target).parent().siblings('ul').slideUp(300);
+                     $(ele.target).removeClass('state-up').addClass('state-down');
                 }
-                $(ele.target).parent().siblings().find('>ul').slideUp(300)
+                debugger
+                $(ele.target).parent().parent().siblings().find('>ul').slideUp(300).find('.icon');
+                $(ele.target).parent().parent().siblings().find('.icon').removeClass('state-up').addClass('state-down');
             });
         }
     }
