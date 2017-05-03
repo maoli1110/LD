@@ -80,7 +80,7 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
                 mY = event.clientY+10;
             if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
                 zTree.cancelSelectedNode();
-                showRMenu("root", mX, mY);
+                // showRMenu("root", mX, mY);
             } else if (treeNode && !treeNode.noR) {
                 zTree.selectNode(treeNode);
                 showRMenu("node", mX, mY);
