@@ -33,8 +33,14 @@
             <div class="" style="float: left;font-size: 12px;">合同图号：</div>
             <input id="editContNumInput" type="text" class="input-text input-border" disabled value="aaaaa"
                    style="width: 199px;"/>
-            <button class="button twoLetter" style="margin-top: 5px;position: absolute;height: 30px;"
+            <button class="button twoLetter" style="height: 30px;"
                     ng-click="editContNum()" id="editContNum">编辑
+            </button>
+            <button class="button twoLetter" style="height: 30px;display: none;"
+                    ng-click="commitContNum()" id="commitContNum">确定
+            </button>
+            <button class="button twoLetter" style="height: 30px;display: none;"
+                    ng-click="cancelContNum()" id="cancelContNum">取消
             </button>
         </div>
         <div style="height: 40px;line-height: 40px;">

@@ -12,6 +12,7 @@
     height: 32px;
     font-size: 11px;
     padding-left: 6px;
+    padding-right: 44px;
 }
 .division-contract .contract-search1 .clear {
     right: 32px;
@@ -37,3 +38,6 @@
     background-position: -36px -9px;
 }
 /*搜索框样式结束*/
+/*.division_content{
+    border: 1px solid #DBDEE7;border-radius: 5px 5px 0 0;
+}*/

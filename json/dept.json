@@ -1,4 +1,1 @@
-{
-	"dept":[{"name":"某某工程项目部**0"},{"name":"某某工程项目部**1"}],
-	"contract":[{"name":"合同段1"},{"name":"合同段2"},{"name":"合同段3"}]
-}
+[{"deptId":1,"deptName":"初始项目部"},{"deptId":2,"deptName":"钢筋项目部"},{"deptId":3,"deptName":"土建项目部"},{"deptId":5,"deptName":"安装项目部"}]

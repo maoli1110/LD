@@ -9,7 +9,7 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
             }
             return $.param(data);
         };
-        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
     })
     .config(['$locationProvider',
         function($locationProvider) {

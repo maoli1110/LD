@@ -1,3 +1,40 @@
 .list_manage_contract .thead {
     padding-left: 10px;
 }
+.list-manage-contract{height: calc(100% - 40px);}
+.list-manage-contract .contract-section{ width: 25%; float: left; line-height: 28px; margin-bottom: 20px;}
+.list-manage-contract .contract-section .contract-select{ display: inline-block;}
+.list-manage-contract .searchBox{ width: 50%; float: right;}
+.list-manage-contract .twoLetter{ height: 28px; }
+.list-manage-contract .contract-search input{ width: 250px;}
+.list-manage-contract .contract-search input,.list-manage-contract .contract-search button{float: left; margin-right: 10px;}
+.list-manage-contract .borderTop{ padding: 20px 0; border-top: 1px solid #dbdee7; clear: both;}
+.list-manage-contract .menu{ height: 30px;}
+.list-manage-contract .button { background: #bdc4ce; border: 0px; width: 70px; height: 28px; -webkit-border-radius: 3px; color: #fff;}
+.list-manage-contract .button-empty{border: 2px solid #bdc4ce; background: #fff; color: #bdc4ce; -webkit-border-radius: 3px; width: 70px;}
+.list-manage-contract .thead,.list-manage-contract .tbody{ text-align: center;}
+.list-manage-contract select{ height: 30px; width: 140px; -webkit-appearance:none; padding: 0 5px; font-size: 12px;}
+.list-manage-contract select:focus{outline: none;}
+.list-manage-contract .fileUpload{ text-align: center; width: 160px;  position: absolute; left: 50%; top:50%; margin-left: -80px;margin-top: -100px;}
+.list-manage-contract .fileUpload h3{ font-size: 20px; color: #9ba3ae; line-height: 50px;}
+.list-manage-contract .fileUpload h3,.list-manage-contract .fileUpload div{ width: 140px; margin:0 auto;}
+.list-manage-contract .fileUpload a{ font-size: 14px; color: #383d43; line-height: 15px; text-decoration: underline;}
+.list-manage-contract .fileUpload i{background:url(../imgs/icon-button.png) no-repeat -106px -11px; display: inline-block; width: 20px; height: 15px; float: left;}
+.list-manage-contract .fileBox{ height: calc(100vh - 300px); border:1px solid #DBDEE7; position: relative;}
+.list-manage-contract .titleText{ line-height: 30px; float: left;}
+
+/**模态框**/
+.list-manage-contract.listManageContractModal{ width: 100%; min-height: 200px; padding: 20px;}
+.list-manage-contract.listManageContractModal .searchBox{ width: 60%; float: left;}
+.list-manage-contract .checkBox{ float: right; overflow: hidden; -webkit-border-radius: 4px; border: 2px solid #99a1ae; width: 100px;}
+.list-manage-contract .checkBox .button{ -webkit-border-radius: 0px;}
+.list-manage-contract .checkBox button.allcheck{ background: #99a1ae; width: 48px; float: left;}
+.list-manage-contract .checkBox button.checked{ background: #fff; width:48px; color: #424242;}
+.list-manage-contract .tbody input{ line-height: 30px; width: 95%; margin-top: 4px;}
+.list-manage-contract .tbody{ padding: 0px;}
+.list-manage-contract .tbody span{ width: 20px; height: 20px;background: url(../imgs/icon-button.png) no-repeat -91px -113px; display:block; margin: 10px auto;}
+.list-manage-contract .tbody span.active{ background: #000; background: url(../imgs/icon-button.png) no-repeat -91px -132px;}
+.list-manage-contract  .division_content{ border: 1px solid #DBDEE7; margin:0 10px; position: relative;}
+.list-manage-contract  .aline{ border-top: 1px solid #DBDEE7; border-bottom: 0px;}
+.list-manage-contract .ng-invalid{ border-color: red;}
+.list-manage-contract.warmMsg{ z-index: 9999; width: 150px; height: 48px; background: #000; position: fixed; top: 50%; left: 50%;margin-left: -75px; margin-top: -24px; color: #fff; text-align: center; line-height: 48px;}

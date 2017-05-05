@@ -1,5 +1,4 @@
-<div class="contract-manage
-" ng-controller="constractManageCtrl" drop-down side2-operation btn-wrapper window-resize>
+<div class="contract-manage" ng-controller="firstCtrl"  side-operation btn-wrapper window-resize>
     <!--下拉框-->
     <div class="contract-wrap">
         <div class="dropdown contract-select">
@@ -8,7 +7,9 @@
                 <span class="arrow"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="menu1">
-                <li ng-repeat="item in constructName"><a href="#">{{item}}</a></li>
+                <li buttonID="createConstructModal" btnNone="createSuperviseModal,createLabModal" templateID="table-construct"><a href="#">施工合同</a></li>
+                <li buttonID="createSuperviseModal" btnNone="createConstructModal,createLabModal" templateID="table-supervisor"><a href="#">监理合同</a></li>
+                <li buttonID="createLabModal" btnNone="createConstructModal,createSuperviseModal" templateID="table-lab"><a href="#">监理试验室合同</a></li>
             </ul>
         </div>
     </div>
@@ -22,16 +23,13 @@
             <i class="btn-search"></i>
         </a>
     </div>
-    <ul class="left-list" according>
-        <li class="project-name">
+    <ul class="left-list" according-repeat>
+        <li class="project-name" ng-repeat="item in deptList track by $index" dept-repeat-finish>
             <i class="icon-project"></i>
-            <a title="" class="project-name-span">九寨沟到绵羊绵羊绵羊绵羊项目</a>
+            <a title="" class="project-name-span" ng-click="getContractList(item.deptId)">{{item.deptName}}</a>
             <ul class="contract-list" style="display: none;">
-                <li class="contract-name active">
-                    <a>合同段1</a>
-                </li>
-                <li class="contract-name">
-                    <a>合同段2</a>
+                <li class="contract-name active" ng-repeat="item1 in contractList track by $index" contractlist-repeat-finish>
+                    <a>{{item1.sectionNum}}</a>
                 </li>
             </ul>
         </li>

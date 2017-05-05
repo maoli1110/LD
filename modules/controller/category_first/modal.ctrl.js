@@ -12,6 +12,8 @@ angular.module('core').controller('ModalCtrl', ['$scope', '$http', '$uibModalIns
         };
 
         $scope.ok = function () {
+            var $select = $(".selectProject");
+            $select.remove();
             $uibModalInstance.close($scope.selected.item);
         };
 

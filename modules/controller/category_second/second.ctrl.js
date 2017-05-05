@@ -3,8 +3,8 @@
  * 第二类树结构
  * Created by kylee on 2017/5/1.
  */
-angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile',
-    function ($scope, $http,$uibModal,commonService,$timeout,$compile) {
+angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
+    function ($scope, $http,$uibModal,commonService,$timeout,$compile,$state) {
         //全局参数
         var config = {
             initDeptUrl:"contact/initDepartment.action",
@@ -12,6 +12,11 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
             updateDeptUrl:"contact/updateDept.action",
             delDeptUrl:"contact/delDept.action"
         };
+        //contractlist是否完成repeat标志
+        $scope.flag={
+            contractListRepeat:false 
+        };
+        $scope.ztreeOpenId;
         //tree 设置
         var $body= $("body");
         var zNodes,zTree;
@@ -40,25 +45,31 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
         function ztreeOnclick () {
             $scope.name="hello1";
             $scope.$broadcast('call', $scope.name);//传值
+            $state.go('second.projectDivisionStake');
         }
         //获取项目部
         commonService.getDept().then(function(data){
             // console.log('getDept')
             // console.log(data,'getDept');
+            $scope.deptList = data;
         })
         //获取项目部下合同段
-        commonService.getcontract().then(function(data){
-            // console.log('getcontract')
-            // console.log(data,'getcontract');
-        })
+        $scope.getContractList = function(deptId){
+            commonService.getContractList(deptId).then(function(data){
+                $scope.contractList = data.data;
+            });
+        }
+        //点击项目部下合同段
+        $scope.getContractInfo = function(){
+            $state.go('second.projectDivisionContract');
+        }
         //获取左侧树
-        commonService.getzTreeData().then(function(data){
-            // console.log('getzTreeData');
-            // console.log(data,'getzTreeData');
-            zTree = $.fn.zTree.init($("#ztree"), setting, data.data);
-        });
+        $scope.getzTreeData = function(deptId,id){
+            commonService.getzTreeData().then(function(data){
+                zTree = $.fn.zTree.init($("#ztree_"+deptId+"_"+id), setting, data.data);
+            });
+        }
 
-        
         // $scope.name="hello";
         // $scope.$broadcast('call', $scope.name);//传值
 
@@ -72,7 +83,7 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
 
         // function printTree(zNodes){
         //     $.fn.zTree.init($("#tree"), setting, zNodes);
-        //     zTree = $.fn.zTree.getZTreeObj("tree");
+        //     zTree = $.fn.zTree.getZTreeObj($scope.ztreeOpenId);
         // }
 
         function OnRightClick(event, treeId, treeNode) {
@@ -99,6 +110,8 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
         }
         function hideRMenu() {
             if (rMenu) rMenu.css({"visibility": "hidden"});
+            $("#rMenu .sub-operation").css('visibility','hidden')
+            $("#rMenu .move-operation").css('visibility','hidden')
             $("body").unbind("mousedown", onBodyMouseDown);
         }
         function onBodyMouseDown(event){
@@ -110,7 +123,7 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
         var addStatus = false;
         function addTreeNode(e) {
             hideRMenu();
-            var zTree = $.fn.zTree.getZTreeObj("tree"),
+            var zTree = $.fn.zTree.getZTreeObj($scope.ztreeOpenId),
                 nodes = zTree.getSelectedNodes(),
                 treeNode = nodes[0];
             var isParent = false;
@@ -125,14 +138,15 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
             } else {
                 alert("此部门无法增加子部门");
             }
-        };
+        }
         function removeTreeNode(e) {
             hideRMenu();
-            var zTree = $.fn.zTree.getZTreeObj("tree"),
+            var zTree = $.fn.zTree.getZTreeObj($scope.ztreeOpenId),
                 nodes = zTree.getSelectedNodes(),
                 treeNode = nodes[0];
             var delUrl = config.delDeptUrl;
             if (nodes && nodes.length>0) {
+                var msg;
                 if (nodes[0].child && nodes[0].child.length > 0) {//父部门的情况
                     msg = "此部门有下级部门，确认删除此部门?";          
                 } else{//子部门的情况
@@ -155,7 +169,7 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
                     }
                 });
             }
-        };
+        }
         function beforeRename(treeId, treeNode, newName) {
             var addDeptUrl = config.addDeptUrl;
             var updateDeptUrl = config.updateDeptUrl;
@@ -191,7 +205,7 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
         }
         function renameTreeNode() {
             hideRMenu();
-            var zTree = $.fn.zTree.getZTreeObj("tree"),
+            var zTree = $.fn.zTree.getZTreeObj($scope.ztreeOpenId),
             nodes = zTree.getSelectedNodes(),
             treeNode = nodes[0];
             if (nodes.length == 0) {
@@ -199,23 +213,118 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
                 return;
             }
             zTree.editName(treeNode);
-        };
+        }
+        /**
+         * 上移树节点
+         */
+        function moveUpTreeNode() {
+            hideRMenu();
+            var zTree = $.fn.zTree.getZTreeObj($scope.ztreeOpenId),
+                nodes = zTree.getSelectedNodes(),
+                treeNode = nodes[0];
+            var preNode = treeNode.getPreNode();
+            if(preNode == null){
+                return;
+            }
+            zTree.moveNode(preNode, treeNode, "prev");
+            // TODO 移动后的顺序保存到服务器
+
+        }
+        /**
+         * 下移树节点
+         */
+        function moveDownTreeNode() {
+            hideRMenu();
+            var zTree = $.fn.zTree.getZTreeObj($scope.ztreeOpenId),
+                nodes = zTree.getSelectedNodes(),
+                treeNode = nodes[0];
+            var nextNode = treeNode.getNextNode();
+            if(nextNode == null) {
+                return;
+            }
+            zTree.moveNode(nextNode, treeNode, "next");
+            // TODO 移动后的顺序保存到服务器
+
+        }
 
         $(document).ready(function(){
-            //构建部门树
-            // getTree();
-            //新增部门
-            $("#m_add").on("click",function(){
+            //添加-显示二级菜单
+            $("#m_add").mouseover(function(){
+                // debugger
+                $("#rMenu .sub-operation").css('visibility','visible')
+                $("#rMenu .move-operation").css('visibility','hidden')
+            });
+            //移动-显示二级菜单
+            $("#m_move").mouseover(function(){
+                $("#rMenu .sub-operation").css('visibility','hidden')
+                $("#rMenu .move-operation").css('visibility','visible')
+            })
+            //鼠标滑开rMenu区域的操作
+            $("#rMenu").mouseleave(function(){
+                $("#rMenu .sub-operation").css('visibility','hidden')
+                $("#rMenu .move-operation").css('visibility','hidden')
+            })
+
+            //重命名
+            $("#m_rename").on("click",function(){
+                $("#rMenu .sub-operation").show()
+                // renameTreeNode();
+            });
+            //删除
+            $("#m_del").on("click",function(){
+                $("#rMenu .sub-operation").show()
+                // removeTreeNode();
+            });
+            //添加单位工程
+            $("#m_unit").on("click",function(){
                 addTreeNode();
             });
-            //重命名部门
-            $("#m_rename").on("click",function(){
-                renameTreeNode();
+            //上移节点
+            $("#m_move_up").on("click",function(){
+                moveUpTreeNode();
             });
-            //删除部门
-            $("#m_del").on("click",function(){
-                removeTreeNode();
+            //下移节点
+            $("#m_move_down").on("click",function(){
+                moveDownTreeNode();
             });
+        });
+
+
+        //新建单位工程弹框
+        $scope.createSuperviseModal = function () {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                size: 'lg',
+                templateUrl: 'template/category_first/modal_create_supervise_contract.html',
+                controller: 'ModalCtrl',
+                resolve: {
+                    items: function () {
+                        return $scope.items;
+                    }
+                }
+            });
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+            });
+        };
+
+        // $scope.$on('ngRepeatFinished',function(){
+        //     alert(22222);
+        //     $timeout(function(){
+        //         debugger
+        //         $('.contract-name > a').on('click', function () {
+        //             $(this).addClass('active').parent().siblings().find('>a').removeClass('active');
+        //         });
+        //     },1000)
+            
+        // })
+        //contractlist repeat finish end
+        $scope.$on('contractlistNgRepeatFinished',function(){
+            if(!$scope.flag.contractListRepeat){
+                $scope.flag.contractListRepeat=true;
+            }
+           
         });
 
     }]);

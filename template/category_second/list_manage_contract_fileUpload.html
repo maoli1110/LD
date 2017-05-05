@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="css/list_manage_contract.css">
+<!-- 工程管理-清单管理-合同段数据展示页面 -->
+<div class="content list-manage-contract">
+    <div class="contract-name">合同1</div>
+    <div>
+        <!-- 下拉框 -->
+        <div class="contract-section">
+            <span>章节号： </span>
+            <select class="input-search input-border">
+                <option>全部章节</option>
+                <option>100章</option>
+                <option>200章</option>
+                <option>300章</option>
+            </select>
+
+
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="contract-search" style="margin-bottom: 20px;">
+            <span style=" line-height:32px; float:left; padding-right:10px;">关键词:</span>
+            <input type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 20%;" ng-model="filterVal" ng-keydown="fnKeydown($event)">
+            <a class="clear" style="right: 56px;position: relative;top: 5px;">
+                <i class="btn-close"></i>
+            </a>
+            <a class="btn-wrap" style="right: 50px;position: relative;top: 5px;" ng-click="fnFilter()">
+                <i class="btn-search"></i>
+            </a>
+        </div>
+        <!-- <div style="width: 51%;float: right;">
+            <span style=" line-height:32px; float:left">关键词:</span>
+            <div class="contract-search" >
+                <input type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词">
+                <button class="button twoLetter">查询</button>
+                 <button class="button-empty twoLetter">清空</button>
+            </div>
+        </div> -->
+    </div>
+    <div class="borderTop">
+        <button class="button twoLetter">导入</button>
+        <button class="button twoLetter">导出</button>
+        <button class="button twoLetter">清空</button>
+        <button class="button twoLetter">提交</button>
+    </div>
+    <div  class="division_content" style="height:calc(100% - 140px);">
+
+
+            <div class="fileUpload">
+                <img src="./imgs/icon-form.png">
+                <h3>请先导入表格</h3>
+                <div><a href=""><i></i>下载标准表格样式</a></div>
+            </div>
+
+    </div>
+                                
+</div>

@@ -1,109 +1,103 @@
 <link rel="stylesheet" href="css/list_manage_contract.css">
 <!-- 工程管理-清单管理-合同段数据展示页面 -->
 <div class="content list-manage-contract">
-    <div class="inner-wrapper" style="height: calc(100vh - 120px)">
-        <div class="contract-name">合同1</div>
-        <div>
-            <!-- 下拉框 -->
-            <div class="contract-wrap" style="float: left;width: 30%;margin-right: 20px;">
-                <span>章节号：</span>
-                <div class="dropdown contract-select" style="float: right;">
-                    <button class="menu" id="menu1" data-toggle="dropdown">
-                        <span class="menu-name">全部章节</span>
-                        <span class="arrow"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="menu1">
-                        <li><a href="#">全部章节</a></li>
-                        <li><a href="#">100章</a></li>
-                        <li><a href="#">200章</a></li>
-                        <li><a href="#">300章</a></li>
-                    </ul>
-                </div>
+    <div class="contract-name">合同1</div>
+    <div>
+        <!-- 下拉框 -->
+        <div class="contract-section">
+            <span>章节号： </span>
+            <!-- <div class="dropdown contract-select input-text input-border">
+                <button class="menu" id="menu111" data-toggle="dropdown">
+                    <span class="menu-name" >清单编号</span>
+                    <span class="arrow"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="menu111">
+                    <li><a href="">全部章节</a></li>
+                    <li><a href="">100章</a></li>
+                    <li><a href="">200章</a></li>
+                    <li><a href="">300章</a></li>
+                </ul>
+            </div> -->
+            <select class="input-search input-border">
+                <option>全部章节</option>
+                <option>100章</option>
+                <option>200章</option>
+                <option>300章</option>
+            </select>
+
+
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="contract-search" style="margin-bottom: 20px;">
+            <span style=" line-height:32px; float:left; padding-right:10px;">关键词:</span>
+            <input type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 20%;" ng-model="filterVal" ng-keydown="fnKeydown($event)">
+            <a class="clear" style="right: 56px;position: relative;top: 5px;">
+                <i class="btn-close"></i>
+            </a>
+            <a class="btn-wrap" style="right: 50px;position: relative;top: 5px;" ng-click="fnFilter()">
+                <i class="btn-search"></i>
+            </a>
+        </div>
+        <!-- <div style="width: 51%;float: right;">
+            <span style=" line-height:32px; float:left">关键词:</span>
+            <div class="contract-search" >
+                <input type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词">
+                <button class="button twoLetter">查询</button>
+                 <button class="button-empty twoLetter">清空</button>
             </div>
-            <!-- 搜索框 -->
-            <div style="width: 51%;height: 40px;float: left;">
-                <span>关键词：</span>
-                <div class="contract-search" style="float: right;">
-                    <input type="text" class="input-search input-border" placeholder="请输入关键词">
-                    <a class="clear">
-                        <i class="btn-close"></i>
-                    </a>
-                    <a class="btn-wrap">
-                        <i class="btn-search"></i>
-                    </a>
-                </div>
+        </div> -->
+    </div>
+    <div class="borderTop">
+        <button class="button twoLetter" ng-click="checkModal()">编辑</button>
+        <button class="button twoLetter">导出</button>
+        <button class="button twoLetter">清空</button>
+        <button class="button twoLetter">提交</button>
+    </div>
+
+    <div class="division_content" style="clear: both;">
+        <div class="ttitle" style="padding: 0px 10px;">
+            <span>清单管理:</span>
+            <span style="float: right;">合计：xxx,x元</span>
+        </div>
+
+        <div class="clearfix">
+            <div class="thead" style="width: 10%"><span ng-click="fnSort('a')">清单编号</span>
+            </div>
+            <div class="thead" style="width: 19%"><span ng-click="fnSort('b')">清单名称</span>
+            </div>
+            <div class="thead" style="width: 19%"><span ng-click="fnSort('c')">计量单位</span>
+            </div>
+            <div class="thead" style="width: 19%"><span ng-click="fnSort('d')">合同单价（元）</span>
+            </div>
+            <div class="thead" style="width: 19%"><span ng-click="fnSort('e')">合同数量</span>
+            </div>
+            <div class="thead" style="width: 14%"><span ng-click="fnSort('f')">合同金额（元）</span>
             </div>
         </div>
-        <div style="clear: both;height: 50px;">
-            <button class="button twoLetter">导入</button>
-            <button class="button twoLetter">导出</button>
-            <button class="button twoLetter">清空</button>
-            <button class="button twoLetter">提交</button>
-        </div>
-        <div class="division_content" style="clear: both;">
-            <div class="ttitle" style="padding: 0px 10px;">
-                <span>清单管理</span>
-                <span style="float: right;">合计：xxx,x元</span>
-            </div>
-            <div class="thead" style="width: 10%"><span>序号</span>
-            </div>
-            <div class="thead" style="width: 19%"><span>单位工程</span>
-            </div>
-            <div class="thead" style="width: 19%"><span>分部工程</span>
-            </div>
-            <div class="thead" style="width: 19%"><span>分项工程桩号</span>
-            </div>
-            <div class="thead" style="width: 19%"><span>分项工程编号</span>
-            </div>
-            <div class="thead" style="width: 14%"><span>发起时间</span>
-            </div>
-            <div class="aline" style="margin-top: 40px;">
-                <div class="tbody" style="width: 10%">1</div>
-                <div class="tbody" style="width: 19%">路基工程</div>
-                <div class="tbody" style="width: 19%">路基土石方工程</div>
-                <div class="tbody" style="width: 19%">分项工程桩号</div>
-                <div class="tbody" style="width: 19%">分项工程编号</div>
-                <div class="tbody" style="width: 14%">发起时间</div>
-            </div>
-            <div class="aline">
-                <div class="tbody" style="width: 10%">1</div>
-                <div class="tbody" style="width: 19%">路基工程</div>
-                <div class="tbody" style="width: 19%">路基土石方工程</div>
-                <div class="tbody" style="width: 19%">分项工程桩号</div>
-                <div class="tbody" style="width: 19%">分项工程编号</div>
-                <div class="tbody" style="width: 14%">发起时间</div>
-            </div>
-            <div class="aline">
-                <div class="tbody" style="width: 10%">1</div>
-                <div class="tbody" style="width: 19%">路基工程</div>
-                <div class="tbody" style="width: 19%">路基土石方工程</div>
-                <div class="tbody" style="width: 19%">分项工程桩号</div>
-                <div class="tbody" style="width: 19%">分项工程编号</div>
-                <div class="tbody" style="width: 14%">发起时间</div>
-            </div>
-            <div class="aline">
-                <div class="tbody" style="width: 10%">1</div>
-                <div class="tbody" style="width: 19%">路基工程</div>
-                <div class="tbody" style="width: 19%">路基土石方工程</div>
-                <div class="tbody" style="width: 19%">分项工程桩号</div>
-                <div class="tbody" style="width: 19%">分项工程编号</div>
-                <div class="tbody" style="width: 14%">发起时间</div>
+        <div class="table-list" style="height: calc(100vh - 430px);overflow-y: scroll">
+            <div class="aline" ng-repeat="data in dataList">
+                <div class="tbody" style="width: 10%">{{data.a}}</div>
+                <div class="tbody" style="width: 19%">{{data.b}}</div>
+                <div class="tbody" style="width: 19%">{{data.c}}</div>
+                <div class="tbody" style="width: 19%">{{data.d}}</div>
+                <div class="tbody" style="width: 19%">{{data.e}}</div>
+                <div class="tbody" style="width: 14%">{{data.f}}</div>
             </div>
         </div>
-        <!--<div ng-controller="PaginationDemoCtrl">
-            <span>共{{bigTotalItems}}条</span>
-            &lt;!&ndash;<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>&ndash;&gt;
-            <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" previous-text="上一页" next-text="下一页" last-text="尾页"></ul>
-            <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
-        </div>-->
-        <div style="text-align: center;margin-top: 20px;font-size: 16px;">
-            <span style="margin-right: 40px;">共n条</span>
-            <i class="first page"></i>
-            <i class="previous page"></i>
-            <input type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;"/> /
-            <span>n</span>
-            <i class="next page"></i>
-            <i class="last page"></i>
-        </div>
+    </div>
+    <!--<div ng-controller="PaginationDemoCtrl">
+        <span>共{{bigTotalItems}}条</span>
+        &lt;!&ndash;<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>&ndash;&gt;
+        <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" previous-text="上一页" next-text="下一页" last-text="尾页"></ul>
+        <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
+    </div>-->
+    <div style="text-align: center;margin-top: 20px;font-size: 16px;">
+        <span style="margin-right: 40px;">共n条</span>
+        <i class="first page"></i>
+        <i class="previous page"></i>
+        <input type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;"/> / <span>n</span>
+        <i class="next page"></i>
+        <i class="last page"></i>
     </div>
 </div>

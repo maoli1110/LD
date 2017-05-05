@@ -1,0 +1,160 @@
+.preview-body {
+  overflow: hidden;
+}
+.preview-body .menu {
+  height: 100%;
+  overflow: hidden;
+  left: 1px;
+  bottom: 1px;
+  position: absolute;
+  top: 30px;
+  width: 27%;
+}
+.preview-body .menu .file-wrapper {
+  background-color: #F3F4F5;
+  padding: 20px 25px;
+  height: 100%;
+}
+.preview-body .menu .file-wrapper .file-item {
+  width: 100%;
+  height: 125px;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.preview-body .menu .file-wrapper .file-item .file-sm-pic {
+  border: 2px solid #DADBDE;
+  width: 78px;
+  height: 98px;
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
+  margin-bottom: 8px;
+}
+.preview-body .menu .file-wrapper .file-item .file-sm-pic.on {
+  border: 2px solid #9EBCF0;
+}
+.preview-body .menu .file-wrapper .file-item .file-name {
+  width: 100%;
+  font-size: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.preview-body .menu .btn-wrapper {
+  width: 20px;
+  height: 70px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
+.preview-body .menu .btn-wrapper .btn-slide {
+  width: 6px;
+  height: 79px;
+  z-index: 100;
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 5px 0 0 5px;
+  background-color: #DADBDE;
+}
+.preview-body .menu .btn-wrapper .btn-arrow {
+  position: absolute;
+  z-index: 101;
+  width: 6px;
+  height: 12px;
+  background: url(../imgs/icon-button.png) -114px -31px no-repeat;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.5s ease-out;
+}
+.preview-body .preview-wrapper {
+  background-color: #fff;
+  position: relative;
+  bottom: 0px;
+  top: 0px;
+  left: 27%;
+  width: 73%;
+  height: 100%;
+}
+.preview-body .preview-wrapper .top-nav {
+  height: 45px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper {
+  position: absolute;
+  right: 20px;
+  top: 2px;
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-upload,
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-delete,
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-print,
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-download {
+  display: inline-block;
+  margin-right: 6px;
+  cursor: pointer;
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper .ico-upload,
+.preview-body .preview-wrapper .top-nav .ico-wrapper .ico-delete,
+.preview-body .preview-wrapper .top-nav .ico-wrapper .ico-print,
+.preview-body .preview-wrapper .top-nav .ico-wrapper .ico-download {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: url("../imgs/icon-record.png") no-repeat;
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-upload .ico-upload {
+  background-position: -2px 0;
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-upload:hover .ico-upload {
+  background-position: -2px -45px;
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-delete .ico-delete {
+  background-position: -46px 0;
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-delete:hover .ico-delete {
+  background-position: -46px -45px;
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-print .ico-print {
+  background-position: -90px 1px;
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-print:hover .ico-print {
+  background-position: -90px -45px;
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-download .ico-download {
+  background-position: -134px 0;
+}
+.preview-body .preview-wrapper .top-nav .ico-wrapper .btn-download:hover .ico-download {
+  background-position: -134px -45px;
+}
+.preview-body .preview-wrapper .pdf-preview {
+  padding: 10px 80px;
+  position: relative;
+}
+.preview-body .preview-wrapper .pdf-preview .pdf-left-arrow,
+.preview-body .preview-wrapper .pdf-preview .pdf-right-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 65px;
+  background: url("../imgs/icon-button.png") no-repeat;
+  cursor: pointer;
+}
+.preview-body .preview-wrapper .pdf-preview .pdf-left-arrow {
+  left: 40px;
+  background-position: -124px -88px;
+}
+.preview-body .preview-wrapper .pdf-preview .pdf-wrapper {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+.preview-body .preview-wrapper .pdf-preview .pdf-right-arrow {
+  right: 40px;
+  background-position: -152px -88px;
+}

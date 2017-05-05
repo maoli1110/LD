@@ -6,16 +6,22 @@
 }
 .window-body .window-body-1 {
     height: 15%;
-    padding: 20px 0px 0px 10px;
+    padding: 20px 0 0 10px;
+    width: 97%;
 }
 .window-body .content{
-    height: 83%;overflow-y: auto;margin-left: 10px;border: 1px solid #D8D4D4;padding-top: 10px;
+    height: 83%;overflow-y: auto;margin-left: 10px;border: 1px solid #D8D4D4;
 }
 .window-body .content ul{
-    padding-left: 10px;height: 23px;
+    height: 23px;
+    padding: 0 10px 0 10px;
 }
 .window-body .content ul li{
     height: 100%;
+    padding-top: 5px;
+}
+.window-body .content ul li:hover{
+    background-color: #eef1f8;
 }
 .window-body .content ul li a{
     color: #797979;

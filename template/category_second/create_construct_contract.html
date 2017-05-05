@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="css/list_manage_contract.css">
+<div class="model-content">
+    <div class="window-title">
+        <span>新增/编辑施工合同</span>
+        <div ng-click="cancel()" class="window-close">
+            <div class="window-close-left"></div>
+            <div class="window-close-right"></div>
+        </div>
+    </div>
+    <div class="window-content">
+        
+       
+       <div class="listManageContractModal list-manage-contract">
+
+       <div class="clearfix">
+        <!-- 下拉框 -->
+        <div class="contract-section">
+            <span>章节号： </span>
+            <select class="input-search input-border">
+                <option>全部章节</option>
+                <option>100章</option>
+                <option>200章</option>
+                <option>300章</option>
+            </select>
+        </div>
+
+
+        <!-- 搜索框  -->
+        <div class="searchBox contract-search">
+            <span style=" line-height:32px; float:left; padding-right:10px;">关键词:</span>
+            <input type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 50%; height:30px;" ng-model="input1" >
+            <a class="clear" style="right: 56px;position: relative;top: 5px;"  ng-click="btnClose()">
+                <i class="btn-close"></i>
+            </a>
+            <a class="btn-wrap" style="right: 50px;position: relative;top: 5px;">
+                <i class="btn-search"></i>
+            </a>
+        </div>
+        <div class="checkBox">
+            <button class=" button allcheck" sele="true" ng-click="selectBtn($event.target)" ng-model="yVmar">全部</button>
+            <button class=" button checked" sele="" ng-click="selectBtn($event.target)">已选</button>
+        </div>
+
+    </div>
+
+
+
+        <span>勾选所需清单子目</span>
+       <div class="division_content" style="clear: both; margin-top:20px;">
+            <div class="clearfix">
+                <div class="thead" style="width: 5%"><span>选择</span>
+                </div>
+                <div class="thead" style="width: 10%"><span>清单编号</span>
+                </div>
+                <div class="thead" style="width: 15%"><span>项目名称</span>
+                </div>
+                <div class="thead" style="width: 10%"><span>计量单位</span>
+                </div>
+                <div class="thead" style="width: 15%"><span>合同单价（元）</span>
+                </div>
+                <div class="thead" style="width: 15%"><span>合同数量</span>
+                </div>
+                <div class="thead" style="width: 15%"><span>发起工程量</span>
+                </div>
+                <div class="thead" style="width: 15%"><span>图纸工程量</span>
+                </div>
+            </div>
+            <div class="table-list" style=" max-height:500px; overflow-y: scroll">
+                <div class="aline contractList" ng-repeat="data in dataList">
+                    <div class="tbody" style="width: 5%"><span ng-click="changeClass($event.target)"></span></div>
+                    <div class="tbody" style="width: 10%">{{data.a}}</div>
+                    <div class="tbody" style="width: 15%">{{data.b}}</div>
+                    <div class="tbody" style="width: 10%">{{data.c}}</div>
+                    <div class="tbody" style="width: 15%">{{data.d}}</div>
+                    <div class="tbody" style="width: 15%">{{data.e | number:2}}</div>
+                    <div class="tbody" style="width: 15%">{{data.f}}</div>
+                    <div class="tbody" style="width: 15%"><input type="text" class="input-border" ></div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+ </div>
+    </div>
+    <div class="window-bottom">
+        <div style="text-align: right">
+            <button class="btn ok fiveLetter" type="button" ng-click="ok()">确定</button>
+        </div>
+        <div style="text-align: left">
+            <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</div>

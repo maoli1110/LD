@@ -1,3 +1,6 @@
+input{
+    padding-left: 6px;
+}
 .LubanLD-container {
     width: 100%;
     height: 100%;
@@ -24,7 +27,7 @@
 .contract-search .input-search {
     height: 32px;
     font-size: 11px;
-    padding-left: 6px;
+    /*padding-left: 6px;*/
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -47,7 +50,7 @@
 }
 
 .input-border:hover {
-    border: 1px solid #FED928;
+    border: 1px solid #FED928 !important;
 }
 
 .input-border:focus {
@@ -243,62 +246,61 @@
     width: 70px;
 }
 
-/*下拉框样式开始*/
-.contract-wrap {
-    height: 40px;
-    padding-top: 10px;
-    background-color: #fff;
-}
+/*!*下拉框样式开始*!*/
+/*.contract-wrap {*/
+    /*height: 40px;*/
+    /*padding-top: 10px;*/
+    /*background-color: #fff;*/
+/*}*/
 
-.contract-wrap .contract-select {
-    margin: 0 0 0 12px;
-    font-size: 12px;
-}
+/*.contract-wrap .contract-select {*/
+    /*font-size: 12px;*/
+/*}*/
 
-.contract-select .menu {
-    width: 120px;
-    height: 20px;
-    padding: 0;
-    position: relative;
-    border: 0 none;
-    cursor: pointer;
-    background-color: #fff;
-    text-align: left;
-}
+/*.contract-select .menu {*/
+    /*width: 120px;*/
+    /*height: 20px;*/
+    /*padding: 0;*/
+    /*position: relative;*/
+    /*border: 0 none;*/
+    /*cursor: pointer;*/
+    /*background-color: #fff;*/
+    /*text-align: left;*/
+/*}*/
 
-.contract-wrap .contract-select .menu:focus {
-    outline: none !important;
-}
+/*.contract-wrap .contract-select .menu:focus {*/
+    /*outline: none !important;*/
+/*}*/
 
-.contract-wrap .contract-select .menu .menu-name {
-    font-weight: 700;
-    font-size: 14px;
-}
+/*.contract-wrap .contract-select .menu .menu-name {*/
+    /*font-weight: 700;*/
+    /*font-size: 14px;*/
+/*}*/
 
-.contract-wrap .contract-select .menu .arrow {
-    position: absolute;
-    right: 4px;
-    top: 5px;
-    z-index: 10;
-    width: 16px;
-    height: 12px;
-    background: url("../imgs/icon-button.png") -72px -32px no-repeat;
-    transition: all 0.5s ease-out;
-}
+/*.contract-wrap .contract-select .menu .arrow {*/
+    /*position: absolute;*/
+    /*right: 4px;*/
+    /*top: 5px;*/
+    /*z-index: 10;*/
+    /*width: 16px;*/
+    /*height: 12px;*/
+    /*background: url("../imgs/icon-button.png") -72px -32px no-repeat;*/
+    /*transition: all 0.5s ease-out;*/
+/*}*/
 
-.contract-wrap .contract-select .dropdown-menu {
-    padding: 0;
-    margin: 0;
-    font-size: 12px;
-    min-width: 100px;
-    border: 0 none;
-}
+/*.contract-wrap .contract-select .dropdown-menu {*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+    /*font-size: 12px;*/
+    /*min-width: 100px;*/
+    /*border: 0 none;*/
+/*}*/
 
-.contract-wrap .contract-select .dropdown-menu li a {
-    padding: 3px 5px;
-}
+/*.contract-wrap .contract-select .dropdown-menu li a {*/
+    /*padding: 3px 5px;*/
+/*}*/
 
-/*下拉框样式结束*/
+/*!*下拉框样式结束*!*/
 /*弹窗标题样式*/
 .window-title {
     height: 30px;
@@ -395,4 +397,56 @@
 
 input:focus {
     outline: none;
+}
+/*小三角*/
+/*向上*/
+.triangle_border_up{
+    display:inline-block;
+    width:0;
+    height:0;
+    border-width:0 5px 5px;
+    border-style:solid;
+    border-color:transparent transparent #99a1af;/*透明 透明  灰*/
+    margin:40px auto;
+    right: 12px;
+    margin-top: 7px;
+}
+
+/*向下*/
+.triangle_border_down{
+    display:inline-block;
+    width:0;
+    height:0;
+    border-width:5px 5px 0;
+    border-style:solid;
+    border-color:#99a1af transparent transparent;/*灰 透明 透明 */
+    margin:40px auto;
+    right: 12px;
+    margin-top: 7px;
+}
+
+/*向左*/
+.triangle_border_left{
+    display:inline-block;
+    width:0;
+    height:0;
+    border-width:5px 5px 5px 0;
+    border-style:solid;
+    border-color:transparent #99a1af transparent transparent;/*透明 灰 透明 透明 */
+    position: absolute;
+    right: 12px;
+    margin-top: 7px;
+}
+
+/*向右*/
+.triangle_border_right{
+    display:inline-block;
+    width:0;
+    height:0;
+    border-width:5px 0 5px 5px;
+    border-style:solid;
+    border-color:transparent transparent transparent #99a1af;/*透明 透明 透明 灰*/
+    position: absolute;
+    right: 12px;
+    margin-top: 7px;
 }

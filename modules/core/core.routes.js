@@ -17,9 +17,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		}).state('first', {
 			url:'/first',//第一类-合同管理
 			templateUrl: 'template/category_first/contract_manage.html',
-			controller:'constractManageCtrl',
+			controller:'firstCtrl',
 			data: {
-				displayName: 'constractManageCtrl'
+				displayName: 'firstCtrl'
 			}
 		}).state('second',{
 			url:'/second',//第二类
@@ -48,6 +48,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			templateUrl:'template/category_second/list_manage_contract.html',
 			displayName:{
 				displayName:"listManageContract"
+			}
+		}).state('second.listManageContractFileUpload',{
+			url:'/listManageContractFileUpload',//第二类-清单管理-导入
+			controller:'listManageContractFileUploadCtrl',
+			templateUrl:'template/category_second/list_manage_contract_fileUpload.html',
+			displayName:{
+				displayName:"listManageContractFileUpload"
 			}
 		})
 	}

@@ -7,87 +7,48 @@
     <div class="inner-wrapper" style="height: calc(100vh - 120px)">
     <div class="contract-name">合同1</div>
     <!-- 搜索框 -->
-    <div class="contract-search" style="margin-bottom: 20px;">
-        <input type="text" class="input-search input-border" placeholder="快速搜索合同" style="width: 40%;">
-        <a class="clear" style="right: 56px;position: relative;top: 5px;">
+    <div class="contract-search" style="margin-bottom: 20px;" input-search>
+        <input type="text" class="input-search input-border" placeholder="请输入工程名称或桩号等关键词" style="width: 40%;">
+        <a class="clear" style="position: absolute;margin: 6px 0 0 -46px;display: none;">
             <i class="btn-close"></i>
         </a>
-        <a class="btn-wrap" style="right: 50px;position: relative;top: 5px;">
+        <a class="btn-wrap" style="position: absolute;margin: 6px 0 0 -20px;">
             <i class="btn-search"></i>
         </a>
     </div>
     <div class="division_content">
         <div class="ttitle" style="text-align: center;">工程划分</div>
-        <div class="thead" style="width: 10%">序号
-            <div class="triangle-up" style="left: 43px;"></div>
-            <div class="triangle-down" style="left: 37px;"></div>
+        <div style="height: 40px;">
+            <div class="thead" style="width: 10%;padding-left: 10px;">序号</div>
+            <div class="thead" style="width: 19%;padding-left: 10px;">单位工程</div>
+            <div class="thead" style="width: 19%;padding-left: 10px;">分部工程</div>
+            <div class="thead" style="width: 19%;padding-left: 10px;">分项工程编号</div>
+            <div class="thead" style="width: 19%">分项工程桩号
+                <div class="triangle-up" style="left: 107px;"></div>
+                <div class="triangle-down" style="left: 101px;"></div>
+            </div>
+            <div class="thead" style="width: 14%">发起时间
+                <div class="triangle-up" style="left: 75px;"></div>
+                <div class="triangle-down" style="left: 69px;"></div>
+            </div>
         </div>
-        <div class="thead" style="width: 19%">单位工程
-            <div class="triangle-up" style="left: 75px;"></div>
-            <div class="triangle-down" style="left: 69px;"></div>
-        </div>
-        <div class="thead" style="width: 19%">分部工程
-            <div class="triangle-up" style="left: 75px;"></div>
-            <div class="triangle-down" style="left: 69px;"></div>
-        </div>
-        <div class="thead" style="width: 19%">分项工程桩号
-            <div class="triangle-up" style="left: 107px;"></div>
-            <div class="triangle-down" style="left: 101px;"></div>
-        </div>
-        <div class="thead" style="width: 19%">分项工程编号
-            <div class="triangle-up" style="left: 107px;"></div>
-            <div class="triangle-down" style="left: 101px;"></div>
-        </div>
-        <div class="thead" style="width: 14%">发起时间
-            <div class="triangle-up" style="left: 75px;"></div>
-            <div class="triangle-down" style="left: 69px;"></div>
-        </div>
-        <div class="aline" style="margin-top: 40px;">
-            <div class="tbody" style="width: 10%">1</div>
-            <div class="tbody" style="width: 19%">路基工程</div>
-            <div class="tbody" style="width: 19%">路基土石方工程</div>
-            <div class="tbody" style="width: 19%">分项工程桩号</div>
-            <div class="tbody" style="width: 19%">分项工程编号</div>
-            <div class="tbody" style="width: 14%">发起时间</div>
-        </div>
-        <div class="aline">
-            <div class="tbody" style="width: 10%">1</div>
-            <div class="tbody" style="width: 19%">路基工程</div>
-            <div class="tbody" style="width: 19%">路基土石方工程</div>
-            <div class="tbody" style="width: 19%">分项工程桩号</div>
-            <div class="tbody" style="width: 19%">分项工程编号</div>
-            <div class="tbody" style="width: 14%">发起时间</div>
-        </div>
-        <div class="aline">
-            <div class="tbody" style="width: 10%">1</div>
-            <div class="tbody" style="width: 19%">路基工程</div>
-            <div class="tbody" style="width: 19%">路基土石方工程</div>
-            <div class="tbody" style="width: 19%">分项工程桩号</div>
-            <div class="tbody" style="width: 19%">分项工程编号</div>
-            <div class="tbody" style="width: 14%">发起时间</div>
-        </div>
-        <div class="aline">
-            <div class="tbody" style="width: 10%">1</div>
-            <div class="tbody" style="width: 19%">路基工程</div>
-            <div class="tbody" style="width: 19%">路基土石方工程</div>
-            <div class="tbody" style="width: 19%">分项工程桩号</div>
-            <div class="tbody" style="width: 19%">分项工程编号</div>
-            <div class="tbody" style="width: 14%">发起时间</div>
+        <div class="aline" ng-repeat="item in childItemizedInfos.resultList">
+            <div class="tbody" style="width: 10%">{{$index+1}}</div>
+            <div class="tbody" style="width: 19%" title="{{item.unitProjectName}}">{{item.unitProjectName}}</div>
+            <div class="tbody" style="width: 19%" title="{{item.deptProjectName}}">{{item.deptProjectName}}</div>
+            <div class="tbody" style="width: 19%" title="{{item.childItemizedName}}">{{item.childItemizedName}}</div>
+            <div class="tbody" style="width: 19%" title="{{item.childItemizedNum}}">{{item.childItemizedNum}}</div>
+            <div class="tbody" style="width: 14%" title="{{item.createTime | date:'yyyy-MM-dd'}}">{{item.createTime | date:'yyyy-MM-dd'}}</div>
         </div>
     </div>
-    <!--<div ng-controller="PaginationDemoCtrl">
-        <span>共{{bigTotalItems}}条</span>
-        &lt;!&ndash;<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>&ndash;&gt;
-        <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" previous-text="上一页" next-text="下一页" last-text="尾页"></ul>
-        <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
-    </div>-->
     <div style="text-align: center;margin-top: 10px;font-size: 14px;">
-        <span style="margin-right: 40px;">共n条</span>
-        <i class="first page"></i>
-        <i class="previous page"></i>
-        <input type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;"/> / <span>n</span>
-        <i class="next page"></i>
-        <i class="last page"></i>
+        <span style="margin-right: 40px;">共{{childItemizedInfos.totalCount}}条</span>
+        <i class="first page" ng-click="firstPage()"></i>
+        <i class="previous page" ng-click="prevPage()"></i>
+        <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.pageNumber}}"/>
+        / <span>{{childItemizedInfos.totalPage}}</span>
+        <i class="next page" ng-click="nextPage()"></i>
+        <i class="last page" ng-click="lastPage()"></i>
     </div>
     </div>
 </div>

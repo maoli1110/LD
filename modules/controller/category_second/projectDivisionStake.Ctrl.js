@@ -5,6 +5,12 @@
  */
 angular.module('core').controller('projectDivisionStakeCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile',
     function ($scope, $http,$uibModal,commonService,$timeout,$compile) {
+        console.log($scope.name,'$scope.name')
+        //点击左侧树节点对应的桩号(sendCtrl->projectDivisionStakeCtrl父子通信)
+        $scope.$on('call',function(event,data){
+            $scope.name = data;
+            alert($scope.name)
+        });
         // TODO 后台请求数据 此处先造假数据
         var compGroupData = new Array();
         for(var i=0;i<99;i++) {
@@ -33,13 +39,34 @@ angular.module('core').controller('projectDivisionStakeCtrl', ['$scope', '$http'
         };
         // 更改构件组弹框控制结束
 
-        // 编辑合同图号
+        /**
+         * 编辑合同图号
+         */
         $scope.editContNum = function () {
             $("#editContNum").css("display","none");
             var input = $("#editContNumInput");
             input.removeAttr("disabled");
             var temp = input.val();
             input.val("").focus().val(temp);
+            $("#commitContNum").css("display","inline-block");
+            $("#cancelContNum").css("display","inline-block");
+        };
+        /**
+         * 确定提交合同图号
+         */
+        $scope.commitContNum = function () {
+            $scope.cancelContNum();
+            // 提交数据
+
+        };
+        /**
+         * 取消合同图号
+         */
+        $scope.cancelContNum = function () {
+            $("#editContNumInput").attr('disabled','disabled');
+            $("#editContNum").css("display","inline-block");
+            $("#commitContNum").css("display","none");
+            $("#cancelContNum").css("display","none");
         };
 
         // 删除构件组弹框控制开始
@@ -75,6 +102,36 @@ angular.module('core').controller('editCompGroupCtrl', ['$scope', '$http', '$uib
         $scope.compGroupInfos = compGroupInfos;
         $scope.selected = {
             item: $scope.compGroupInfos[0]
+        };
+        // 默认选中第一个
+        var oldSelectedCompGroupId = 'compGroup_0';
+        var first = true;
+        /**
+         * 点击构件组时改变背景色
+         * @param ele 点击的构件组id
+         */
+        $scope.clickCompGroup = function (ele) {
+            if(first) { // 第一次点击 不用比较 直接设置背景色
+                $("#"+ele).css('background-color','#eef1f8');
+                first = false;
+                oldSelectedCompGroupId = ele;
+                return;
+            }
+            if(oldSelectedCompGroupId == ele) {
+                return;
+            } else {    // 先把之前设置的背景色去掉 再设置新选中的背景色
+                $("#"+oldSelectedCompGroupId).css('background-color','#fff');
+                $("#"+ele).css('background-color','#eef1f8');
+                oldSelectedCompGroupId = ele;
+            }
+        };
+
+        /**
+         * 筛选构件组
+         * @param ele
+         */
+        $scope.searchCompGroup = function (ele) {
+
         };
 
         $scope.ok = function () {
