@@ -1,15 +1,15 @@
-<div class="contract-manage" ng-controller="firstCtrl"  side-operation btn-wrapper window-resize>
+<div class="contract-manage" side-operation btn-wrapper window-resize constract-manage-drop-down-controll>
     <!--下拉框-->
     <div class="contract-wrap">
         <div class="dropdown contract-select">
             <button class="menu" id="menu1" data-toggle="dropdown">
-                <span class="menu-name">施工合同</span>
+                <span class="menu-name constructContract">施工合同</span>
                 <span class="arrow"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="menu1">
-                <li buttonID="createConstructModal" btnNone="createSuperviseModal,createLabModal" templateID="table-construct"><a href="#">施工合同</a></li>
-                <li buttonID="createSuperviseModal" btnNone="createConstructModal,createLabModal" templateID="table-supervisor"><a href="#">监理合同</a></li>
-                <li buttonID="createLabModal" btnNone="createConstructModal,createSuperviseModal" templateID="table-lab"><a href="#">监理试验室合同</a></li>
+                <li id="constructContract" buttonID="createConstructModal" btnNone="createSuperviseModal,createLabModal" templateID="table-construct" attachmentID="attachment-construct" constractId="construct"><a href="#">施工合同</a></li>
+                <li id="superviseContract" buttonID="createSuperviseModal" btnNone="createConstructModal,createLabModal" templateID="table-supervisor" attachmentID="attachment-supervision" constractId="supervision"><a href="#">监理合同</a></li>
+                <li id="labContract" buttonID="createLabModal" btnNone="createConstructModal,createSuperviseModal" templateID="table-lab" attachmentID="attachment-labConstract" constractId="labConstract"><a href="#">监理试验室合同</a></li>
             </ul>
         </div>
     </div>
@@ -24,11 +24,11 @@
         </a>
     </div>
     <ul class="left-list" according-repeat>
-        <li class="project-name" ng-repeat="item in deptList track by $index" dept-repeat-finish>
+        <li class="project-name" ng-repeat="item in deptList track by $index" dept-repeat-finish ng-click="getContractId(item.deptId)">
             <i class="icon-project"></i>
-            <a title="" class="project-name-span" ng-click="getContractList(item.deptId)">{{item.deptName}}</a>
+            <a title="" class="project-name-span" ng-click="getCurrentClickItem(item.deptId,$event.target)">{{item.deptName}}</a>
             <ul class="contract-list" style="display: none;">
-                <li class="contract-name active" ng-repeat="item1 in contractList track by $index" contractlist-repeat-finish>
+                <li class="contract-name active" ng-repeat="item1 in contractList track by $index" ng-click="getContractTarget($event.target,item1.id)" contractlist-repeat-finish >
                     <a>{{item1.sectionNum}}</a>
                 </li>
             </ul>

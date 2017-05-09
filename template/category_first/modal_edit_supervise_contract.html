@@ -40,7 +40,7 @@
                             <label for="contractNum"  style="border: none">合同编号：</label>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" class="form-control" ng-model="ct_num" id="contractNum" name="contractNumber" ng-maxlength="100" required>
+                            <input type="text" class="form-control" ng-model="ct_num"  ng-value="supervisionConstractInfos.contractNum" id="contractNum" name="contractNumber" ng-maxlength="100" required>
                             <p class="help-block">
                                 <a ng-show="formConstract.constructUnit.$error.required">该项为必填项</a>
                                 <span ng-show="formConstract.constructUnit.$error.maxlength">该项不能超过100个字符</span>
@@ -56,7 +56,7 @@
                             <label for="sectionNum" class="form-control" style="border: none">标段号：</label>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" class="form-control" id="sectionNum" ng-model="sn_num" name="signNumber" ng-maxlength="100" required>
+                            <input type="text" class="form-control" id="sectionNum"  ng-value="supervisionConstractInfos.sectionNum" ng-model="sn_num" name="signNumber" ng-maxlength="100" required>
                             <p class="help-block">
                                 <a ng-show="formConstract.signNumber.$error.required">该项为必填项</a>
                                 <span ng-show="formConstract.signNumber.$error.maxlength">该项不能超过100个字符</span>
@@ -69,7 +69,7 @@
                             <label for="contractAmount" class="form-control" style="border: none">合同金额：</label>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" class="form-control" id="contractAmount" ng-model="ct_value" name="contractValue" ng-maxlength="100" value="{{items.contract_unit}}" required>
+                            <input type="text" class="form-control" id="contractAmount"  ng-value="supervisionConstractInfos.contractAmount" ng-model="ct_value" name="contractValue" ng-maxlength="100" value="{{items.contract_unit}}" required>
                             <p class="help-block">
                                 <a ng-show="formConstract.contractValue.$error.required">该项为必填项</a>
                                 <span ng-show="formConstract.contractValue.$error.maxlength">该项不能超过100个字符</span>
@@ -85,7 +85,7 @@
                             <label for="projectName" class="form-control" style="border: none">项目名称：</label>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" class="form-control" id="projectName" ng-model="pt_name" name="projectName" ng-maxlength="100" required>
+                            <input type="text" class="form-control" id="projectName"  ng-value="supervisionConstractInfos.projectName" ng-model="pt_name" name="projectName" ng-maxlength="100" required>
                             <p class="help-block">
                                 <a ng-show="formConstract.projectName.$error.required">该项为必填项</a>
                                 <span ng-show="formConstract.projectName.$error.maxlength">该项不能超过100个字符</span>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-xs-3">
                             <div class="controls input-append date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="contract_sign" data-link-format="yyyy-mm-dd">
-                                <input size="16" type="text" class="form-control" id="signedDate" ng-model="ct_date" name="contractDate" ng-maxlength="100" required>
+                                <input size="16" type="text" class="form-control" id="signedDate"  ng-value="supervisionConstractInfos.signedDate | date:'yyyy-MM-dd'" ng-model="ct_date" name="contractDate" ng-maxlength="100" required>
                                 <p class="help-block">
                                     <a ng-show="formConstract.contractDate.$error.required">该项为必填项</a>
                                     <span ng-show="formConstract.contractDate.$error.maxlength">该项不能超过100个字符</span>
@@ -117,7 +117,7 @@
                             <label for="contract_type" class="form-control" style="border: none">合同类型：</label>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" class="form-control" id="contract_type" readonly placeholder="监理合同">
+                            <input type="text" class="form-control" id="contract_type" placeholder="监理合同" readonly>
                             <p class="help-block">
                             </p>
                         </div>
@@ -128,7 +128,7 @@
                             <label for="constructionUnit" class="form-control" style="border: none">建设单位：</label>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" class="form-control" id="constructionUnit" ng-model="ct_unit" name="constructUnit" ng-maxlength="100" required>
+                            <input type="text" class="form-control" id="constructionUnit"  ng-value="supervisionConstractInfos.constructionUnit " ng-model="ct_unit" name="constructUnit" ng-maxlength="100" required>
                             <p class="help-block">
                                 <a ng-show="formConstract.constructUnit.$error.required">该项为必填项</a>
                                 <span ng-show="formConstract.constructUnit.$error.maxlength">该项不能超过100个字符</span>
@@ -143,7 +143,7 @@
                             <label for="supervisionUnit" class="form-control" style="border: none">监理单位：</label>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" class="form-control" id="supervisionUnit" ng-model="sv_unit" name="superviseUnit" ng-maxlength="100" required>
+                            <input type="text" class="form-control" id="supervisionUnit"  ng-value="supervisionConstractInfos.supervisionUnit " ng-model="sv_unit" name="superviseUnit" ng-maxlength="100" required>
                             <p class="help-block">
                                 <a ng-show="formConstract.superviseUnit.$error.required">该项为必填项</a>
                                 <span ng-show="formConstract.superviseUnit.$error.maxlength">该项不能超过100个字符</span>
@@ -161,7 +161,7 @@
                         </div>
                         <div class="col-xs-3">
                             <input type="text" class="form-control" id="supervisingEngineer" name="csEngineer" required
-                                   ng-maxlength="100" ng-model="cs_engineer">
+                                   ng-maxlength="100" ng-model="cs_engineer" ng-value="supervisionConstractInfos.supervisingEngineer ">
                             <p class="help-block">
                                 <span ng-show="formConstract.csEngineer.$error.maxlength">该项不能超过100个字符</span>
                             </p>

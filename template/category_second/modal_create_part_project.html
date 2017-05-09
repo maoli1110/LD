@@ -1,0 +1,42 @@
+<div class="modal-content">
+    <div class="model-content ng-scope">
+        <div class="window-title">
+            <span>新建分部工程</span>
+            <div ng-click="cancel()" class="window-close">
+                <div class="window-close-left"></div>
+                <div class="window-close-right"></div>
+            </div>
+        </div>
+        <div class="modal-body" id="modal-body">
+        <link rel="stylesheet" href="css/bounced.css" class="ng-scope">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label boinced-control-label">分部工程：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="data.nodeName">
+                                <option value="">选择分部工程</option>
+                                <option value="">路基工程</option>
+                                <option value="">路面工程</option>
+                                <option value="">桥梁工程</option>
+                                <option value="">隧道工程</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label boinced-control-label">编号：</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control"  placeholder="子分部工程编号，若无子分部，则为分部工程编号" ng-model="nodeNum" ng-model="data.nodeNum">
+                        </div>
+                    </div>
+                </form>
+        </div>
+        <div class="window-bottom">
+            <div style="text-align: right">
+                <button class="btn ok fiveLetter" type="button" ng-click="ok()">确定</button>
+            </div>
+            <div style="text-align: left">
+                <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

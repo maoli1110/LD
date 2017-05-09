@@ -1,0 +1,76 @@
+<div class="modal-content">
+    <div class="model-content ng-scope">
+        <div class="window-title">
+            <span>新建子分项工程</span>
+            <div ng-click="cancel()" class="window-close">
+                <div class="window-close-left"></div>
+                <div class="window-close-right"></div>
+            </div>
+        </div>
+        <div class="modal-body" id="modal-body">
+        <link rel="stylesheet" href="css/bounced.css" class="ng-scope">
+                <form class="form-horizontal clearfix">
+                    <div class="form-group col-sm-8">
+                        <label class="col-sm-3 control-label boinced-control-label">分部工程：</label>
+                        <div class="col-sm-9">
+                            <select class="form-control">
+                                <option value="">选择分部工程</option>
+                                <option value="">路基工程</option>
+                                <option value="">路面工程</option>
+                                <option value="">桥梁工程</option>
+                                <option value="">隧道工程</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label boinced-control-label">合同图号：</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control"  placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-8">
+                        <label class="col-sm-3 control-label boinced-control-label">子分部工程：</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control"  placeholder="输入子分项工程名称，如桩号+工程部位">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label boinced-control-label">关联：</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control"  placeholder="选择构件组" disabled style="cursor:pointer;">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-8">
+                        <label class="col-sm-3 control-label boinced-control-label">桩号：</label>
+                        <div class="col-sm-9 boinced-input">
+                          <input type="text" class="form-control"  placeholder="" style="float: left;width:70px;"><i class="glyphicon glyphicon-plus boincedIcont" ></i>
+                          <input type="text" class="form-control"  placeholder="" style="float: left;width:85px;"><i class="boincedIcont"><img src="imgs/~img.png"></i>
+                          <input type="text" class="form-control"  placeholder="" style="float: left;width:70px;"><i class="glyphicon glyphicon-plus boincedIcont" ></i>
+                          <input type="text" class="form-control"  placeholder="" style="float: left;width:83px;">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label boinced-control-label"></label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <i class="glyphicon glyphicon-trash boincedIcont" ></i>
+                    <div class="form-group col-sm-8">
+                        <label  class="col-sm-3 control-label boinced-control-label">编号：</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control"  placeholder="子分项工程编号，若无子分项，则为分项工程编号">
+                        </div>
+                    </div>
+                </form>
+        </div>
+        <div class="window-bottom">
+            <div style="text-align: right">
+                <button class="btn ok fiveLetter" type="button" ng-click="ok()">确定</button>
+            </div>
+            <div style="text-align: left">
+                <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

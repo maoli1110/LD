@@ -1,7 +1,7 @@
 .preview-body {
   overflow: hidden;
 }
-.preview-body .menu {
+.preview-body .preview-menu {
   height: 100%;
   overflow: hidden;
   left: 1px;
@@ -10,12 +10,12 @@
   top: 30px;
   width: 27%;
 }
-.preview-body .menu .file-wrapper {
+.preview-body .preview-menu .file-wrapper {
   background-color: #F3F4F5;
   padding: 20px 25px;
   height: 100%;
 }
-.preview-body .menu .file-wrapper .file-item {
+.preview-body .preview-menu .file-wrapper .file-item {
   width: 100%;
   height: 125px;
   display: inline-block;
@@ -25,31 +25,31 @@
   text-overflow: ellipsis;
   cursor: pointer;
 }
-.preview-body .menu .file-wrapper .file-item .file-sm-pic {
+.preview-body .preview-menu .file-wrapper .file-item .file-sm-pic {
   border: 2px solid #DADBDE;
   width: 78px;
   height: 98px;
   box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
   margin-bottom: 8px;
 }
-.preview-body .menu .file-wrapper .file-item .file-sm-pic.on {
+.preview-body .preview-menu .file-wrapper .file-item .file-sm-pic.on {
   border: 2px solid #9EBCF0;
 }
-.preview-body .menu .file-wrapper .file-item .file-name {
+.preview-body .preview-menu .file-wrapper .file-item .file-name {
   width: 100%;
   font-size: 14px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.preview-body .menu .btn-wrapper {
+.preview-body .preview-menu .btn-wrapper {
   width: 20px;
   height: 70px;
   position: absolute;
   top: 50%;
   right: 0;
 }
-.preview-body .menu .btn-wrapper .btn-slide {
+.preview-body .preview-menu .btn-wrapper .btn-slide {
   width: 6px;
   height: 79px;
   z-index: 100;
@@ -61,7 +61,7 @@
   border-radius: 5px 0 0 5px;
   background-color: #DADBDE;
 }
-.preview-body .menu .btn-wrapper .btn-arrow {
+.preview-body .preview-menu .btn-wrapper .btn-arrow {
   position: absolute;
   z-index: 101;
   width: 6px;

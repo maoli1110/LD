@@ -117,6 +117,13 @@ input{
     border-top: 6px solid #000;
     top: 22px;
 }
+/*.triangle-up:hover, .triangle-down:hover {
+    border-bottom-color: #99A1AF;
+}
+
+.triangle-up:active, .triangle-down:active {
+    border-bottom-color: #4B5A7A;
+}*/
 
 /*上下三角样式结束*/
 /*分页样式开始*/

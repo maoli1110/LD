@@ -11,20 +11,20 @@
         <div style="float: left;margin-top: 10px;">请选择关联的构件组</div>
         <!-- 搜索框 -->
         <div class="contract-search input-border" style="float: right; width: 50%;">
-            <input type="text" class="input-search" placeholder="快速搜索构件组" style="width: calc(100% - 50px);">
-            <a class="clear" style="display: none;position: absolute;top: 56px;right: 52px;">
+            <input id="searchChildItemsValue" type="text" class="input-search" placeholder="快速搜索构件组" style="width: calc(100% - 50px);" input-search-child-items>
+            <a class="clear" style="display: none;position: absolute;top: 56px;right: 52px;" ng-click="clearSearchKey()">
                 <i class="btn-close"></i>
             </a>
-            <a class="btn-wrap" style="position: absolute;top: 56px;right: 31px;">
+            <a class="btn-wrap" style="position: absolute;top: 56px;right: 31px;" ng-click="searchCompGroup()">
                 <i class="btn-search"></i>
             </a>
         </div>
     </div>
     <div class="content" style="">
         <ul style="">
-            <li ng-repeat="item in compGroupInfos" ng-click="$event.preventDefault(); selected.item = item;clickCompGroup('compGroup_'+$index)" id="compGroup_{{$index}}">
+            <li ng-repeat="item in compGroupInfos" ng-click="$event.preventDefault(); selected.compGroupInfo = item;clickCompGroup(item.compGroupId)" id="{{item.compGroupId}}">
                 <!--<a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>-->
-                <a href="#" ng-click="">{{ item }}</a>
+                <a href="#" ng-click="">{{item.name}}</a>
             </li>
         </ul>
         <!--Selected: <b>{{selected.item}}</b>-->

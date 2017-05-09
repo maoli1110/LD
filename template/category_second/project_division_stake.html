@@ -3,35 +3,44 @@
 <!-- 工程管理-工程划分-桩号数据展示页面 -->
 <div class="content division-stake">
     <div class="inner-wrapper" style="height: calc(100vh - 120px)">
-        <div class="contract-name" style="float: left;">合同1</div>
-        <div style="float: right;line-height: 54px;margin-right: 10px;font-size: 12px;">发起时间：yyyy-MM-dd</div>
+        <!--<div class="contract-name" style="float: left;">{{stakeInfo.title}}</div>-->
+        <div class="contract-name" style="float: left;">
+            {{stakeInfo.contractName}}>{{stakeInfo.unitProjectName}}>{{stakeInfo.deptProjectName}}>{{stakeInfo.childItemizedName}}|{{stakeInfo.itemizedNameNum}}
+        </div>
+        <div style="float: right;line-height: 54px;margin-right: 10px;font-size: 12px;">发起时间：{{stakeInfo.createTime | date:'yyyy-MM-dd'}}</div>
         <div style="clear: both;"></div>
-        <div class="field-key">合同段：</div>
-        <div class="field-value">C1合同段</div>
+        <div style="height: 40px;">
+            <div class="field-key">合同段：</div>
+            <div class="field-value">{{stakeInfo.contractName}}</div>
+        </div>
         <div class="field-key">分项工程：</div>
-        <div class="field-value">石方路基</div>
+        <div class="field-value">{{stakeInfo.itemizedName}}</div>
         <div class="field-key">分部工程：</div>
-        <div class="field-value">路基土石方工程</div>
+        <div class="field-value">{{stakeInfo.deptProjectName}}</div>
         <div class="field-key">单位工程：</div>
-        <div class="field-value">路基工程</div>
+        <div class="field-value">{{stakeInfo.unitProjectName}}</div>
         <div class="field-key">子分项工程：</div>
-        <div class="field-value">填方</div>
+        <div class="field-value">{{stakeInfo.childItemizedName}}</div>
         <div class="field-key">子分部工程：</div>
-        <div class="field-value">子分部工程1</div>
+        <div class="field-value">{{stakeInfo.childDeptProjectName}}</div>
         <div class="field-key">子单位工程：</div>
-        <div class="field-value">子单位工程1</div>
-        <div class="field-key">编号：</div>
-        <div class="field-value">C1-LJ1-1-2</div>
-        <div class="field-key">编号：</div>
-        <div class="field-value">C1-LJ1-1</div>
-        <div class="field-key">编号：</div>
-        <div class="field-value">C1-LJ1</div>
-        <div class="field-key">桩号：</div>
-        <div class="field-value">GK3+354.115~GK3+454.265</div>
+        <div class="field-value">{{stakeInfo.childUnitProjectName}}</div>
+        <div class="field-key">单位工程编号：</div>
+        <div class="field-value">{{stakeInfo.unitProjectNameNum}}</div>
+        <div class="field-key">分部工程编号：</div>
+        <div class="field-value">{{stakeInfo.deptProjectNameNum}}</div>
+        <div class="field-key">分项工程编号：</div>
+        <div class="field-value">{{stakeInfo.itemizedNameNum}}</div>
+        <div style="height: 40px;clear: both;">
+            <div style="width: 79%;" class="field-key">
+                <div class="field-key" style="width: 19%;float: right;">桩号：</div>
+            </div>
+            <div class="field-value">{{stakeInfo.stakeNum}}</div>
+        </div>
         <hr style="clear: both"/>
         <div style="height: 40px;line-height: 40px;">
             <div class="" style="float: left;font-size: 12px;">合同图号：</div>
-            <input id="editContNumInput" type="text" class="input-text input-border" disabled value="aaaaa"
+            <input id="editContNumInput" type="text" class="input-text input-border" disabled value="{{stakeInfo.contractPictureNum}}"
                    style="width: 199px;"/>
             <button class="button twoLetter" style="height: 30px;"
                     ng-click="editContNum()" id="editContNum">编辑
@@ -49,7 +58,7 @@
             <button class="button fiveLetter" ng-click="editCompGroup()">更改构件组</button>
         </div>
         <div style="height: 40px;line-height: 40px;">
-            <input type="text" class="input-text input-border" style="width: 265px;margin-left: 0px;"/>
+            <input id="compGroupName" readonly type="text" value="{{stakeInfo.compGroupName}}" class="input-text input-border" style="width: 265px;margin-left: 0px;"/>
             <div class="icon icon-delete" ng-click="deleteCompGroup()"></div>
         </div>
     </div>

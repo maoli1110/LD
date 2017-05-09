@@ -3,7 +3,7 @@
 var ApplicationConfiguration = (function(){
 	// 应用程序名和依赖
 	var applicationModuleName = 'appname';
-	var applicationModuleVendorDependencies = ['ui.router','ui.bootstrap'];
+	var applicationModuleVendorDependencies = ['ui.router','ui.bootstrap','angularFileUpload'];
 
 	// 添加新模块
 	var registerModule = function(moduleName, dependencies) {

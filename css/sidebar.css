@@ -299,6 +299,9 @@
   min-width: 125px;
   background: #d3d8e4;
 }
+#rMenu .sub-operation > li {
+  /*visibility:hidden*/
+}
 #rMenu .operation li:hover{
   background: #d3d8e4;
   font-weight: bold;
@@ -307,7 +310,7 @@
   background: #eff2f9;
   font-weight: bold;
 }
-#rMenu .move-operation{
+#rMenu .sub-operation-move{
   position: absolute;
   top: 0;
   left: 100px;

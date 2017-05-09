@@ -4,32 +4,36 @@
  */
 
 
-angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 'commonService', '$timeout', '$compile',
-    function ($scope, $http, $uibModal, commonService, $timeout, $compile) {
+angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 'commonService', '$timeout', '$compile', '$state','FileUploader',
+    function ($scope, $http, $uibModal, commonService, $timeout, $compile, $state,FileUploader) {
 
-        //contractlist是否完成repeat标志
-        // $scope.flag={
-        //     contractListRepeat:false
-        // };
-        
+        var docsUploadList = [];
+        // $scope.flag.docsRepeatMind = false; //资料上传超过30个防止多次提醒
+
+        // var uploader = $scope.uploader = new FileUploader({
+        //     url: basePath + 'fileupload/upload.do'
+        //     // queueLimit:30
+        // });
+
+        // contractlist是否完成repeat标志
+        $scope.flag = {
+            contractListRepeat: false
+        };
+
         //获取项目部
-        commonService.getDept().then(function(data){
+        commonService.getDept().then(function (data) {
             $scope.deptList = data;
         })
 
-        //获取项目部下合同段
-        $scope.getContractList = function(deptId){
-            commonService.getContractList(deptId).then(function(data){
-                $scope.contractList = data.data;
-            });
-        }
-
+        // 获取左侧的项目部id
+        $scope.getContractId = function (deptId) {
+            $scope.deptId = deptId;
+        };
 
         /*
          * 初始化模态框
          * 初始化参数配置
          * */
-        $scope.items = ['item1', 'item2', 'item3'];
         $scope.animationsEnabled = true;
         // 新建施工合同
         $scope.createConstructModal = function () {
@@ -37,17 +41,16 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 animation: $scope.animationsEnabled,
                 size: 'lg',
                 templateUrl: 'template/category_first/modal_create_construct_contract.html',
-                controller: 'ModalCtrl',
+                controller: 'CreateConstractModalCtrl',
                 resolve: {
                     items: function () {
-                        return $scope.items;
+                        return $scope.deptId;
                     }
                 }
             });
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-            }, function () {
-
+            modalInstance.result.then(function (sendContent) {
+                // $scope.selected = selectedItem;
+                // console.log(selectedItem);
             });
         };
         // 新建监理合同
@@ -56,16 +59,15 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 animation: $scope.animationsEnabled,
                 size: 'lg',
                 templateUrl: 'template/category_first/modal_create_supervise_contract.html',
-                controller: 'ModalCtrl',
+                controller: 'CreateSupervisionModalCtrl',
                 resolve: {
                     items: function () {
-                        return $scope.items;
+                        return $scope.deptId;
                     }
                 }
             });
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-            }, function () {
+            modalInstance.result.then(function (sendContent) {
+                // $scope.selected = selectedItem;
             });
         };
         // 新建试验室合同
@@ -74,35 +76,125 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 animation: $scope.animationsEnabled,
                 size: 'lg',
                 templateUrl: 'template/category_first/modal_create_Lab_contract.html',
-                controller: 'ModalCtrl',
+                controller: 'CreateSupervisionLabModalCtrl',
                 resolve: {
                     items: function () {
-                        return $scope.items;
+                        return $scope.deptId;
                     }
                 }
             });
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-            }, function () {
+            modalInstance.result.then(function (sendContent) {
+            });
+        };
+        // 编辑施工合同
+        $scope.editConstructModal = function () {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                size: 'lg',
+                templateUrl: 'template/category_first/modal_edit_construct_contract.html',
+                controller: 'EditConstractModalCtrl',
+                resolve: {
+                    items: function () {
+                        return {
+                            id: $scope.id,
+                            deptId: $scope.deptId,
+                            constructConstractInfos: $scope.constructConstractInfos
+                        };
+                    }
+                }
+            });
+            modalInstance.result.then(function (sendContent) {
+                // $scope.selected = selectedItem;
+                // console.log(selectedItem);
+            });
+        };
+        // 编辑监理合同
+        $scope.editSuperviseModal = function () {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                size: 'lg',
+                templateUrl: 'template/category_first/modal_edit_supervise_contract.html',
+                controller: 'EditSupervisionModalCtrl',
+                resolve: {
+                    items: function () {
+                        return {
+                            id: $scope.id,
+                            deptId: $scope.deptId,
+                            supervisionConstractInfos: $scope.supervisionConstractInfos
+                        };
+                    }
+                }
+            });
+            modalInstance.result.then(function (sendContent) {
+            });
+        };
+        // 编辑试验室合同
+        $scope.editLabModal = function () {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                size: 'lg',
+                templateUrl: 'template/category_first/modal_edit_Lab_contract.html',
+                controller: 'EditSupervisionLabModalCtrl',
+                resolve: {
+                    items: function () {
+                        return {
+                            id: $scope.id,
+                            deptId: $scope.deptId,
+                            labConstractInfos: $scope.labConstractInfos
+                        };
+                    }
+                }
+            });
+            modalInstance.result.then(function (sendContent) {
             });
         };
         // 删除合同
-        $scope.deleteModal = function () {
+        $scope.deleteConstractModal = function () {
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 // size: 'sm',
                 templateUrl: 'template/category_first/modal_delete_constract.html',
-                controller: 'ModalCtrl',
+                controller: 'deleteConstractModalCtrl',
                 resolve: {
                     items: function () {
-                        return $scope.items;
+                        return $scope.id;
                     }
                 }
             });
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-            }, function () {
-                //console.info('Modal dismissed at: ' + new Date());
+            modalInstance.result.then(function () {
+                
+            });
+        };
+        $scope.deleteSupervisionModal = function () {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                // size: 'sm',
+                templateUrl: 'template/category_first/modal_delete_constract.html',
+                controller: 'deleteSupervisionModalCtrl',
+                resolve: {
+                    items: function () {
+                        return $scope.id;
+                    }
+                }
+            });
+            modalInstance.result.then(function () {
+
+            });
+        };
+        $scope.deleteSupervisionLabModal = function () {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                // size: 'sm',
+                templateUrl: 'template/category_first/modal_delete_constract.html',
+                controller: 'deleteSupervisionLabModalCtrl',
+                resolve: {
+                    items: function () {
+                        return $scope.id;
+                    }
+                }
+            });
+            modalInstance.result.then(function () {
+
             });
         };
         // 预览合同
@@ -111,7 +203,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 animation: $scope.animationsEnabled,
                 size: 'lg',
                 templateUrl: 'template/category_first/modal_preview.html',
-                controller: 'ModalCtrl',
+                controller: 'PreviewConstractModalCtrl',
                 resolve: {
                     items: function () {
                         return $scope.items;
@@ -128,111 +220,60 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
             $scope.animationsEnabled = !$scope.animationsEnabled;
         };
 
-        var modalMap = {};
-        // 页面下拉菜单控制
-        console.log(111);
-        function onClick(buttonID, templateID, btnNone) {
-            $('#' + buttonID).css('display', 'inline-block');
-            var btnNone = btnNone.split(',');
-            btnNone.forEach(function (i, v) {
-                $('#' + i).css('display', 'none');
-            });
-            $('#' + templateID).css('display', 'inline-block').siblings().css('display', 'none');
+        // 获取左侧的合同id
+        $scope.getContractTarget = function (element, id) {
+            $scope.id = id;
+            // console.log(element);
+            // console.log(id);
+            // 施工合同数据展示
+            var constructConstractId = id;
+            if (!constructConstractId) {
+                constructConstractId = 2;
+            }
+            commonService.getConstructConstractInfos(constructConstractId).then(function (data) {
+                $.each(data, function (i, v) {
+                    if (null == v || undefined == v) {
+                        data[i] = ' ';
+                    }
+                });
+                $scope.constructConstractInfos = data;
+                // console.log(data);
+            })
+            // 删除合同和编辑合同控制请选中一个合同
+            selectProject(element)
+            function selectProject(element) {
+                $(".selectProject").removeClass("selectProject");
+                $(element).addClass("selectProject");
+            }
+
+            // 监理合同数据展示
+            var supervisionConstractId = id;
+            commonService.getSupervisionConstractInfos(supervisionConstractId).then(function (data) {
+                $scope.supervisionConstractInfos = data;
+                // console.log(data);
+            })
+
+            // // 监理试验室合同数据展示
+            var labConstractId = id;
+            commonService.getLabConstractInfos(labConstractId).then(function (data) {
+                $scope.labConstractInfos = data;
+                // console.log(data);
+            })
         }
 
-        $('.dropdown-menu li').on('click', function () {
-            var buttonID = $(this).attr('buttonID');
-            var templateID = $(this).attr('templateID');
-            var btnNone = $(this).attr('btnNone');
-            onClick(buttonID, templateID, btnNone);
-            modalMap.buttonID = buttonID;
-
-        });
-
-        $('.edit-contract').on('click', function (e) {
-            console.log(modalMap.buttonID);
-            e.preventDefault();
-            var $select = $(".selectProject");
-
-            if ($select.length == 0) {
-                alert('请选择一个合同');
-                return;
-            }
-            switch (modalMap.buttonID) {
-                case "createConstructModal":
-                    $(this).attr('ng-click', $scope.createConstructModal());
-                    break;
-                case "createSuperviseModal":
-                    $(this).attr('ng-click', $scope.createSuperviseModal());
-                    break;
-                case "createLabModal":
-                    $(this).attr('ng-click', $scope.createLabModal());
-                    break;
-                default:
-                    $(this).attr('ng-click', $scope.createConstructModal());
-                    break;
-            }
-        });
-        // 删除合同和编辑合同控制请选中一个合同
-        $('.attachment .attachment-operate').on("click", function () {
-            selectProject(this);
-        });
-
-        // 删除附件
-        $('.file-wrapper .file-item').on("click", function () {
-            selectProject(this);
-        });
-
-        function selectProject(element) {
-            $(".selectProject").removeClass("selectProject");
-            $(element).addClass("selectProject");
+        //点击上传资料按钮
+        $scope.docsUpload = function () {
+            $scope.flag.docsRepeatMind = false;
+            $('.upload-docs').attr('uploader', 'uploader');
+            $('.upload-docs').attr('nv-file-select', '');
+            $('.upload-docs').click();
         }
 
-        $('#delete-contract').on('click', function () {
-            var $select = $(".selectProject");
-            if ($select.length == 0) {
-                alert('请选择一个合同');
-                return;
-            }
-            $(this).attr('ng-click', $scope.deleteModal());
-
-        });
-
-        console.log($('#btn-delete'));
-        $('#btn-delete').on('click', function () {
-            var $select = $(".selectProject");
-            if ($select.length == 0) {
-                alert('请选择一个合同');
-                return;
-            }
-            $(this).attr('ng-click', $scope.deleteModal());
-
-        });
-
-        // 施工合同数据展示
-        var constructConstractId = 2;
-        commonService.getConstructConstractInfos(constructConstractId).then(function (data) {
-            $scope.constructConstractInfos = data;
-        })
-
-        // 监理合同数据展示
-        // var supervisionConstractId = 1;
-        // commonService.getSupervisionConstractInfos(supervisionConstractId).then(function (data) {
-        //     $scope.supervisionConstractInfos = data;
-        //     // console.log(data);
-        // })
-        //
-        // // 监理试验室合同数据展示
-        // var labConstractId = 1;
-        // commonService.getLabConstractInfos(labConstractId).then(function (data) {
-        //     $scope.labConstractInfos = data;
-        //     // console.log(data);
-        // })
 
         //contractlist repeat finish end
-        // $scope.$on('contractlistNgRepeatFinished',function(){
-        //     if(!$scope.flag.contractListRepeat){
-        //         $scope.flag.contractListRepeat=true;
-        //     }
-        // });
+        $scope.$on('contractlistNgRepeatFinished', function () {
+            if (!$scope.flag.contractListRepeat) {
+                $scope.flag.contractListRepeat = true;
+            }
+        });
     }]);
