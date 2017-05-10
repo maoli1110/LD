@@ -1,10 +1,41 @@
 [
   {
-    "id": 1,
-    "sectionNum": "string"
+    "id": 2,
+    "sectionNum": "合同段1(造假数据)",
+    "ppid":10
   },
   {
-    "id": 2,
-    "sectionNum": "string"
+    "id": 10,
+    "sectionNum": "合同段2(造假数据)",
+    "deptId": 0,
+    "contractNum": "string",
+    "contractAmount": 0,
+    "projectName": "string",
+    "signedDate": "2017-05-10T05:14:26.030Z",
+    "constructionUnit": "string",
+    "supervisionUnit": "string",
+    "supervisingEngineer": "string",
+    "contractFiles": [
+      {
+        "id": 0,
+        "sectionContractId": 0,
+        "fileSize": 0,
+        "fileName": "string",
+        "fileMD5": "string",
+        "fileUUID": "string"
+      }
+    ],
+    "executionUnit": "string",
+    "constructionManager": "string",
+    "projectChief": "string",
+    "startStakeMark": "string",
+    "endStakeMark": "string",
+    "sectionLength": 0,
+    "planStartDate": "2017-05-10T05:14:26.030Z",
+    "planEndDate": "2017-05-10T05:14:26.030Z",
+    "actualStartDate": "2017-05-10T05:14:26.030Z",
+    "actualEndDate": "2017-05-10T05:14:26.030Z",
+    "duration": 0,
+    "ppid": 0
   }
 ]

@@ -3,7 +3,7 @@
  * 第二类树结构
  * Created by kylee on 2017/5/1.
  */
-angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
+angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
     function ($scope, $http,$uibModal,commonService,$timeout,$compile,$state) {
         /**
          * $scope.ztreeOpenId为当前展开的树的treeId
@@ -459,11 +459,9 @@ angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','
             });
         });
 
-        //=====合同管理分割线
 
-        //======变更管理分割线=======
 
-        //======计量分割线
+        //======我是变更管理分割线=======
         
         
     }]);

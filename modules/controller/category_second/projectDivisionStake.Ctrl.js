@@ -5,82 +5,59 @@
  */
 angular.module('core').controller('projectDivisionStakeCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile',
     function ($scope, $http,$uibModal,commonService,$timeout,$compile) {
-        console.log($scope.name,'$scope.name')
+        console.log($scope.name,'$scope.name');
+        $scope.ppid = $scope.openPpid;
         //点击左侧树节点对应的桩号(sendCtrl->projectDivisionStakeCtrl父子通信)
-        $scope.$on('call',function(event,data){
-            $scope.name = data;
-            alert($scope.name)
+        $scope.$on('call',function(event,stakeInfo, ppid){
+            $scope.stakeInfo = stakeInfo;
+            $scope.ppid = ppid;
         });
 
-
-        /* TODO 通过左侧树拿到
-        1. 合同段、单位工程、子单位工程、单位工程编号
-        2. 分部工程、子分部工程、分部工程编号
-        3. 分项工程、子分项工程、分项工程编号
-         */
-        // 树没写好 先造假数据
-        $scope.stakeInfo = {
-            'contractName':'C1合同段','unitProjectName':'路基工程', 'childUnitProjectName':'子单位工程', 'unitProjectNameNum':'C1-LJ1',
-            'deptProjectName':'路基土石方工程','childDeptProjectName':'子分部工程','deptProjectNameNum':'C1-LJ1-1',
-            'itemizedName':'石方路基','childItemizedName':'填方','itemizedNameNum':'C1-LJ1-1-2',
-            'treeId':7  // 左侧树对应到数据库中的id
-        };
+        
         // 获取子分项工程的明细信息(桩号、合同图号、已关联构件组、发起时间)
-        commonService.findChildItemizedDetail($scope.stakeInfo.treeId).then(function(data){
-            $scope.stakeInfo.stakeNum = data.data.stakeMark;  // 桩号
-            $scope.stakeInfo.contractPictureNum = data.data.contractPictureNum;    // 合同图号
-            $scope.stakeInfo.compGroupId = data.data.compGroupId;    // 已关联构件组id
-            $scope.stakeInfo.compGroupName = data.data.compGroupName;    // 已关联构件组名称
-            $scope.stakeInfo.createTime = 1493575264000;    // 已关联构件组名称
-            $scope.stakeInfo.childItemId = data.data.id;    // 内容页该子分项工程的id
-        });
-        // 点击合同段时拿到合同段的明细信息中有ppid 也要通过左侧树传过来
-        $scope.ppid = 1;
+        if($scope.stakeInfo != null) {
+            commonService.findChildItemizedDetail($scope.stakeInfo.treeId).then(function(data){
+                $scope.stakeInfo.stakeNum = data.data.stakeMark;  // 桩号
+                $scope.stakeInfo.contractPictureNum = data.data.contractPictureNum;    // 合同图号
+                $scope.stakeInfo.compGroupId = data.data.compGroupId;    // 已关联构件组id
+                $scope.stakeInfo.compGroupName = data.data.compGroupName;    // 已关联构件组名称
+                $scope.stakeInfo.createTime = 1493575264000;    // 创建时间
+                $scope.stakeInfo.childItemId = data.data.id;    // 内容页该子分项工程的id
+            });
+        }
 
         // 拼接页面左上角要显示的字符串
         //var title = $scope.stakeInfo.contractName+'>'+$scope.stakeInfo.unitProjeditCompGroupectName+'>'+$scope.stakeInfo.deptProjectName+'>'+$scope.stakeInfo.childItemizedName+'|'+$scope.stakeInfo.itemizedNameNum;
         //$scope.stakeInfo.title = title;
 
-
-
         // 更改构件组弹框控制开始
         $scope.editCompGroup = function () {
-            // TODO 后台请求所有构件组数据 此处先造假数据
-            var compGroupInfos = new Array();
-            for(var i=0;i<99;i++) {
-                var item = {"compGroupId": i,
-                    "name": "GK0+358.213~GK3+145.253土方工程构件组"+i};
-                compGroupInfos.push(item);
-            }
-
-            /*var compGroupInfos = null;
-            commonService.findCompGroupsByPpid($scope.ppid).then(function(data){
-                compGroupInfos = data;
-            });*/
-            if(compGroupInfos == null){
-                console.log('没有构件组信息！');
-                return;
-            }
-            var modalInstance = $uibModal.open({
-                //animation: true,    // 弹框的动画效果 默认是true
-                size: 'lg',
-                templateUrl: 'template/category_second/edit_comp_group.html',
-                controller: 'editCompGroupCtrl',
-                resolve: {
-                    compGroupInfos: function () {
-                        return compGroupInfos;
-                    }
-                }
-            });
-            modalInstance.result.then(function (compGroupInfo) {
-                commonService.updateCompGroupId($scope.stakeInfo.childItemId, compGroupInfo.compGroupId).then(function(){
-                    console.log('修改构件组成功');
-                    $('#compGroupName').val(compGroupInfo.name);
+            if($scope.ppid != null) {
+                // 请求构件组数据
+                commonService.findCompGroupsByPpid($scope.ppid).then(function(data){
+                    // 弹框
+                    var modalInstance = $uibModal.open({
+                        //animation: true,    // 弹框的动画效果 默认是true
+                        size: 'lg',
+                        templateUrl: 'template/category_second/edit_comp_group.html',
+                        controller: 'editCompGroupCtrl',
+                        resolve: {
+                            compGroupInfos: function () {
+                                return data.data;
+                            }
+                        }
+                    });
+                    modalInstance.result.then(function (compGroupInfo) {
+                        commonService.updateCompGroupId($scope.stakeInfo.childItemId, compGroupInfo.compGroupId).then(function(){
+                            console.log('修改构件组成功');
+                            $('#compGroupName').val(compGroupInfo.name);
+                        });
+                    }, function () {
+                        //console.info('Modal dismissed at: ' + new Date());
+                        console.log("取消修改构件组");
+                    });
                 });
-            }, function () {
-                //console.info('Modal dismissed at: ' + new Date());
-                console.log("取消修改构件组");
-            });
+            }
         };
         // 更改构件组弹框控制结束
 

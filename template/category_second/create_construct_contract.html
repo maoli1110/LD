@@ -20,24 +20,23 @@
             <span class="titleText">章节号： </span>
             <select class="input-search input-border">
                 <option>全部章节</option>
-                <option>100章</option>
-                <option>200章</option>
-                <option>300章</option>
+                 <option ng-repeat="item in chapters" value="{{item.key}}">{{item.value}}</option>
             </select>
         </div>
 
 
         <!-- 搜索框  -->
-        <div class="searchBox contract-search">
-            <span class="titleText">关键词:</span>
-            <input type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 50%; height:30px;" ng-model="input1" >
-            <a class="clear" style="right: 56px;position: relative;top: 5px;"  ng-click="btnClose()">
+         <div class="contract-search clearfix" style="float: left; width:50%" input-search-child-items>
+            <span class="titleText">关键词：</span>
+            <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 70%;">
+            <a id="clearSearchKey" class="clear" style="right: 56px;position: relative;top: 5px;" ng-click="clearSearchKey()">
                 <i class="btn-close"></i>
             </a>
-            <a class="btn-wrap" style="right: 50px;position: relative;top: 5px;">
+            <a class="btn-wrap" style="right: 50px;position: relative;top: 5px;" ng-click="searchChildItems()">
                 <i class="btn-search"></i>
             </a>
         </div>
+
         <div class="checkBox">
             <button class=" button allcheck" sele="true" ng-click="selectBtn($event.target)" ng-model="yVmar">全部</button>
             <button class=" button checked" sele="" ng-click="selectBtn($event.target)">已选</button>
@@ -68,18 +67,27 @@
                 </div>
             </div>
             <div class="table-list" style=" max-height:500px; overflow-y: scroll">
-                <div class="aline contractList" ng-repeat="data in dataList">
+                <div class="aline contractList" listid={{item.id}} ng-repeat="item in childItemizedInfos.content">
                     <div class="tbody" style="width: 5%"><span ng-click="changeClass($event.target)"></span></div>
-                    <div class="tbody" style="width: 10%">{{data.a}}</div>
-                    <div class="tbody" style="width: 15%">{{data.b}}</div>
-                    <div class="tbody" style="width: 10%">{{data.c}}</div>
-                    <div class="tbody" style="width: 15%">{{data.d}}</div>
-                    <div class="tbody" style="width: 15%">{{data.e | number:2}}</div>
-                    <div class="tbody" style="width: 15%">{{data.f}}</div>
+                    <div class="tbody" style="width: 10%">{{item.listNum}}</div>
+                    <div class="tbody" style="width: 15%">{{item.itemName}}</div>
+                    <div class="tbody" style="width: 10%">{{item.measurementUnit}}</div>
+                    <div class="tbody" style="width: 15%">{{item.contractPrice}}</div>
+                    <div class="tbody" style="width: 15%">{{item.contractQuantity}}</div>
+                    <div class="tbody" style="width: 15%">{{item.contractAmount}}</div>
                     <div class="tbody" style="width: 15%"><input type="text" class="input-border" required ng-minlength="4" ng-model="myText"></div>
                 </div>
             </div>
+        </div>
 
+        <div style="text-align: center;margin-top: 10px;font-size: 14px;">
+            <span style="margin-right: 40px;">共{{childItemizedInfos.totalElements}}条</span>
+            <i class="first page" ng-click="firstPage()"></i>
+            <i class="previous page" ng-click="prevPage()"></i>
+            <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number+1}}"/>
+            / <span>{{childItemizedInfos.totalPages}}</span>
+            <i class="next page" ng-click="nextPage()"></i>
+            <i class="last page" ng-click="lastPage()"></i>
         </div>
  </div>
     </div>

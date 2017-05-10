@@ -1,4 +1,4 @@
-<div class="model-content" >
+<div class="model-content" edit-comp-group>
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">
             <p>新增/编辑施工合同</p>
@@ -7,20 +7,23 @@
             </a>
         </h3>
     </div>
-    <div class="modal-body" id="modal-body" delete-attachment>
+    <div class="modal-body" id="modal-body">
         <!--新建施工合同、新建监理合同、新建试验室合同以及编辑合同界面公共部分-->
         <div>
             <div class="top-content attachment" arrow-swiper>
                 <div class="attachment-arrow-left">
                     <i class="ico-left"></i>
                 </div>
-                <div class="constract">
-                    <button class="btn-upload" ng-click="docsUpload()">上传附件</button>
+                <div class="constract" upload-files delete-attachment>
+                    <element ng-if="uploader">
+                        <input class="upload-docs" type="file" nv-file-select="" uploader="uploader" style="display: none;"/>
+                    </element>
+                    <button class="btn-upload upload-docs" ng-click="docsUpload()">上传附件</button>
                     <div class="attachment-wrapper" >
-                        <a class="wrapper-pdf" ng-repeat="">
+                        <a class="wrapper-pdf" ng-repeat="item in uploader.queue" ng-show="uploader.isHTML5&& item.file.name.split('.')[item.file.name.split('.').length-1] == 'pdf' || uploader.isHTML5 && item.file.type.substr(0,5) === 'image'" >
                             <i class="ico-pdf"></i>
-                            <span class="txt-pdf">上传附件上传附件上传附件</span>
-                            <div class="inner-mask" >
+                            <span class="txt-pdf">{{item.file.name}}</span>
+                            <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target)">
                                 <i class="delete-attachment" ng-click="deleteAttachmentModal()"></i>
                             </div>
                         </a>
@@ -386,14 +389,14 @@
                     <div class="form-group"
                          ng-class="{ 'has-error' : formConstract.associatedEngineer.$invalid && !formConstract.associatedEngineer.$pristine }">
                         <div class="col-xs-2" style="text-align: left">
-                            <label for="ppid" class="form-control"
+                            <label for="compGroupName" class="form-control"
                                    style="border: none">关联工程：</label>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" class="associated_engineer" id="ppid"
+                            <input type="text" class="associated_engineer" id="compGroupName"
                                    name="associatedEngineer" required
                                    ng-maxlength="100" ng-model="as_engineer">
-                            <a class="btn-associate">
+                            <a class="btn-associate" ng-click="editCompGroup()">
                                 <span class="ico-associate"></span>
                             </a>
                             <p class="help-block">

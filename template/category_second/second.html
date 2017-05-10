@@ -5,84 +5,12 @@
     <!--主体内容-->
     <article class="main-container clearfix" style="height: calc(100% - 73px)">
         <!--左侧树节点导航-->
-        <aside class="menu-nav">
-	        <div class="contract-manage" side-operation btn-wrapper window-resize>
-			    <div style="margin-top: 5px;border-bottom: 1px solid #DADBDF;height: 40px;">
-			        <div style="width: calc(100% - 49px);float: left;">
-			            <!--搜索框-->
-			            <div class="contract-search" style="border: none;" input-search>
-			                <input id="secondTreeInput" type="text" class="input-search input-border" placeholder="快速搜索合同">
-			                <a class="clear" id="clearSecondTree" style="display:none;">
-			                    <i class="btn-close"></i>
-			                </a>
-			                <a class="btn-wrap" id="searchSecondTree">
-			                    <i class="btn-search"></i>
-			                </a>
-			            </div>
-			        </div>
-			        <!-- 展开、收缩按钮 -->
-			        <div>
-			            <button type="button" class="openOrCloseTree" id="expand">
-			                <span>+</span>
-			            </button>
-			            <button type="button" class="openOrCloseTree" style="margin-left: 5px;" id="collapse">
-			                <span>-</span>
-			            </button>
-			        </div>
-			    </div>
-			    <ul class="left-list" according-repeat>
-			        <li class="project-name" ng-repeat="item in deptList track by $index" dept-repeat-finish>
-			            <i class="icon-project"></i>
-			            <a title="" class="project-name-span" ng-click="getContractList(item.deptId)">{{item.deptName}}</a>
-			            <ul class="contract-list" style="display: none;">
-			                <li class="contract-name active" ng-repeat="item1 in contractList track by $index" contractlist-repeat-finish>
-			                    <a ng-click="getContractInfo(item1.id)">{{item1.sectionNum}}<i class="icon state-down" ng-click="getzTreeNode(item.deptId,item1.id,'-1')"></i></a>
-			                    <ul id="ztree_{{item.deptId}}_{{item1.id}}" class="ztree" style="display: none;">
-			                        <li>1</li>
-			                    </ul>
-			                </li>
-			            </ul>
-			        </li>
-			        <li class="project-name">
-			            <i class="icon-project"></i>
-			            <a title="" class="project-name-span">九寨沟到绵羊绵羊绵羊绵羊项目</a>
-			            <ul class="contract-list" style="display: none;">
-			                <li class="contract-name" ng-click="test()"><a href="">添加单位工程</a></li>
-					    	<li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_contract_children.html','ModalCtrl','unit')"><a href="">添加子单位工程</a></li>
-
-					    	<li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_distribution.html','ModalCtrl')"><a href="">添加分部工程</a></li>
-					    	<li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_distribution_children.html','ModalCtrl')"><a href="">添加子分部工程</a></li>
-
-					    	<li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_itemized.html','ModalCtrl','lg')"><a href="">添加分项工程</a></li>
-					    	<li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_itemized_children.html','ModalCtrl','lg')"><a href="">添加子分项工程</a></li>
-					    	<li id="ztree_test" class="ztree"></li>
-			            </ul>
-			        </li>
-			    </ul>
-			</div>
-			<div class="btn-wrapper">
-			    <span class="btn-slide"></span>
-			    <span class="btn-arrow"></span>
-			</div>
-        </aside>
+        <aside class="menu-nav" ng-include="'template/core/sidebar_second.html'" ng-show="currentRouterNum === 2"></aside>
+        <aside class="menu-nav" ng-include="'template/core/sidebar_third.html'" ng-show="currentRouterNum === 3"></aside>
+        <aside class="menu-nav" ng-include="'template/core/sidebar_four.html'" ng-show="currentRouterNum === 4"></aside>
 		<!-- <div style="color:#fff" class="content-main" ui-view></div> -->
 		<!--右侧数据内容展示-->
-		<section class="content-wrapper">
-			 <!--固定导航-->
-		    <div class="top-navbar" tab-active>
-		        <a href="javascript:;" class="tab" ui-sref="first">
-		            <span>合同管理</span>
-		        </a>
-		        <a href="javascript:;" class="active tab" ui-sref="second.projectDivisionContract">
-		            <span>工程划分</span>
-		        </a>
-		        <a href="javascript:;" class="tab" ui-sref="second.listManageContract">
-		            <span>清单管理</span>
-		        </a>
-		    </div>
-		    <div class="main-content" style="height: calc(100% - 40px);" ui-view>
-		    </div>
-		</section>
+		<section class="content-wrapper"  ui-view></section>
     </article>
 </div>
 <div id="rMenu" class="treeRightMenu">

@@ -22,6 +22,8 @@
 .list-manage-contract .fileUpload i{background:url(../imgs/icon-button.png) no-repeat -106px -11px; display: inline-block; width: 20px; height: 15px; float: left;}
 .list-manage-contract .fileBox{ height: calc(100vh - 300px); border:1px solid #DBDEE7; position: relative;}
 .list-manage-contract .titleText{ line-height: 30px; float: left;}
+.list-manage-contract .QA-icon{ float: right; display: inline-block; padding: 0 14px; position: relative;}
+.list-manage-contract .QA-icon p{ position: absolute; top: 30px; right: 10px;  width: 350px; background: #fff; z-index: 999; line-height: 27px; font-size: 12px; padding: 10px; display:none;}
 
 /**模态框**/
 .list-manage-contract.listManageContractModal{ width: 100%; min-height: 200px; padding: 20px;}
@@ -36,5 +38,5 @@
 .list-manage-contract .tbody span.active{ background: #000; background: url(../imgs/icon-button.png) no-repeat -91px -132px;}
 .list-manage-contract  .division_content{ border: 1px solid #DBDEE7; margin:0 10px; position: relative;}
 .list-manage-contract  .aline{ border-top: 1px solid #DBDEE7; border-bottom: 0px;}
-.list-manage-contract .ng-invalid{ border-color: red;}
+.list-manage-contract .ng-touched.ng-invalid{ border-color: red;}
 .list-manage-contract.warmMsg{ z-index: 9999; width: 150px; height: 48px; background: #000; position: fixed; top: 50%; left: 50%;margin-left: -75px; margin-top: -24px; color: #fff; text-align: center; line-height: 48px;}

@@ -1,27 +1,13 @@
-<div class="contract-manage" ng-controller="secondCtrl" side-operation btn-wrapper window-resize>
-    <!--下拉框-->
-    <!--<div class="contract-wrap">
-        <div class="dropdown contract-select">
-            <button class="menu" id="menu1" data-toggle="dropdown">
-                <span class="menu-name">施工合同</span>
-                <span class="arrow"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="menu1">
-                <li><a href="#">施工合同</a></li>
-                <li><a href="#">监理合同</a></li>
-                <li><a href="#">监理实验室合同</a></li>
-            </ul>
-        </div>
-    </div>-->
+<div class="contract-manage" side-operation btn-wrapper window-resize>
     <div style="margin-top: 5px;border-bottom: 1px solid #DADBDF;height: 40px;">
-        <div style="width: 70%;float: left;">
+        <div style="width: calc(100% - 49px);float: left;">
             <!--搜索框-->
-            <div class="contract-search" style="border: none;">
-                <input type="text" class="input-search input-border" placeholder="快速搜索合同">
-                <a class="clear">
+            <div class="contract-search" style="border: none;" input-search>
+                <input id="secondTreeInput" type="text" class="input-search input-border" placeholder="快速搜索合同">
+                <a class="clear" id="clearSecondTree" style="display:none;">
                     <i class="btn-close"></i>
                 </a>
-                <a class="btn-wrap">
+                <a class="btn-wrap" id="searchSecondTree">
                     <i class="btn-search"></i>
                 </a>
             </div>
@@ -36,42 +22,32 @@
             </button>
         </div>
     </div>
-
-    <ul class="left-list" according>
-        <li class="project-name">
+    <ul class="left-list" according-repeat>
+        <li class="project-name" ng-repeat="item in deptList track by $index" dept-repeat-finish>
             <i class="icon-project"></i>
-            <a title="" class="project-name-span">九寨沟到绵羊绵羊绵羊绵羊项目</a>
-            <ul class="contract-list" style="display: none;">
-                <li class="contract-name active">
-                    <a class="icon">合同段1有ztree</a><i class="icon" style="margin-left: 10px;">icon</i>
-                    <ul class="ztree" style="display: none;" id="ztree1">
+            <a title="" class="project-name-span" ng-click="getContractList(item.deptId)">{{item.deptName}}</a>
+            <ul id="ul-{{item.deptId}}" class="contract-list" style="display: none;">
+                <!-- <li class="contract-name active" ng-repeat="item1 in contractList track by $index" contractlist-repeat-finish>
+                    <a ng-click="getContractInfo(item1.id)">{{item1.sectionNum}}<i class="icon state-down" ng-click="getzTreeNode(item.deptId,item1.id,'-1')"></i></a>
+                    <ul id="ztree_{{item.deptId}}_{{item1.id}}" class="ztree" style="display: none;">
                         <li>1</li>
                     </ul>
-                </li>
-                <li class="contract-name">
-                     <a>合同段2</a><i class="icon" style="margin-left: 10px;">icon</i>
-                    <ul class="tree-list" style="display: none;">
-                        <li>1</li>
-                    </ul>
-                </li>
+                </li> -->
             </ul>
         </li>
         <li class="project-name">
             <i class="icon-project"></i>
             <a title="" class="project-name-span">九寨沟到绵羊绵羊绵羊绵羊项目</a>
             <ul class="contract-list" style="display: none;">
-                <li class="contract-name active">
-                    <a>合同段1</a><i class="icon" style="margin-left: 10px;">icon</i>
-                    <ul class="tree-list" style="display: none;">
-                        <li>1</li>
-                    </ul>
-                </li>
-                <li class="contract-name">
-                     <a>合同段2</a><i class="icon" style="margin-left: 10px;">icon</i>
-                    <ul class="tree-list" style="display: none;">
-                        <li>1</li>
-                    </ul>
-                </li>
+                <li class="contract-name" ng-click="test()"><a href="">添加单位工程</a></li>
+                <li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_contract_children.html','ModalCtrl','unit')"><a href="">添加子单位工程</a></li>
+
+                <li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_distribution.html','ModalCtrl')"><a href="">添加分部工程</a></li>
+                <li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_distribution_children.html','ModalCtrl')"><a href="">添加子分部工程</a></li>
+
+                <li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_itemized.html','ModalCtrl','lg')"><a href="">添加分项工程</a></li>
+                <li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_itemized_children.html','ModalCtrl','lg')"><a href="">添加子分项工程</a></li>
+                <li id="ztree_test" class="ztree"></li>
             </ul>
         </li>
     </ul>

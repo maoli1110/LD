@@ -1,16 +1,16 @@
 <link rel="stylesheet" href="css/list_manage_contract.css">
 <!-- 工程管理-清单管理-合同段数据展示页面 -->
 <div class="content list-manage-contract">
-    <div class="contract-name">路基工程>路基土石工程》土方工程>KK0+000~000>kkk+000</div>
+    <div class="contract-name">合同1</div>
+
+
     <div>
         <!-- 下拉框 -->
         <div class="contract-section">
             <span>章节号： </span>
             <select class="input-search input-border">
                 <option>全部章节</option>
-                <option>100章</option>
-                <option>200章</option>
-                <option>300章</option>
+                <option ng-repeat="item in chapters" value="{{item.key}}">{{item.value}}</option>
             </select>
 
 
@@ -37,10 +37,24 @@
         </div> -->
     </div>
     <div class="borderTop">
-        <button class="button twoLetter">导入</button>
-        <button class="button twoLetter">导出</button>
-        <button class="button twoLetter">清空</button>
-        <button class="button twoLetter">提交</button>
+        <button class="button twoLetter" ng-click="uploadFile()">导入</button>
+        <button class="button twoLetter" ng-click="DownloadContractlist()">导出</button>
+        <button class="button twoLetter" ng-click="clearContractlist()">清空</button>
+        <button class="button twoLetter" ng-click="subContractlist()">提交</button>
+
+        <div class="QA-icon">
+            <img src="./imgs/icon-Q.png">
+            <p>
+                必须遵守的规则：<br>
+                1、第一行为字段标题；
+                2、列的顺序依次为：清单编号、项目名称、计量单位、合同单价、合同数量、金额<br>
+                3、章节号编号必须带“章”；<br>
+                4、汇总类项目的计量单位必须为空；<br>
+                5、不能有合并单元格；<br>
+                6、避免空行；<br>
+                7、每个细目都要对应一个汇总类项目。”<br>
+            </p>
+        </div>
     </div>
     <div  class="division_content" style="height:calc(100% - 140px);">
 
@@ -48,7 +62,7 @@
             <div class="fileUpload">
                 <img src="./imgs/icon-form.png">
                 <h3>请先导入表格</h3>
-                <div><a href=""><i></i>下载标准表格样式</a></div>
+                <div><a href="./imgs/导入清单样例文件.xls" download="导入清单样例文件"><i></i>下载标准表格样式</a></div>
             </div>
 
     </div>

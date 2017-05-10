@@ -85,6 +85,7 @@ angular.module('core').directive('sideOperation', function () {
                 }
                 $('.dropdown-menu >li').on('click', function () {
                     $('.menu-name').text($(this).text());
+                    $('.menu-name').attr('class', 'menu-name ' + $(this).attr('id'));
                     if ($('.dropdown').hasClass('open')) {
                         $('.arrow').css({transform: 'rotate(0deg)'});
                     } else {
@@ -193,15 +194,15 @@ angular.module('core').directive('btnWrapper', function () {
  * @param ztreeNode
  * @param nodes
  */
-function getZtreeChildNode(ztreeNode, nodes){
-    if (!ztreeNode.isParent){
+function getZtreeChildNode(ztreeNode, nodes) {
+    if (!ztreeNode.isParent) {
         return;
     }
     var children = ztreeNode.children;
-    if(children.length > 0){
-        for(var i = 0; i < children.length; i++){
+    if (children.length > 0) {
+        for (var i = 0; i < children.length; i++) {
             var child = children[i];
-            if(nodes.indexOf(child) < 0) {
+            if (nodes.indexOf(child) < 0) {
                 nodes.push(child);
             }
             getZtreeChildNode(child, nodes);
@@ -214,10 +215,10 @@ function getZtreeChildNode(ztreeNode, nodes){
  * @param ztreeNode
  * @param nodes
  */
-function getZtreeParentNode(ztreeNode, nodes){
+function getZtreeParentNode(ztreeNode, nodes) {
     var pNode = ztreeNode.getParentNode();
-    if(pNode != null) {
-        if(nodes.indexOf(pNode) < 0) {
+    if (pNode != null) {
+        if (nodes.indexOf(pNode) < 0) {
             nodes.push(pNode);
         }
         getZtreeParentNode(pNode, nodes);
@@ -308,18 +309,14 @@ angular.module('core').directive('deleteAttachment', function ($uibModal) {
                     controller: 'deleteAttachmentModal',
                     resolve: {
                         items: function () {
-                            return scope.items;
+                            return {};
                         }
                     }
                 });
-                modalInstance.result.then(function (selectedItem) {
+                modalInstance.result.then(function () {
                     // scope.selected = selectedItem;
                 });
             };
-            
-            $('.btn-upload').on('click',function () {
-                
-            });
         }
     }
 });
@@ -349,9 +346,17 @@ angular.module('core').directive('accordingRepeat', function ($timeout) {
                         tree.slideDown(300);
                         $(ele.target).removeClass('state-down').addClass('state-up');
                         ztreeOpen = true;
+                        // 选中的ztree Id
                         scope.ztreeOpenId = tree.attr("id");
+                        // 选中的合同段id
+                        var selectedContractId = $(ele.target).parent().attr('id').substring('contract_'.length);
+                        // 根据选中的合同段id找到合同段对应的ppid
+                        for (var i = 0; i < scope.contractList.length; i++) {
+                            if (selectedContractId == scope.contractList[i].id) {
+                                scope.openPpid = scope.contractList[i].ppid;
+                            }
+                        }
                     } else {
-                        debugger
                         tree.slideUp(300);
                         $(ele.target).removeClass('state-up').addClass('state-down');
                         ztreeOpen = false;
@@ -453,7 +458,7 @@ angular.module('core').directive('constractManageDropDownControll', function (co
         link: function (scope, element, attr) {
             var modalMap = {};
             // 页面下拉菜单控制
-            function onClick(buttonID, templateID, btnNone,constractId,attachmentID) {
+            function onClick(buttonID, templateID, btnNone, constractId, attachmentID) {
                 $('#' + buttonID).css('display', 'inline-block');
                 var btnNone = btnNone.split(',');
                 btnNone.forEach(function (i, v) {
@@ -470,46 +475,12 @@ angular.module('core').directive('constractManageDropDownControll', function (co
                 var attachmentID = $(this).attr('attachmentID');
                 var constractId = $(this).attr('constractId');
                 var btnNone = $(this).attr('btnNone');
-                onClick(buttonID, templateID, btnNone,constractId,attachmentID);
+                onClick(buttonID, templateID, btnNone, constractId, attachmentID);
                 modalMap.buttonID = buttonID;
-                var $name = $(this).text();
-                switch ($name) {
-                    case '施工合同':
-                        //获取项目部下施工合同段
-                        scope.getContractList = function (deptId) {
-                            commonService.getContractList(deptId).then(function (data) {
-                                scope.contractList = data.data;
-                            });
-                        };
-                        break;
-                    case '监理合同':
-                        //获取项目部下监理合同段
-                        scope.getSupervisionList = function (deptId) {
-                            commonService.getSupervisionList(deptId).then(function (data) {
-                                scope.contractList = data.data;
-                            });
-                        };
-                        break;
-                    case '监理试验室合同':
-                        //获取项目部下监理试验室合同段
-                        scope.getSupervisionLaboratoryList = function (deptId) {
-                            commonService.getSupervisionLaboratoryList(deptId).then(function (data) {
-                                scope.contractList = data.data;
-                            });
-                        }
-                        break;
-                    default :
-                        //获取项目部下施工合同段
-                        scope.getContractList = function (deptId) {
-                            commonService.getContractList(deptId).then(function (data) {
-                                scope.contractList = data.data;
-                            });
-                        };
-                        break;
-                }
+                $('.contract-list').slideUp(300);
             });
-            // console.log(11111);
 
+            //编辑合同点击合同段号
             $('.edit-contract').on('click', function (e) {
                 e.preventDefault();
                 var $select = $(".selectProject");
@@ -533,25 +504,304 @@ angular.module('core').directive('constractManageDropDownControll', function (co
                         break;
                 }
             });
-            // 删除合同和编辑合同控制请选中一个合同
-            $('.attachment .attachment-operate').on("click", function () {
-                selectProject(this);
-            });
-            function selectProject(element) {
-                $(".selectProject").removeClass("selectProject");
-                $(element).addClass("selectProject");
+
+            scope.getCurrentClickItem = function (deptId, ele) {
+                function select(ele) {
+                    $(".select").removeClass("select");
+                    $(ele).addClass("select");
+                }
+                select(ele);
+
+                var $name = $('.menu-name').text();
+                switch ($name) {
+                    case '施工合同':
+                        //获取项目部下施工合同段
+                        commonService.getContractList(deptId).then(function (data) {
+                            scope.contractList = data.data;
+                        });
+                        break;
+                    case '监理合同':
+                        //获取项目部下监理合同段
+                        commonService.getSupervisionList(deptId).then(function (data) {
+                            scope.contractList = data.data;
+                        });
+                        break;
+                    case '监理试验室合同':
+                        //获取项目部下监理试验室合同段
+                        commonService.getSupervisionLaboratoryList(deptId).then(function (data) {
+                            scope.contractList = data.data;
+                        });
+                        break;
+                    default:
+                        //获取项目部下施工合同段
+                        commonService.getContractList(deptId).then(function (data) {
+                            scope.contractList = data.data;
+                        });
+                        break;
+                }
             }
 
-
+            //删除合同点击合同段号
             $('#delete-contract').on('click', function () {
                 var $select = $(".selectProject");
                 if ($select.length == 0) {
                     alert('请选择一个合同');
                     return;
                 }
-                $(this).attr('ng-click', scope.deleteModal());
+
+                switch (modalMap.buttonID) {
+                    case "createConstructModal":
+                        $(this).attr('ng-click', scope.deleteConstractModal());
+                        break;
+                    case "createSuperviseModal":
+                        $(this).attr('ng-click', scope.deleteSupervisionModal());
+                        break;
+                    case "createLabModal":
+                        $(this).attr('ng-click', scope.deleteSupervisionLabModal());
+                        break;
+                    default:
+                        $(this).attr('ng-click', scope.deleteConstractModal());
+                        break;
+                }
+
+            });
+            //新建合同选择项目
+            $('.btn-create').on('click', function () {
+                var $select = $(".select");
+                if ($select.length == 0) {
+                    alert('请选择一个项目');
+                    return;
+                }
+                switch (modalMap.buttonID) {
+                    case "createConstructModal":
+                        $(this).attr('ng-click', scope.createConstructModal());
+                        break;
+                    case "createSuperviseModal":
+                        $(this).attr('ng-click', scope.createSuperviseModal());
+                        break;
+                    case "createLabModal":
+                        $(this).attr('ng-click', scope.createLabModal());
+                        break;
+                    default:
+                        $(this).attr('ng-click', scope.createConstructModal());
+                        break;
+                }
 
             });
         }
     }
 })
+
+// 上传附件upload
+angular.module('core').directive('uploadFiles', function (FileUploader, $timeout) {
+    return {
+        restrict: 'AE',
+        link: function (scope, element, attr) {
+            var basePath = "http://192.168.13.215:8080/LBLD/",
+                popStateNum = 0;
+
+            var docSelectedList1 = [];
+            scope.uploadDocList = [];		//上传资料list
+            scope.onCompleteAllSignal = false; //是否上传成功signal
+            scope.uploadErrorSignal = false; //是否上传成功signal
+            scope.docsUploadList = [];
+            // scope.docSelectedList = []; 	//本地上传文件
+            var uploader = scope.uploader = new FileUploader({
+                url: basePath + 'fileupload/upload.do'
+                // queueLimit:30
+            });
+
+            scope.marker = {
+                docsRepeatMind: false
+            };
+
+            //FILTERS
+            uploader.filters.push({
+                name: 'customFilter',
+                fn: function (item /*{File|FileLikeObject}*/, options) {
+                    scope.docsUploadList.push(item);
+                    popStateNum++;
+                    if (scope.docsUploadList.length > 5) {
+                        if (!scope.marker.docsRepeatMind) {
+                            layer.alert('上传资料不能多于5个！', {
+                                closeBtn: 0,
+                                move: false
+                            });
+                        }
+                        scope.marker.docsRepeatMind = true;
+                        return this.queue.length < 5;
+                    }
+                    return this.queue.length < 5;
+                }
+            });
+
+            //点击上传资料按钮
+            scope.docsUpload = function () {
+                scope.marker.docsRepeatMind = false;
+                $('.upload-docs').attr('uploader', 'uploader');
+                $('.upload-docs').attr('nv-file-select', '');
+                $('.upload-docs').click();
+            }
+
+            
+
+            scope.deleteCurrentAttachment = function (ele,item) {
+                function select(ele) {
+                    $(".deleteSelect").removeClass("deleteSelect");
+                    $(ele).addClass("deleteSelect");
+                }
+                select(ele);
+                scope.uploader.queue.pop(item);
+            }
+
+            uploader.onAfterAddingFile = function (fileItem) {
+                var errorMessage = '';
+                if (fileItem.file.size <= 0) {
+                    errorMessage = "文件错误，不能上传！";
+                }
+                if (fileItem.file.size >= 50000000) {
+                    errorMessage = "文件大小超过50M限制！";
+                }
+                if (errorMessage) {
+                    scope.docsUploadList.pop(fileItem);
+                    fileItem.remove();
+                    layer.alert(errorMessage, {
+                        title: '提示',
+                        closeBtn: 0,
+                        move: false
+                    });
+
+                }
+            }
+
+            function save() {
+
+
+                // uploader.onErrorItem = function (item, response, status, headers) {
+                //     layer.closeAll();
+                //     $timeout(function () {
+                //         if (!uploadErrorSignal) {
+                //             layer.alert("网络错误，上传失败，请重新上传！", {
+                //                 title: '提示',
+                //                 closeBtn: 0,
+                //                 move: false
+                //             });
+                //
+                //             uploader.cancelAll();
+                //             uploader.clearQueue();
+                //             uploadErrorSignal = true;
+                //         }
+                //     }, 1000)
+                // }
+                //
+                // //上传分2种情况，资料(2)
+                // if (uploader.queue.length) {
+                //     uploader.uploadAll();
+                //     //每个上传成功之后的回调函数
+                //     uploader.onSuccessItem = function (fileItem, response, status, headers) {
+                //         //console.info('onSuccessItem', fileItem, response, status, headers);
+                //         updateUploadList(response, 'uploader');
+                //     };
+                //     //全部成功的回调函数
+                //     uploader.onCompleteAll = function () {
+                //         onCompleteAllSignal = true;
+                //     };
+                //
+                //
+                // }
+                //
+                // if (!uploader.queue.length) {
+                //     saveCooperation();
+                // }
+                //
+                // //轮询是否上传成功
+                // var checkUploadInterval = setInterval(function () {
+                //     if (onCompleteAllSignal == true && uploadErrorSignal == false) {
+                //
+                //         clearUploadInterval();
+                //         layer.alert('onCompleteAllSignal', onCompleteAllSignal);
+                //         saveCooperation();
+                //     } else if (uploadErrorSignal == true) {
+                //         clearUploadInterval();
+                //         uploadErrorSignal = false;
+                //     }
+                // }, 100);
+                // //清除轮询
+                // function clearUploadInterval() {
+                //     clearInterval(checkUploadInterval);
+                // }
+                //
+                //
+                // function saveCooperation() {
+                //     //拼接资料数组
+                //     var docSelectedList1 = [];
+                //     angular.forEach(scope.docsUploadList, function (value, key) {
+                //         var a = {};
+                //         // if(backJson){
+                //         //     var modifys = [];
+                //         //     angular.forEach(backJson,function(value1, key1){
+                //         //         if(!value1){
+                //         //             return;
+                //         //         }
+                //         //         if(key1 == value.uuid){
+                //         //             var i = 0;
+                //         //             for(i = 0; i < value1.PdfModify.length; i++)
+                //         //             {
+                //         //                 modifys.push(value1.PdfModify[i]);
+                //         //             }
+                //         //         }
+                //         //     });
+                //         // }
+                //         // a.modifys = modifys;
+                //         a.md5 = value.filemd5;
+                //         a.name = value.docName;
+                //         a.needSign = false;
+                //         a.uuid = value.uuid;
+                //         a.size = value.filesize;
+                //         // a.sourceType = scope.beSourceType;
+                //         docSelectedList1.push(a);
+                //     });
+                //
+                // }
+                //
+                // console.log(docSelectedList1);
+            }
+        }
+    }
+})
+
+// 新建和施工弹框关联构建组
+// 关联构建组
+angular.module('core').directive('editCompGroup', function (commonService) {
+    return {
+        restrict: 'AE',
+        link: function (scope, element, attr) {
+            scope.editCompGroup = function () {
+                if(scope.ppid != null) {
+                    // 请求构件组数据
+                    commonService.findCompGroupsByPpid(scope.ppid).then(function(data){
+                        // 弹框
+                        var modalInstance = $uibModal.open({
+                            //animation: true,    // 弹框的动画效果 默认是true
+                            size: 'lg',
+                            templateUrl: 'template/category_second/edit_comp_group.html',
+                            controller: 'editCompGroupCtrl',
+                            resolve: {
+                                compGroupInfos: function () {
+                                    return data.data;
+                                }
+                            }
+                        });
+                        modalInstance.result.then(function (compGroupInfo) {
+                            commonService.updateCompGroupId(scope.stakeInfo.childItemId, compGroupInfo.compGroupId).then(function(){
+                                console.log('关联构件组成功');
+                                $('#compGroupName').val(compGroupInfo.name);
+                            });
+                        }, function () {
+                            //console.info('Modal dismissed at: ' + new Date());
+                            console.log("取消关联构件组");
+                        });
+                    });
+                }
+            };
+        }}})

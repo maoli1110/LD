@@ -13,13 +13,16 @@
             <div class="attachment-arrow-left">
                 <i class="ico-left"></i>
             </div>
-            <div class="constract" delete-attachment>
-                <button class="btn-upload">上传附件</button>
-                <div class="attachment-wrapper">
-                    <a class="wrapper-pdf">
+            <div class="constract" upload-files delete-attachment>
+                <element ng-if="uploader">
+                    <input class="upload-docs" type="file" nv-file-select="" uploader="uploader" style="display: none;"/>
+                </element>
+                <button class="btn-upload upload-docs" ng-click="docsUpload()">上传附件</button>
+                <div class="attachment-wrapper" >
+                    <a class="wrapper-pdf" ng-repeat="item in uploader.queue" ng-show="uploader.isHTML5&& item.file.name.split('.')[item.file.name.split('.').length-1] == 'pdf' || uploader.isHTML5 && item.file.type.substr(0,5) === 'image'" >
                         <i class="ico-pdf"></i>
-                        <span class="txt-pdf">上传附件上传附件上传附件</span>
-                        <div class="inner-mask" >
+                        <span class="txt-pdf">{{item.file.name}}</span>
+                        <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target,item)">
                             <i class="delete-attachment" ng-click="deleteAttachmentModal()"></i>
                         </div>
                     </a>

@@ -21,38 +21,45 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			data: {
 				displayName: 'firstCtrl'
 			}
-		}).state('second',{
-			url:'/second',//第二类
+		}).state('ld',{
+			url:'/ld',//第二类
 			templateUrl:'template/category_second/second.html',
-			controller:'secondCtrl',
+			controller:'ldCtrl',
 			displayName:{
 				displayName:"second"
 			}
-		}).state('second.projectDivisionContract',{
+		}).state('ld.projectDivisionContract',{
 			url:'/projectDivisionContract',//第二类-工程管理-工程划分-合同
 			controller:'projectDivisionContractCtrl',
 			templateUrl:'template/category_second/project_division_contract.html',
 			displayName:{
 				displayName:"projectDivisionContract"
 			}
-		}).state('second.projectDivisionStake',{
+		}).state('ld.projectDivisionStake',{
 			url:'/projectDivisionStake',//第二类-工程管理-工程划分-桩号
 			controller:'projectDivisionStakeCtrl',
 			templateUrl:'template/category_second/project_division_stake.html',
 			displayName:{
 				displayName:"projectDivisionStake"
 			}
-		}).state('second.listManageContract',{
+		}).state('ld.listManageContract',{
 			url:'/listManageContract',//第二类-清单管理
 			controller:'listManageContractCtrl',
 			templateUrl:'template/category_second/list_manage_contract.html',
 			displayName:{
 				displayName:"listManageContract"
 			}
-		}).state('second.listManageContractFileUpload',{
+		}).state('ld.listManageContractFileUpload',{
 			url:'/listManageContractFileUpload',//第二类-清单管理-导入
 			controller:'listManageContractFileUploadCtrl',
 			templateUrl:'template/category_second/list_manage_contract_fileUpload.html',
+			displayName:{
+				displayName:"listManageContractFileUpload"
+			}
+		}).state('ld.projectChange',{
+			url:'/projectChange',//清单管理
+			controller:'projectChangeCtrl',
+			templateUrl:'template/category_second/project_change.html',
 			displayName:{
 				displayName:"listManageContractFileUpload"
 			}

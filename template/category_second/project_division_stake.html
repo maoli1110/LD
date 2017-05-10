@@ -1,6 +1,19 @@
 <!-- 工程管理-工程划分-桩号页面展示css -->
 <link rel="stylesheet" href="css/project_division_stake.css">
+ <!--固定导航-->
+<div class="top-navbar" tab-active>
+    <a href="javascript:;" class="tab" ui-sref="first">
+        <span>合同管理</span>
+    </a>
+    <a href="javascript:;" class="active tab" ui-sref="ld.projectDivisionContract">
+        <span>工程划分</span>
+    </a>
+    <a href="javascript:;" class="tab" ui-sref="ld.listManageContract">
+        <span>清单管理</span>
+    </a>
+</div>
 <!-- 工程管理-工程划分-桩号数据展示页面 -->
+<div class="main-content" style="height: calc(100% - 40px);">
 <div class="content division-stake">
     <div class="inner-wrapper" style="height: calc(100vh - 120px)">
         <!--<div class="contract-name" style="float: left;">{{stakeInfo.title}}</div>-->
@@ -13,18 +26,18 @@
             <div class="field-key">合同段：</div>
             <div class="field-value">{{stakeInfo.contractName}}</div>
         </div>
-        <div class="field-key">分项工程：</div>
-        <div class="field-value">{{stakeInfo.itemizedName}}</div>
-        <div class="field-key">分部工程：</div>
-        <div class="field-value">{{stakeInfo.deptProjectName}}</div>
         <div class="field-key">单位工程：</div>
         <div class="field-value">{{stakeInfo.unitProjectName}}</div>
-        <div class="field-key">子分项工程：</div>
-        <div class="field-value">{{stakeInfo.childItemizedName}}</div>
-        <div class="field-key">子分部工程：</div>
-        <div class="field-value">{{stakeInfo.childDeptProjectName}}</div>
+        <div class="field-key">分部工程：</div>
+        <div class="field-value">{{stakeInfo.deptProjectName}}</div>
+        <div class="field-key">分项工程：</div>
+        <div class="field-value">{{stakeInfo.itemizedName}}</div>
         <div class="field-key">子单位工程：</div>
         <div class="field-value">{{stakeInfo.childUnitProjectName}}</div>
+        <div class="field-key">子分部工程：</div>
+        <div class="field-value">{{stakeInfo.childDeptProjectName}}</div>
+        <div class="field-key">子分项工程：</div>
+        <div class="field-value">{{stakeInfo.childItemizedName}}</div>
         <div class="field-key">单位工程编号：</div>
         <div class="field-value">{{stakeInfo.unitProjectNameNum}}</div>
         <div class="field-key">分部工程编号：</div>
@@ -62,5 +75,5 @@
             <div class="icon icon-delete" ng-click="deleteCompGroup()"></div>
         </div>
     </div>
-
+</div>
 </div>

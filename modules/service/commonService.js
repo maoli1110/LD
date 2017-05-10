@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 angular.module('core').service('commonService', function ($http, $q) {
 
@@ -72,17 +72,11 @@ angular.module('core').service('commonService', function ($http, $q) {
      * @param {string} parentId 父节点Id
      */
     this.createTreeNode = function (param) {
-        // param = {
-        //   nodeNum: "TREE002",
-        //   nodeName: "子单位工程",
-        //   nodeType: -1,
-        //   parentId: 1
-        // }
         param = JSON.stringify(param);
         var delay = $q.defer();
         $.ajax({
             type: "POST",
-            url: url + 'common/projectTreeService/createProjectTreeNode',
+            url: url + 'projectTreeService/createProjectTreeNode',
             contentType: 'application/json;',
             data: param,
             success: function (data) {
@@ -93,23 +87,21 @@ angular.module('core').service('commonService', function ($http, $q) {
             }
         });
         return delay.promise;
-    }
+    };
 
     /**
      * 树节点排序
-     * @param {string} nodeNum  节点编码
-     * @param {string} nodeName 节点名称
-     * @return {type} [description]
+     * @param treeIds 当前层级下所有树节点id
+     * @returns {*}
      */
-    this.sortNodes = function () {
-        param = []
-        param = JSON.stringify(param);
+    this.sortNodes = function (treeIds) {
+        treeIds = JSON.stringify(treeIds);
         var delay = $q.defer();
         $.ajax({
             type: "POST",
-            url: url + 'common/projectTreeService/sortNodes',
+            url: url + 'projectTreeService/sortNodes',
             contentType: 'application/json;',
-            data: param,
+            data: treeIds,
             success: function (data) {
                 delay.resolve(data);
             },
@@ -118,7 +110,7 @@ angular.module('core').service('commonService', function ($http, $q) {
             }
         });
         return delay.promise;
-    }
+    };
     /**
      * 更新子工程名称
      * @param {string} nodeNum  节点编码
@@ -132,12 +124,12 @@ angular.module('core').service('commonService', function ($http, $q) {
           nodeName: "子单位工程",
           nodeType: -1,
           parentId: 1
-        }
+        };
         param = JSON.stringify(param);
         var delay = $q.defer();
         $.ajax({
             type: "POST",
-            url: url + 'common/projectTreeService/updateChildProjectName',
+            url: url + 'projectTreeService/updateChildProjectName',
             contentType: 'application/json;',
             data: param,
             success: function (data) {
@@ -148,7 +140,7 @@ angular.module('core').service('commonService', function ($http, $q) {
             }
         });
         return delay.promise;
-    }
+    };
 
     /**
      * 获取子节点
@@ -158,7 +150,7 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.getTreeNode = function (param) {
         var delay = $q.defer();
-        var url_join = url + "common/projectTreeService/"+param.id +"/"+param.nodeType;
+        var url_join = url + "projectTreeService/findChildNodesByParent/"+param.id +"/"+param.nodeType;
         $http.get(url_join).then(function (data) {
             delay.resolve(data);
         }, function (error) {
@@ -184,7 +176,7 @@ angular.module('core').service('commonService', function ($http, $q) {
         var delay = $q.defer();
         var url_join = url+"contracts/construction?deptId="+deptId;
         var test_join = './json/contractList.json';
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
+        $http.get(test_join,{'withCredentials':true}).then(function(data){
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -246,7 +238,7 @@ angular.module('core').service('commonService', function ($http, $q) {
         var delay = $q.defer();
         $.ajax({
             type: "POST",
-            url: url + 'common/childItemizedService/findChildItemizedInfos/' + sectionContractId,
+            url: url + 'childItemizedService/findChildItemizedInfos/' + sectionContractId,
             contentType: 'application/json;',
             data: pageParam,
             success: function (data) {
@@ -267,7 +259,7 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.findChildItemizedDetail = function (treeNodeId) {
         var delay = $q.defer();
-        var url_join = url+"common/childItemizedService/findChildItemizedDetail/" + treeNodeId;
+        var url_join = url+"childItemizedService/findChildItemizedDetail/" + treeNodeId;
         $http.get(url_join,{'withCredentials':true}).then(function(data){
             delay.resolve(data);
         }, function (error) {
@@ -283,7 +275,7 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.updateContractPictureNum = function (childItemId, contractPictureNum) {
         var delay = $q.defer();
-        var url_join = url+"common/childItemizedService/updateContractPictureNum/" + childItemId +'/'+contractPictureNum;
+        var url_join = url+"childItemizedService/updateContractPictureNum/" + childItemId +'/'+contractPictureNum;
         $http.get(url_join,{'withCredentials':true}).then(function(data){
             delay.resolve(data);
         }, function (error) {
@@ -299,7 +291,7 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.findCompGroupsByPpid = function (ppid) {
         var delay = $q.defer();
-        var url_join = url+"common/childItemizedService/findCompGroupsByPpid/" + ppid;
+        var url_join = url+"childItemizedService/findCompGroupsByPpid/" + ppid;
         $http.get(url_join,{'withCredentials':true}).then(function(data){
             delay.resolve(data);
         }, function (error) {
@@ -316,7 +308,7 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.updateCompGroupId = function (childItemId, compGroupId) {
         var delay = $q.defer();
-        var url_join = url+"common/childItemizedService/updateCompGroupId/" + childItemId + "/" + compGroupId;
+        var url_join = url+"childItemizedService/updateCompGroupId/" + childItemId + "/" + compGroupId;
         $http.get(url_join,{'withCredentials':true}).then(function(data){
             delay.resolve(data);
         }, function (error) {
@@ -436,6 +428,9 @@ angular.module('core').service('commonService', function ($http, $q) {
         });
         return delay.promise;
     };
+
+
+
     // 删除施工合同
     // /contracts/construction/delete/{id}
     this.deleteConstruction= function(id){
@@ -490,4 +485,199 @@ angular.module('core').service('commonService', function ($http, $q) {
         });
         return delay.promise;
     }
+
+
+	
+    /**fwq
+     * 分页查询合同清单列表
+     */
+
+     this.getContractlist = function(contractId,pageParam){
+        pageParam = JSON.stringify(pageParam);
+        var delay = $q.defer();
+        $.ajax({
+            type: "POST",
+            url: url + 'contractlist/'+ contractId +'/list',
+            contentType: 'application/json;',
+            data: pageParam,
+            success: function (data) {
+                delay.resolve(data);
+            },
+            error: function (error) {
+                delay.reject(JSON.parse(error.responseText));
+            }
+        });
+        return delay.promise;
+    };
+
+
+
+    /**
+     * 导入合同清单
+     */
+
+     this.uploadContractlist = function(contractId){
+        var delay = $q.defer();
+        $.ajax({
+            type: "POST",
+            url: url + 'contractlist/'+contractId,
+            contentType: 'application/json;',
+            success: function (data) {
+                delay.resolve(data);
+            },
+            error: function (error) {
+                delay.reject(JSON.parse(error.responseText));
+            }
+        });
+        return delay.promise;
+    };
+
+
+
+
+    /**
+     * 导出合同清单
+     */
+    this.getContractlistDownload = function (contractId) {
+        var delay = $q.defer();
+        $.ajax({
+            type: "GET",
+            url: url + 'contractlist/'+contractId+'/download',
+            contentType: 'application/json',
+            success: function (data) {
+                delay.resolve(data);
+            },
+            error: function (error) {
+                delay.reject(JSON.parse(error.responseText));
+            }
+        });
+        return delay.promise;
+    };
+
+
+    /**
+     * 清空合同清单接口
+     */
+    this.ContractlistClear = function (contractId) {
+        var delay = $q.defer();
+        $.ajax({
+            type: "GET",
+            url: url + 'contractlist/'+contractId+'/clear',
+            contentType: 'application/json',
+            success: function (data) {
+                delay.resolve(data);
+            },
+            error: function (error) {
+                delay.reject(JSON.parse(error.responseText));
+            }
+        });
+        return delay.promise;
+    };
+
+
+
+
+    /**
+     * 清空桩号清单接口
+     */
+    this.ItemizedlistClear = function (itemizedId) {
+        var delay = $q.defer();
+        $.ajax({
+            type: "GET",
+            url: url + 'itemizedlist/'+itemizedId+'/clear',
+            contentType: 'application/json',
+            success: function (data) {
+                delay.resolve(data);
+            },
+            error: function (error) {
+                delay.reject(JSON.parse(error.responseText));
+            }
+        });
+        return delay.promise;
+    };
+
+      /**
+     * 导出桩号清单接口
+     */
+    this.itemizedlistDownload = function (itemizedId) {
+        var delay = $q.defer();
+        $.ajax({
+            type: "GET",
+            url: url + 'itemizedlist/'+itemizedId+'/download',
+            contentType: 'application/json',
+            success: function (data) {
+                delay.resolve(data);
+            },
+            error: function (error) {
+                delay.reject(JSON.parse(error.responseText));
+            }
+        });
+        return delay.promise;
+    };
+
+    
+    /**
+     * 分页查询桩号清单列表
+     */
+     this.getItemizedlist = function(itemizedId,pageParam){
+        pageParam = JSON.stringify(pageParam);
+        var delay = $q.defer();
+        $.ajax({
+            type: "POST",
+            url: url + 'itemizedlist/'+ itemizedId +'/list',
+            contentType: 'application/json;',
+            data: pageParam,
+            success: function (data) {
+                delay.resolve(data);
+            },
+            error: function (error) {
+                delay.reject(JSON.parse(error.responseText));
+            }
+        });
+        return delay.promise;
+    };
+
+
+      /**
+     * 查询合同清单中的章
+     */
+    this.contractlistChapters = function (contractId) {
+        var delay = $q.defer();
+        $.ajax({
+            type: "GET",
+            url: url + 'contractlist/'+contractId+'/chapters',
+            contentType: 'application/json',
+            success: function (data) {
+                delay.resolve(data);
+            },
+            error: function (error) {
+                delay.reject(JSON.parse(error.responseText));
+            }
+        });
+        return delay.promise;
+    };
+
+
+    /**
+     * 获取当前路由编号
+     * [getCurrentRouterNum description]
+     * @param  {string} currentRouterName 当前路由名称
+     * @return {int} 1 2 3 4 分别代表不同的左侧树结构
+     */
+    this.getCurrentRouterNum=function(currentRouterName){
+        var firstCategory = ['']
+        var secondCategory = ['ld.projectDivisionContract','ld.projectDivisionStake','ld.listManageContract'];
+        var thirdCategory = ['ld.projectChange'];
+        var fourCategory = [''];
+        if(firstCategory.indexOf(currentRouterName) !== -1){
+            return 1;
+        } else if (secondCategory.indexOf(currentRouterName) !== -1){
+            return 2;
+        } else if (thirdCategory.indexOf(currentRouterName) !== -1){
+            return 3;
+        } else if (thirdCategory.indexOf(currentRouterName) !== -1){
+            return 4;
+        }
+    }
+
 });

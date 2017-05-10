@@ -16,13 +16,13 @@
                 <a href="javascript:;" class="active tab" ui-sref="first">
                     <span>合同管理</span>
                 </a>
-                <a href="javascript:;" class="tab" ui-sref="second.projectDivisionContract">
+                <a href="javascript:;" class="tab" ui-sref="ld.projectDivisionContract">
                     <span>工程划分</span>
                 </a>
                 <!--<a href="javascript:;" class="tab" ui-sref="second.projectDivisionStake">
                     <span>工程划分-桩号</span>
                 </a>-->
-                <a href="javascript:;" class="tab" ui-sref="second.listManageContract">
+                <a href="javascript:;" class="tab" ui-sref="ld.listManageContract">
                     <span>清单管理</span>
                 </a>
             </div>
@@ -55,8 +55,8 @@
                                     <!--<a class="attachment-operate">-->
                                     <a class="attachment-operate" ng-repeat="item in constructConstractInfos.contractFiles track by $index" contract-files-repeat-finish>
                                         <i class="ico-pdf"></i>
-                                        <p class="attachment-name">111111111111111111</p>
-                                        <!--<p class="attachment-name">{{item.fileName}}</p>-->
+                                        <!--<p class="attachment-name">111111111111111111</p>-->
+                                        <p class="attachment-name">{{item.fileName}}</p>
                                         <div class="attachment-btn">
                                             <button class="download">
                                                 <i class="ico-download"></i>
@@ -78,8 +78,8 @@
                                     <!--<a class="attachment-operate">-->
                                     <a class="attachment-operate" ng-repeat="item in supervisionConstractInfos.contractFiles track by $index" contract-files-repeat-finish>
                                         <i class="ico-pdf"></i>
-                                        <p class="attachment-name">2222</p>
-                                        <!--<p class="attachment-name">{{item.fileName}}</p>-->
+                                        <!--<p class="attachment-name">2222</p>-->
+                                        <p class="attachment-name">{{item.fileName}}</p>
                                         <div class="attachment-btn">
                                             <button class="download">
                                                 <i class="ico-download"></i>
@@ -101,8 +101,8 @@
                                     <!--<a class="attachment-operate">-->
                                     <a class="attachment-operate" ng-repeat="item in labConstractInfos.contractFiles track by $index" contract-files-repeat-finish>
                                         <i class="ico-pdf"></i>
-                                        <p class="attachment-name">333</p>
-                                        <!--<p class="attachment-name">{{item.fileName}}</p>-->
+                                        <!--<p class="attachment-name">333</p>-->
+                                        <p class="attachment-name">{{item.fileName}}</p>
                                         <div class="attachment-btn">
                                             <button class="download">
                                                 <i class="ico-download"></i>

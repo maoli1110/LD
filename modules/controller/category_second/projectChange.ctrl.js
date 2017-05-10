@@ -3,9 +3,10 @@
  * component
  * 工程管理-工程划分-合同页面js
  */
-angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
+angular.module('core').controller('projectChangeCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
     function ($scope, $http,$uibModal,commonService,$timeout,$compile,$state) {
-       
+       //获取当前页面的currentRouterNum
+        $scope.$emit('changeRouter',commonService.getCurrentRouterNum($state.$current.name));
 		// 分页参数
 		var pageParam = {pageSize: 3,pageNumber: 0,queryParam: "",sortField: "id",sortType: "desc"};
 		// 合同段id
@@ -13,19 +14,6 @@ angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$ht
 		commonService.findChildItemizedInfos(pageParam, sectionContractId).then(function(data){
 			$scope.childItemizedInfos = data;
 		});
-
-		// if($state.includes('second.projectDivisionContract')){
-  //          $scope.currentRouter = 0
-  //          $scope.$emit('changeRouter',$scope.currentRouter);
-  //          alert(0)
-  //       }if($state.includes('second.projectChange')){
-  //          $scope.currentRouter = 1
-  //          $scope.$emit('changeRouter',$scope.currentRouter);
-  //          alert(1)
-  //       }
-        commonService.getCurrentRouterNum($state.$current.name);
-        $scope.$emit('changeRouter',commonService.getCurrentRouterNum($state.$current.name));
-
 		/**
 		 * 上一页
 		 */

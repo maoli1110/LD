@@ -4,21 +4,13 @@
  */
 
 
-angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 'commonService', '$timeout', '$compile', '$state','FileUploader',
-    function ($scope, $http, $uibModal, commonService, $timeout, $compile, $state,FileUploader) {
-
-        var docsUploadList = [];
-        // $scope.flag.docsRepeatMind = false; //资料上传超过30个防止多次提醒
-
-        // var uploader = $scope.uploader = new FileUploader({
-        //     url: basePath + 'fileupload/upload.do'
-        //     // queueLimit:30
-        // });
-
+angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 'commonService', '$timeout', '$compile', '$state', 'FileUploader',
+    function ($scope, $http, $uibModal, commonService, $timeout, $compile, $state, FileUploader) {
         // contractlist是否完成repeat标志
         $scope.flag = {
             contractListRepeat: false
         };
+
 
         //获取项目部
         commonService.getDept().then(function (data) {
@@ -162,7 +154,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 }
             });
             modalInstance.result.then(function () {
-                
+
             });
         };
         $scope.deleteSupervisionModal = function () {
@@ -236,7 +228,26 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                         data[i] = ' ';
                     }
                 });
+                // ！！！！！！！！！！！！！！！文件假数据
+                // ！！！！！！！！！！！！！！！文件假数据
+                data.contractFiles = [
+                    {
+                        fileMD5: 2222222,
+                        fileName: "只是为了好玩：Linux之父林纳斯自传.pdf",
+                        fileSize: 25269642,
+                        fileUUID: 1,
+                        id: 0
+                    },
+                    {
+                        fileMD5: 2222222,
+                        fileName: "Linux之父林纳斯自传.pdf",
+                        fileSize: 25269642,
+                        fileUUID: 1,
+                        id: 0
+                    }
+                ];
                 $scope.constructConstractInfos = data;
+
                 // console.log(data);
             })
             // 删除合同和编辑合同控制请选中一个合同
@@ -249,6 +260,23 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
             // 监理合同数据展示
             var supervisionConstractId = id;
             commonService.getSupervisionConstractInfos(supervisionConstractId).then(function (data) {
+                // ！！！！！！！！！！！！！！！文件假数据
+                data.contractFiles = [
+                    {
+                        fileMD5: 2222222,
+                        fileName: "林纳斯自传.pdf",
+                        fileSize: 25269642,
+                        fileUUID: 1,
+                        id: 0
+                    },
+                    {
+                        fileMD5: 2222222,
+                        fileName: "林纳斯自传.pdf",
+                        fileSize: 25269642,
+                        fileUUID: 1,
+                        id: 0
+                    }
+                    ]
                 $scope.supervisionConstractInfos = data;
                 // console.log(data);
             })
@@ -256,19 +284,27 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
             // // 监理试验室合同数据展示
             var labConstractId = id;
             commonService.getLabConstractInfos(labConstractId).then(function (data) {
+                // ！！！！！！！！！！！！！！！文件假数据
                 $scope.labConstractInfos = data;
+                data.contractFiles = [
+                    {
+                        fileMD5: 2222222,
+                        fileName: "只是为了好玩.pdf",
+                        fileSize: 25269642,
+                        fileUUID: 1,
+                        id: 0
+                    },
+                    {
+                        fileMD5: 2222222,
+                        fileName: "Linux.pdf",
+                        fileSize: 25269642,
+                        fileUUID: 1,
+                        id: 0
+                    }
+                ];
                 // console.log(data);
             })
         }
-
-        //点击上传资料按钮
-        $scope.docsUpload = function () {
-            $scope.flag.docsRepeatMind = false;
-            $('.upload-docs').attr('uploader', 'uploader');
-            $('.upload-docs').attr('nv-file-select', '');
-            $('.upload-docs').click();
-        }
-
 
         //contractlist repeat finish end
         $scope.$on('contractlistNgRepeatFinished', function () {

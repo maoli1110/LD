@@ -1,58 +1,37 @@
 <link rel="stylesheet" href="css/list_manage_contract.css">
+<div class="top-navbar" tab-active>
+    <a href="javascript:;" class="tab" ui-sref="first">
+        <span>合同管理</span>
+    </a>
+    <a href="javascript:;" class="active tab" ui-sref="ld.projectDivisionContract">
+        <span>工程划分</span>
+    </a>
+    <a href="javascript:;" class="tab" ui-sref="ld.listManageContract">
+        <span>清单管理</span>
+    </a>
+</div>
 <!-- 工程管理-清单管理-合同段数据展示页面 -->
+<div class="main-content" style="height: calc(100% - 40px);">
 <div class="content list-manage-contract">
-    <div class="contract-name">合同1</div>
-    <div>
-        <!-- 下拉框 -->
-        <div class="contract-section">
-            <span class="titleText">章节号：</span>
-            <!-- <div class="dropdown contract-select input-text input-border">
-                <button class="menu" id="menu111" data-toggle="dropdown">
-                    <span class="menu-name" >清单编号</span>
-                    <span class="arrow"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="menu111">
-                    <li><a href="">全部章节</a></li>
-                    <li><a href="">100章</a></li>
-                    <li><a href="">200章</a></li>
-                    <li><a href="">300章</a></li>
-                </ul>
-            </div> -->
-            <select class="input-search input-border">
-                <option>全部章节</option>
-                <option>100章</option>
-                <option>200章</option>
-                <option>300章</option>
-            </select>
-
-
-        </div>
-
+    <div class="contract-name">路基工程>路基土石工程》土方工程>KK0+000~000>kkk+000</div>
+    <div style="margin-bottom: 20px">
         <!-- 搜索框 -->
-        <div class="contract-search" style="margin-bottom: 20px;">
+        <div class="contract-search clearfix" input-search-child-items>
             <span class="titleText">关键词：</span>
-            <input type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 20%;" ng-model="filterVal" ng-keydown="fnKeydown($event)">
-            <a class="clear" style="right: 56px;position: relative;top: 5px;">
+            <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 20%;">
+            <a id="clearSearchKey" class="clear" style="right: 56px;position: relative;top: 5px;" ng-click="clearSearchKey()">
                 <i class="btn-close"></i>
             </a>
-            <a class="btn-wrap" style="right: 50px;position: relative;top: 5px;" ng-click="fnFilter()">
+            <a class="btn-wrap" style="right: 50px;position: relative;top: 5px;" ng-click="searchChildItems()">
                 <i class="btn-search"></i>
             </a>
         </div>
-        <!-- <div style="width: 51%;float: right;">
-            <span style=" line-height:32px; float:left">关键词:</span>
-            <div class="contract-search" >
-                <input type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词">
-                <button class="button twoLetter">查询</button>
-                 <button class="button-empty twoLetter">清空</button>
-            </div>
-        </div> -->
     </div>
     <div class="borderTop">
-        <button class="button twoLetter" ng-click="checkModal()">编辑</button>
-        <button class="button twoLetter">导出</button>
-        <button class="button twoLetter">清空</button>
-        <button class="button twoLetter">提交</button>
+        <button class="button twoLetter" ng-click="createContractlist()">编辑</button>
+        <button class="button twoLetter" ng-click="DownloadItemizedlist()">导出</button>
+        <button class="button twoLetter" ng-click="clearItemizedlist()">清空</button>
+        <button class="button twoLetter" ng-click="subContractlist()">提交</button>
     </div>
 
     <div class="division_content" style="clear: both;">
@@ -62,42 +41,38 @@
         </div>
 
         <div class="clearfix">
-            <div class="thead" style="width: 10%"><span ng-click="fnSort('a')">清单编号</span>
+            <div class="thead" style="width: 10%"><span>清单编号</span>
             </div>
-            <div class="thead" style="width: 19%"><span ng-click="fnSort('b')">清单名称</span>
+            <div class="thead" style="width: 19%"><span>清单名称</span>
             </div>
-            <div class="thead" style="width: 19%"><span ng-click="fnSort('c')">计量单位</span>
+            <div class="thead" style="width: 19%"><span>计量单位</span>
             </div>
-            <div class="thead" style="width: 19%"><span ng-click="fnSort('d')">合同单价（元）</span>
+            <div class="thead" style="width: 19%"><span>合同单价（元）</span>
             </div>
-            <div class="thead" style="width: 19%"><span ng-click="fnSort('e')">合同数量</span>
+            <div class="thead" style="width: 19%"><span>合同数量</span>
             </div>
-            <div class="thead" style="width: 14%"><span ng-click="fnSort('f')">合同金额（元）</span>
+            <div class="thead" style="width: 14%"><span>合同金额（元）</span>
             </div>
         </div>
         <div class="table-list" style="height: calc(100vh - 430px);overflow-y: scroll">
-            <div class="aline" ng-repeat="data in dataList">
-                <div class="tbody" style="width: 10%">{{data.a}}</div>
-                <div class="tbody" style="width: 19%">{{data.b}}</div>
-                <div class="tbody" style="width: 19%">{{data.c}}</div>
-                <div class="tbody" style="width: 19%">{{data.d}}</div>
-                <div class="tbody" style="width: 19%">{{data.e}}</div>
-                <div class="tbody" style="width: 14%">{{data.f}}</div>
+            <div class="aline" listid={{item.id}} ng-repeat="item in childItemizedInfos.content">
+                <div class="tbody" style="width: 10%">{{item.listNum}}</div>
+                <div class="tbody" style="width: 19%">{{item.itemName}}</div>
+                <div class="tbody" style="width: 19%">{{item.measurementUnit}}</div>
+                <div class="tbody" style="width: 19%">{{item.contractPrice}}</div>
+                <div class="tbody" style="width: 19%">{{item.contractQuantity}}</div>
+                <div class="tbody" style="width: 14%">{{item.contractAmount}}</div>
             </div>
         </div>
     </div>
-    <!--<div ng-controller="PaginationDemoCtrl">
-        <span>共{{bigTotalItems}}条</span>
-        &lt;!&ndash;<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>&ndash;&gt;
-        <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" previous-text="上一页" next-text="下一页" last-text="尾页"></ul>
-        <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
-    </div>-->
-    <div style="text-align: center;margin-top: 20px;font-size: 16px;">
-        <span style="margin-right: 40px;">共n条</span>
-        <i class="first page"></i>
-        <i class="previous page"></i>
-        <input type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;"/> / <span>n</span>
-        <i class="next page"></i>
-        <i class="last page"></i>
+    <div style="text-align: center;margin-top: 10px;font-size: 14px;">
+        <span style="margin-right: 40px;">共{{childItemizedInfos.totalElements}}条</span>
+        <i class="first page" ng-click="firstPage()"></i>
+        <i class="previous page" ng-click="prevPage()"></i>
+        <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number+1}}"/>
+        / <span>{{childItemizedInfos.totalPages}}</span>
+        <i class="next page" ng-click="nextPage()"></i>
+        <i class="last page" ng-click="lastPage()"></i>
     </div>
+</div>
 </div>
