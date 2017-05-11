@@ -1,4 +1,5 @@
-<div class="model-content" edit-comp-group>
+<link rel="stylesheet" href="css/edit_comp_group.css">
+<div class="model-content">
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">
             <p>新增/编辑施工合同</p>
@@ -415,6 +416,40 @@
         </div>
         <div style="text-align: left">
             <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</div>
+<div class="modal-comp-group" edit-comp-group style="display: none;">
+    <div class="window-body">
+        <div class="window-body-1">
+            <div style="float: left;margin-top: 10px;">请选择关联的构件组</div>
+            <!-- 搜索框 -->
+            <div class="contract-search input-border" style="float: right; width: 50%;">
+                <input id="searchChildItemsValue" type="text" class="input-search" placeholder="快速搜索构件组" style="width: calc(100% - 50px);" input-search-child-items>
+                <a class="clear" style="display: none;position: absolute;top: 56px;right: 52px;" ng-click="clearSearchKey()">
+                    <i class="btn-close"></i>
+                </a>
+                <a class="btn-wrap" style="position: absolute;top: 28px;right: 35px;" ng-click="searchCompGroup()">
+                    <i class="btn-search"></i>
+                </a>
+            </div>
+        </div>
+        <div class="content">
+            <ul style="">
+                <li ng-repeat="item in compGroupInfos" ng-click="$event.preventDefault(); selected.compGroupInfo = item;clickCompGroup(item.compGroupId)" id="{{item.compGroupId}}">
+                    <!--<a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>-->
+                    <a href="#" ng-click="">{{item.name}}</a>
+                </li>
+            </ul>
+            <!--Selected: <b>{{selected.item}}</b>-->
+        </div>
+    </div>
+    <div class="window-bottom">
+        <div style="text-align: right">
+            <button class="btn fiveLetter ok" id="submitCompGroup" type="button" ng-click="ensure()">确定</button>
+        </div>
+        <div style="text-align: left">
+            <button class="btn fiveLetter cancel" id="closeModalCompGroup" type="button" ng-click="undo()">取消</button>
         </div>
     </div>
 </div>

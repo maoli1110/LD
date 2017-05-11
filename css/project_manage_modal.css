@@ -1,6 +1,7 @@
 .model-content {
   border-radius: 0;
   border: 1px solid #2b2f38;
+  position: relative;
 }
 .model-content .modal-header {
   height: 30px;
@@ -256,3 +257,15 @@
   font-size: 18px;
   font-weight: 700;
 }
+.modal-comp-group {
+  position: absolute;
+  position: absolute;
+  top: 130px;
+  z-index: 111;
+  background-color: #fff;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+}
+/*opacity: 0.1;*/

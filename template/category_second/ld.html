@@ -1,0 +1,37 @@
+<div class="LubanLD-container">
+    <!--顶部导航-->
+	<header ng-include="'template/core/header.html'"></header>
+
+    <!--主体内容-->
+    <article class="main-container clearfix" style="height: calc(100% - 73px)">
+        <!--左侧树节点导航-->
+        <aside class="menu-nav" ng-include="'template/core/sidebar_second.html'" ng-show="currentRouterNum === 2"></aside>
+        <aside class="menu-nav" ng-include="'template/core/sidebar_third.html'" ng-show="currentRouterNum === 3"></aside>
+        <aside class="menu-nav" ng-include="'template/core/sidebar_four.html'" ng-show="currentRouterNum === 4"></aside>
+		<!-- <div style="color:#fff" class="content-main" ui-view></div> -->
+		<!--右侧数据内容展示-->
+		<section class="content-wrapper"  ui-view></section>
+    </article>
+</div>
+<div id="rMenu" class="treeRightMenu">
+	<ul class="operation"  style="visibility:hidden">
+		<li id="m_add">添加(A)<span class="triangle_border_right"></span></li>
+	    <li id="m_move">移动(M)<span class="triangle_border_right"></span></li>
+	    <li id="m_del">删除(D)<span class="triangle_border_right"></span></li>
+	    <li id="m_edit">修改(R)<span class="triangle_border_right"></span></li>
+	    <li id="m_copy">复制(C)<span class="triangle_border_right"></span></li>
+	    <li id="m_paste">粘贴(P)<span class="triangle_border_right"></span></li>
+	</ul>
+	<ul class="sub-operation" style="display:none">
+		<li id="m_unit" ng-click="createNodeModal('template/category_second/modal_create_unit_project.html','unitModalCtrl',0)">添加单位工程</li>
+		<li id="m_sub_unit" ng-click="createNodeModal('template/category_second/modal_create_sub_unit_project.html','unitModalCtrl',1)">添加子单位工程</li>
+		<li id="m_part" ng-click="createNodeModal('template/category_second/modal_create_part_project.html','unitModalCtrl',2)">添加分部工程</li>
+		<li id="m_sub_part" ng-click="createNodeModal('template/category_second/modal_create_sub_part_project.html','unitModalCtrl',3)">添加子分部工程</li>
+		<li id="m_item" ng-click="createNodeModal('template/category_second/modal_create_item_project.html','unitModalCtrl',4,'lg')">添加分项工程</li>
+		<li id="m_sub_item" ng-click="createNodeModal('template/category_second/modal_create_sub_item_project.html','unitModalCtrl',5,'lg')">添加子分项工程</li>
+	</ul>
+	<ul class="sub-operation-move" style="visibility:hidden">
+		<li id="m_move_up">向上移动</li>
+		<li id="m_move_down">向下移动</li>
+	</ul>
+</div>

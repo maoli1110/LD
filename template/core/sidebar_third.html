@@ -22,6 +22,35 @@
             </button>
         </div>
     </div>
+    <ul class="left-list" according-repeat>
+        <li class="project-name" ng-repeat="item in deptList track by $index" dept-repeat-finish>
+            <i class="icon-project"></i>
+            <a title="" class="project-name-span" ng-click="getContractList(item.deptId)">{{item.deptName}}</a>
+            <ul id="ul-{{item.deptId}}" class="contract-list" style="display: none;">
+                <!-- <li class="contract-name active" ng-repeat="item1 in contractList track by $index" contractlist-repeat-finish>
+                    <a ng-click="getContractInfo(item1.id)">{{item1.sectionNum}}<i class="icon state-down" ng-click="getzTreeNode(item.deptId,item1.id,'-1')"></i></a>
+                    <ul id="ztree_{{item.deptId}}_{{item1.id}}" class="ztree" style="display: none;">
+                        <li>1</li>
+                    </ul>
+                </li> -->
+            </ul>
+        </li>
+        <li class="project-name">
+            <i class="icon-project"></i>
+            <a title="" class="project-name-span">九寨沟到绵羊绵羊绵羊绵羊项目</a>
+            <ul class="contract-list" style="display: none;">
+                <li class="contract-name" ng-click="test()"><a href="">添加单位工程</a></li>
+                <li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_contract_children.html','ModalCtrl','unit')"><a href="">添加子单位工程</a></li>
+
+                <li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_distribution.html','ModalCtrl')"><a href="">添加分部工程</a></li>
+                <li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_distribution_children.html','ModalCtrl')"><a href="">添加子分部工程</a></li>
+
+                <li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_itemized.html','ModalCtrl','lg')"><a href="">添加分项工程</a></li>
+                <li class="contract-name" ng-click="createNodeModal('template/category_second/modal_create_supervise_itemized_children.html','ModalCtrl','lg')"><a href="">添加子分项工程</a></li>
+                <li id="ztree_test" class="ztree"></li>
+            </ul>
+        </li>
+    </ul>
 </div>
 <div class="btn-wrapper">
     <span class="btn-slide"></span>

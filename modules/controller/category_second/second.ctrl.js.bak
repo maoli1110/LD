@@ -3,15 +3,13 @@
  * 第二类树结构
  * Created by kylee on 2017/5/1.
  */
-angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
+angular.module('core').controller('secondCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
     function ($scope, $http,$uibModal,commonService,$timeout,$compile,$state) {
         /**
          * $scope.ztreeOpenId为当前展开的树的treeId
          * $scope.openPpid 为当前打开的合同段对应的ppid
-         * $scope.flag.deptRepeatFinish 防止项目部循环结束结果被重复通知(由于LD中左侧树节点项目部数据相同,且用的是ng-show引入)
          */
 
-        //根据子级的路由变化改变父级左侧树
         $scope.$on('changeRouter',function(event,currentRouterNum){
             $scope.currentRouterNum = currentRouterNum;
         })
@@ -93,9 +91,10 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
                     'childItemizedName':treeNode.nodeName,   // 子分项名称
                     'treeId':treeNode.id  // 左侧树的id
                 };
-                $scope.$broadcast('call', $scope.stakeInfo, $scope.openPpid);//传值
-                $state.go('ld.projectDivisionStake');
             }
+
+            $scope.$broadcast('call', $scope.stakeInfo, $scope.openPpid);//传值
+            $state.go('ld.projectDivisionStake');
         }
 
         //获取项目部
@@ -106,7 +105,6 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
         //获取项目部下合同段
         $scope.getContractList = function(deptId){
             commonService.getContractList(deptId).then(function(data){
-                $scope.flag.deptRepeatFinish = false;
                 var contractList = data.data;
                 contractListHtml(contractList,deptId)//生成合同段列表
             });
@@ -116,7 +114,8 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
         function contractListHtml(contractList,deptId) {
             $("#ul-"+deptId).empty();
             angular.forEach(contractList,function(value,key){
-                var li = '<li class="contract-name active"><a id="contract_'+value.id+' " ppid="'+value.ppid+'">'+value.sectionNum+'<i class="icon state-down" ng-click="getzTreeNode('+value.id+','+deptId+')" id="'+value.id+'"></i></a><ul id="ztree-'+deptId+'-'+value.id+'" class="ztree" style="display: none;"><li>1</li></ul></li>';
+                var li = "";
+                li = '<li class="contract-name active"><a id="contract_'+value.id+'">'+value.sectionNum+'<i class="icon state-down" ng-click="getzTreeNode('+value.id+','+deptId+')" id="'+value.id+'"></i></a><ul id="ztree-'+deptId+'-'+value.id+'" class="ztree" style="display: none;"><li>1</li></ul></li>';
                 var template = $compile(li)($scope);
                 angular.element(document.getElementById("ul-"+deptId)).append(template);
             });
@@ -131,7 +130,6 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
                     $(ele.target).removeClass('state-down').addClass('state-up');
                     ztreeOpen = true;
                     $scope.ztreeOpenId = tree.attr("id");
-                    $scope.openPpid = $(ele.target).parent().attr('ppid');
                 } else {
                     tree.slideUp(300);
                     $(ele.target).removeClass('state-up').addClass('state-down');
@@ -461,9 +459,11 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
             });
         });
 
+        //=====合同管理分割线
 
+        //======变更管理分割线=======
 
-        //======我是变更管理分割线=======
+        //======计量分割线
         
         
     }]);

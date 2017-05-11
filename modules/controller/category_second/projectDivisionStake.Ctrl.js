@@ -3,14 +3,26 @@
  * component
  * 工程管理-工程划分-桩号页面js
  */
-angular.module('core').controller('projectDivisionStakeCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile',
-    function ($scope, $http,$uibModal,commonService,$timeout,$compile) {
+angular.module('core').controller('projectDivisionStakeCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
+    function ($scope, $http,$uibModal,commonService,$timeout,$compile,$state) {
         console.log($scope.name,'$scope.name');
+        // TODO 如果路径地址是ld.projectDivisionStake 则转到ld.projectDivisionContract
+        console.log($state.$current.name,'$state.$current.name');
+
         $scope.ppid = $scope.openPpid;
         //点击左侧树节点对应的桩号(sendCtrl->projectDivisionStakeCtrl父子通信)
         $scope.$on('call',function(event,stakeInfo, ppid){
             $scope.stakeInfo = stakeInfo;
             $scope.ppid = ppid;
+            commonService.findChildItemizedDetail($scope.stakeInfo.treeId).then(function(data){
+                $scope.stakeInfo.stakeNum = data.data.stakeMark;  // 桩号
+                $scope.stakeInfo.contractPictureNum = data.data.contractPictureNum;    // 合同图号
+                $scope.stakeInfo.compGroupId = data.data.compGroupId;    // 已关联构件组id
+                $scope.stakeInfo.compGroupName = data.data.compGroupName;    // 已关联构件组名称
+                $scope.stakeInfo.createTime = 1493575264000;    // 创建时间
+                $scope.stakeInfo.childItemId = data.data.id;    // 内容页该子分项工程的id
+            });
+            $scope.$apply();
         });
 
         

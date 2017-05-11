@@ -9,7 +9,10 @@ angular.module('core').directive('deptRepeatFinish', function ($timeout) {
         link: function (scope, element, attr) {
             if (scope.$last === true) {
                 $timeout(function () {
-                    scope.$emit('deptNgRepeatFinished');
+                    if(!scope.flag.deptRepeatFinish){
+                        scope.$emit('deptNgRepeatFinished');
+                    }
+                    scope.flag.deptRepeatFinish = true;
                 });
             }
         }
@@ -108,8 +111,13 @@ angular.module('core').directive('btnWrapper', function () {
         restrict: 'AE',
         link: function (scope, element, attr) {
             let isClicked = true;
-
-            btnClickSlide($(".menu-nav"), $(".content-wrapper"), $(".contract-manage"), $(".btn-wrapper"), $('.btn-slide'), $('.btn-arrow'), $(window));
+            let menuNav
+            $(".menu-nav").each(function(){
+                if($(this).css('display') !== 'none'){
+                    menuNav = $(this);
+                }
+            })
+            btnClickSlide(menuNav, $(".content-wrapper"), $(".contract-manage"), $(".btn-wrapper"), $('.btn-slide'), $('.btn-arrow'), $(window));
             btnClickSlide($(".preview-menu"), $(".preview-wrapper"), $(".file-wrapper"), $('.button-wrapper'), $('.btn-left'), $('.btn-right'), $('.modal-content'));
 
             function btnClickSlide(menuNav, contentWrapper, innerMenu, btnWrapper, btnSlide, btnArrow, outer) {
@@ -172,7 +180,7 @@ angular.module('core').directive('btnWrapper', function () {
                 var otherNeedShowNodes = new Array();
                 // 隐藏不符合搜索条件的节点
                 for (var i = 0; i < treeNodes.length; i++) {
-                    if (treeNodes[i].name.indexOf(searchKey) < 0) {
+                    if (treeNodes[i].nodeName.indexOf(searchKey) < 0) {
                         treeObj.hideNode(treeNodes[i]);
                     } else {
                         // 如果父节点没有隐藏 父节点下的子节点也要显示
@@ -194,15 +202,15 @@ angular.module('core').directive('btnWrapper', function () {
  * @param ztreeNode
  * @param nodes
  */
-function getZtreeChildNode(ztreeNode, nodes) {
-    if (!ztreeNode.isParent) {
+function getZtreeChildNode(ztreeNode, nodes){
+    if (!ztreeNode.isParent){
         return;
     }
     var children = ztreeNode.children;
-    if (children.length > 0) {
-        for (var i = 0; i < children.length; i++) {
+    if(children != null && children.length > 0) {
+        for(var i = 0; i < children.length; i++){
             var child = children[i];
-            if (nodes.indexOf(child) < 0) {
+            if(nodes.indexOf(child) < 0) {
                 nodes.push(child);
             }
             getZtreeChildNode(child, nodes);
@@ -268,8 +276,12 @@ angular.module('core').directive('windowResize', function () {
             window.onresize = function () {
                 var H = Math.max(document.body.clientHeight, 580);
                 var W = Math.max(document.body.clientWidth, 650);
-                $('.menu-nav').css('height', (H - 70) + 'px');
-                $('.content-wrapper').css('width', (W - $('.menu-nav').width()) + 'px');
+                $('.menu-nav').each(function(){
+                    if($(this).css('display') !== 'none'){
+                        $('.menu-nav').css('height', (H - 70) + 'px');
+                        $('.content-wrapper').css('width', (W - $(this).width()) + 'px');
+                    }
+                });
             };
             window.onresize();
         }
@@ -338,33 +350,6 @@ angular.module('core').directive('accordingRepeat', function ($timeout) {
                 });
 
             });
-            //点击二级图标(监听name的变化)
-            scope.$watch('flag.contractListRepeat', function (newValue) {
-                $('.icon').click(function (ele) {
-                    var tree = $(ele.target).parent().siblings('ul');
-                    if (tree.css('display') === 'none') {
-                        tree.slideDown(300);
-                        $(ele.target).removeClass('state-down').addClass('state-up');
-                        ztreeOpen = true;
-                        // 选中的ztree Id
-                        scope.ztreeOpenId = tree.attr("id");
-                        // 选中的合同段id
-                        var selectedContractId = $(ele.target).parent().attr('id').substring('contract_'.length);
-                        // 根据选中的合同段id找到合同段对应的ppid
-                        for (var i = 0; i < scope.contractList.length; i++) {
-                            if (selectedContractId == scope.contractList[i].id) {
-                                scope.openPpid = scope.contractList[i].ppid;
-                            }
-                        }
-                    } else {
-                        tree.slideUp(300);
-                        $(ele.target).removeClass('state-up').addClass('state-down');
-                        ztreeOpen = false;
-                    }
-                    $(ele.target).parent().parent().siblings().find('>ul').slideUp(300);
-                    $(ele.target).parent().parent().siblings().find('.icon').removeClass('state-up').addClass('state-down');
-                });
-            });
 
             $('#expand').click(function (ele) {   // 展开树节点
                 if (!ztreeOpen) {
@@ -421,8 +406,9 @@ angular.module('core').directive('inputSearch', function () {
     return {
         restrict: 'AE',
         link: function (scope, element, attr) {
-            $('.input-search').bind('input porpertychange', function (element) {
-                if ($('.input-search').val().length > 0) {
+            $('#secondTreeInput').bind('input porpertychange', function (element) {
+                // 当内容页也有搜索框时，用class定位会出错，故改为id定位
+                if ($('#secondTreeInput').val().length > 0) {
                     $(element.target).next().css('display', 'inline-block');
                 } else {
                     $(element.target).next().css('display', 'none');
@@ -443,6 +429,8 @@ angular.module('core').directive('inputSearchChildItems', function () {
             $('#searchChildItemsValue').bind('input porpertychange', function (element) {
                 if ($('#searchChildItemsValue').val().length > 0) {
                     $(element.target).next().css('display', 'inline-block');
+                    //$('#clearSearchKey').css('display', 'inline-block');
+
                 } else {
                     $(element.target).next().css('display', 'none');
                 }
@@ -772,36 +760,43 @@ angular.module('core').directive('uploadFiles', function (FileUploader, $timeout
 
 // 新建和施工弹框关联构建组
 // 关联构建组
-angular.module('core').directive('editCompGroup', function (commonService) {
+angular.module('core').directive('editCompGroup', function () {
     return {
         restrict: 'AE',
         link: function (scope, element, attr) {
-            scope.editCompGroup = function () {
-                if(scope.ppid != null) {
-                    // 请求构件组数据
-                    commonService.findCompGroupsByPpid(scope.ppid).then(function(data){
-                        // 弹框
-                        var modalInstance = $uibModal.open({
-                            //animation: true,    // 弹框的动画效果 默认是true
-                            size: 'lg',
-                            templateUrl: 'template/category_second/edit_comp_group.html',
-                            controller: 'editCompGroupCtrl',
-                            resolve: {
-                                compGroupInfos: function () {
-                                    return data.data;
-                                }
-                            }
-                        });
-                        modalInstance.result.then(function (compGroupInfo) {
-                            commonService.updateCompGroupId(scope.stakeInfo.childItemId, compGroupInfo.compGroupId).then(function(){
-                                console.log('关联构件组成功');
-                                $('#compGroupName').val(compGroupInfo.name);
-                            });
-                        }, function () {
-                            //console.info('Modal dismissed at: ' + new Date());
-                            console.log("取消关联构件组");
-                        });
-                    });
-                }
-            };
+            console.log($('.btn-associate'));
+            $('.btn-associate').on('click',function () {
+                $('.modal-comp-group').css('display','block').siblings('.model-content').css('opacity',0.1);
+            });
+            $('#closeModalCompGroup').on('click',function () {
+                $('.modal-comp-group').css('display','none').siblings('.model-content').css('opacity',1);
+            });
+//             scope.editCompGroup = function () {
+//                 if(scope.ppid != null) {
+//                     // 请求构件组数据
+//                     commonService.findCompGroupsByPpid(scope.ppid).then(function(data){
+//                         // 弹框
+//                         var modalInstance = $uibModal.open({
+//                             //animation: true,    // 弹框的动画效果 默认是true
+//                             size: 'lg',
+//                             templateUrl: 'template/category_second/edit_comp_group.html',
+//                             controller: 'editCompGroupCtrl',
+//                             resolve: {
+//                                 compGroupInfos: function () {
+//                                     return data.data;
+//                                 }
+//                             }
+//                         });
+//                         modalInstance.result.then(function (compGroupInfo) {
+//                             commonService.updateCompGroupId(scope.stakeInfo.childItemId, compGroupInfo.compGroupId).then(function(){
+//                                 console.log('关联构件组成功');
+//                                 $('#compGroupName').val(compGroupInfo.name);
+//                             });
+//                         }, function () {
+//                             //console.info('Modal dismissed at: ' + new Date());
+//                             console.log("取消关联构件组");
+//                         });
+//                     });
+//                 }
+//             };
         }}})

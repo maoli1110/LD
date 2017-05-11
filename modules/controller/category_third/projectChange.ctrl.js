@@ -3,9 +3,10 @@
  * component
  * 工程管理-工程划分-合同页面js
  */
-angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
+angular.module('core').controller('projectChangeCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
     function ($scope, $http,$uibModal,commonService,$timeout,$compile,$state) {
-       
+       //获取当前页面的currentRouterNum
+        $scope.$emit('changeRouter',commonService.getCurrentRouterNum($state.$current.name));
 		// 分页参数
 		var pageParam = {pageSize: 3,pageNumber: 0,queryParam: "",sortField: "id",sortType: "desc"};
 		// 合同段id
@@ -13,11 +14,6 @@ angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$ht
 		commonService.findChildItemizedInfos(pageParam, sectionContractId).then(function(data){
 			$scope.childItemizedInfos = data;
 		});
-
-		//获取当前路由的routerNum,同时通知父级修改
-        commonService.getCurrentRouterNum($state.$current.name);
-        $scope.$emit('changeRouter',commonService.getCurrentRouterNum($state.$current.name));
-
 		/**
 		 * 上一页
 		 */
@@ -83,7 +79,7 @@ angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$ht
 		$scope.searchChildItems = function(){
 			var queryParam = $("#searchChildItemsValue").val();
 			pageParam.queryParam = queryParam;
-			pageParam.pageNumber = 0;
+			pageParam.pageNumber = 1;
 			commonService.findChildItemizedInfos(pageParam, sectionContractId).then(function(data){
 				$scope.childItemizedInfos = data;
 			});
@@ -95,7 +91,6 @@ angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$ht
 			// 当内容页也有搜索框时，用class定位会出错，故改为id定位
 			$('#searchChildItemsValue').val('').focus();
 			$('#clearSearchKey').css('display', 'none');
-			$scope.searchChildItems();
 		};
 
 		/**

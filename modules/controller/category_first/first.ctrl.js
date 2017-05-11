@@ -248,7 +248,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 ];
                 $scope.constructConstractInfos = data;
 
-                // console.log(data);
+                console.log(data);
             })
             // 删除合同和编辑合同控制请选中一个合同
             selectProject(element)
