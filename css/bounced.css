@@ -1,3 +1,7 @@
 /*ZHL*/
-.form-horizontal .form-group .boinced-control-label{font-weight:bold;line-height:22px}
+.form-horizontal .form-group .boinced-control-label{font-weight:bold;line-height:22px;text-align:left;}
 .boincedIcont{float: left;line-height:32px;margin:0 5px}
+.form-horizontal .form-group{margin-bottom: 0px}
+button{font-size: 12px;background-color: #BDC4CE;border: 0 none;border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;color: #fff;}
+button:hover{ background: #99A1AE}
+button:focus {background-color: #4B5A7A;outline: none !important;}

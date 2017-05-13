@@ -5,13 +5,14 @@
  */
 angular.module('core').controller('projectDivisionStakeCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
     function ($scope, $http,$uibModal,commonService,$timeout,$compile,$state) {
+        // 如果刷新的地址是ld.projectDivisionStake 则转到ld.projectDivisionContract
+        if($scope.stakeInfo == null && $state.$current.name === 'ld.projectDivisionStake') {
+            $state.go('ld.projectDivisionContract');
+            return;
+        }
         console.log($scope.name,'$scope.name');
-        // TODO 如果路径地址是ld.projectDivisionStake 则转到ld.projectDivisionContract
-        console.log($state.$current.name,'$state.$current.name');
-
-        $scope.ppid = $scope.openPpid;
         //点击左侧树节点对应的桩号(sendCtrl->projectDivisionStakeCtrl父子通信)
-        $scope.$on('call',function(event,stakeInfo, ppid){
+        $scope.$on('to-projectDivisionStake',function(event,stakeInfo, ppid){
             $scope.stakeInfo = stakeInfo;
             $scope.ppid = ppid;
             commonService.findChildItemizedDetail($scope.stakeInfo.treeId).then(function(data){
@@ -25,7 +26,7 @@ angular.module('core').controller('projectDivisionStakeCtrl', ['$scope', '$http'
             $scope.$apply();
         });
 
-        
+        $scope.ppid = $scope.openPpid;
         // 获取子分项工程的明细信息(桩号、合同图号、已关联构件组、发起时间)
         if($scope.stakeInfo != null) {
             commonService.findChildItemizedDetail($scope.stakeInfo.treeId).then(function(data){

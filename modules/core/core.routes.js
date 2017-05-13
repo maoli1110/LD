@@ -28,6 +28,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			displayName:{
 				displayName:"ld"
 			}
+		}).state('ld.first',{
+			url:'/first',//第二类-工程管理-工程划分-合同
+			controller:'firstCtrl',
+			templateUrl: 'template/category_first/contract_manage.html',
+			data: {
+				displayName: 'firstCtrl'
+			}
 		}).state('ld.projectDivisionContract',{
 			url:'/projectDivisionContract',//第二类-工程管理-工程划分-合同
 			controller:'projectDivisionContractCtrl',
@@ -49,12 +56,12 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			displayName:{
 				displayName:"listManageContract"
 			}
-		}).state('ld.listManageContractFileUpload',{
-			url:'/listManageContractFileUpload',//第二类-清单管理-导入
-			controller:'listManageContractFileUploadCtrl',
-			templateUrl:'template/category_second/list_manage_contract_fileUpload.html',
+		}).state('ld.listManageItemized',{
+			url:'/listManageItemized',//第二类-清单管理-导入
+			controller:'listManageItemizedCtrl',
+			templateUrl:'template/category_second/list_manage_itemized.html',
 			displayName:{
-				displayName:"listManageContractFileUpload"
+				displayName:"listManageItemized"
 			}
 		}).state('ld.projectChange',{
 			url:'/projectChange',//第三类-工程变更

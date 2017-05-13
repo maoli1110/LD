@@ -2,15 +2,17 @@
 /**
  * component
  */
-
-
 angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 'commonService', '$timeout', '$compile', '$state', 'FileUploader',
     function ($scope, $http, $uibModal, commonService, $timeout, $compile, $state, FileUploader) {
+        // console.log($scope.first.contractId);
+        //获取当前路由的routerNum,同时通知父级修改
+        commonService.getCurrentRouterNum($state.$current.name);
+        $scope.$emit('changeRouter',commonService.getCurrentRouterNum($state.$current.name));
+
         // contractlist是否完成repeat标志
         $scope.flag = {
             contractListRepeat: false
         };
-
 
         //获取项目部
         commonService.getDept().then(function (data) {

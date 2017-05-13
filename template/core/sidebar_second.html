@@ -22,11 +22,11 @@
             </button>
         </div>
     </div>
-    <ul class="left-list" according-repeat>
-        <li class="project-name" ng-repeat="item in deptList track by $index" dept-repeat-finish>
+    <ul id="secondLeftTree" class="left-list" according-repeat>
+        <li class="project-name"  deptId="{{item.deptId}}" ng-repeat="item in deptList track by $index" dept-repeat-finish>
             <i class="icon-project"></i>
-            <a title="" class="project-name-span" ng-click="getContractList(item.deptId)">{{item.deptName}}</a>
-            <ul id="ul-{{item.deptId}}" class="contract-list" style="display: none;">
+            <a title="" class="project-name-span" ng-click="getContractList(item.deptId,2)">{{item.deptName}}</a>
+            <ul id="ul2-{{item.deptId}}" class="contract-list" style="display: none;">
                 <!-- <li class="contract-name active" ng-repeat="item1 in contractList track by $index" contractlist-repeat-finish>
                     <a ng-click="getContractInfo(item1.id)">{{item1.sectionNum}}<i class="icon state-down" ng-click="getzTreeNode(item.deptId,item1.id,'-1')"></i></a>
                     <ul id="ztree_{{item.deptId}}_{{item1.id}}" class="ztree" style="display: none;">

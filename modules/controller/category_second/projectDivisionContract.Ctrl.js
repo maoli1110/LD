@@ -5,13 +5,20 @@
  */
 angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
     function ($scope, $http,$uibModal,commonService,$timeout,$compile,$state) {
-       
+    	// console.log($scope.second.contractId)
 		// 分页参数
 		var pageParam = {pageSize: 3,pageNumber: 0,queryParam: "",sortField: "id",sortType: "desc"};
+
 		// 合同段id
-		var sectionContractId = 1;
-		commonService.findChildItemizedInfos(pageParam, sectionContractId).then(function(data){
-			$scope.childItemizedInfos = data;
+		//var sectionContractId;
+		$scope.$on('to-projectDivisionContract',function(){
+			commonService.findChildItemizedInfos(pageParam, $scope.sectionContractId).then(function(data){
+				$scope.childItemizedInfos = data.data;
+			});
+		});
+
+		commonService.findChildItemizedInfos(pageParam, $scope.sectionContractId).then(function(data){
+			$scope.childItemizedInfos = data.data;
 		});
 
 		//获取当前路由的routerNum,同时通知父级修改
@@ -28,8 +35,8 @@ angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$ht
 			}
 			$("#currentPage").val(--currentPage);
 			pageParam.pageNumber = currentPage - 1;
-			commonService.findChildItemizedInfos(pageParam, sectionContractId).then(function(data){
-				$scope.childItemizedInfos = data;
+			commonService.findChildItemizedInfos(pageParam, $scope.sectionContractId).then(function(data){
+				$scope.childItemizedInfos = data.data;
 			});
 		};
 		/**
@@ -42,7 +49,7 @@ angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$ht
 			}
 			$("#currentPage").val(++currentPage);
 			pageParam.pageNumber = currentPage - 1;
-			commonService.findChildItemizedInfos(pageParam, sectionContractId).then(function(data){
+			commonService.findChildItemizedInfos(pageParam, $scope.sectionContractId).then(function(data){
 				$scope.childItemizedInfos = data;
 			});
 		};
@@ -57,7 +64,7 @@ angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$ht
 			currentPage = 1;
 			$("#currentPage").val(currentPage);
 			pageParam.pageNumber = currentPage - 1;
-			commonService.findChildItemizedInfos(pageParam, sectionContractId).then(function(data){
+			commonService.findChildItemizedInfos(pageParam, $scope.sectionContractId).then(function(data){
 				$scope.childItemizedInfos = data;
 			});
 		};
@@ -72,7 +79,7 @@ angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$ht
 			}
 			$("#currentPage").val(totalPage);
 			pageParam.pageNumber = totalPage - 1;
-			commonService.findChildItemizedInfos(pageParam, sectionContractId).then(function(data){
+			commonService.findChildItemizedInfos(pageParam, $scope.sectionContractId).then(function(data){
 				$scope.childItemizedInfos = data;
 			});
 		};
@@ -84,7 +91,7 @@ angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$ht
 			var queryParam = $("#searchChildItemsValue").val();
 			pageParam.queryParam = queryParam;
 			pageParam.pageNumber = 0;
-			commonService.findChildItemizedInfos(pageParam, sectionContractId).then(function(data){
+			commonService.findChildItemizedInfos(pageParam, $scope.sectionContractId).then(function(data){
 				$scope.childItemizedInfos = data;
 			});
 		};
@@ -109,7 +116,7 @@ angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$ht
 			pageParam.pageNumber = 1;
 			pageParam.sortField = field;
 			pageParam.sortType = sortType ? 'asc' : 'desc';
-			commonService.findChildItemizedInfos(pageParam, sectionContractId).then(function(data){
+			commonService.findChildItemizedInfos(pageParam, $scope.sectionContractId).then(function(data){
 				$scope.childItemizedInfos = data;
 			});
 		};

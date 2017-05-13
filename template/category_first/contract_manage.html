@@ -1,255 +1,238 @@
 <!-- <div>first</div> -->
 <link rel="stylesheet" href="css/project_manage_modal.css">
-<div class="LubanLD-container" constract-manageDropDownControll>
-    <!--顶部导航-->
-    <header ng-include="'template/core/header.html'"></header>
-
-    <!--主体内容-->
-    <article class="main-container">
-
-        <!--左侧树节点导航-->
-        <aside class="menu-nav" ng-include="'template/core/sidebar.html'"></aside>
-        <!--右侧数据内容展示-->
-        <section class="content-wrapper">
-            <!--固定导航-->
-            <div class="top-navbar" tab-active>
-                <a href="javascript:;" class="active tab" ui-sref="first">
-                    <span>合同管理</span>
-                </a>
-                <a href="javascript:;" class="tab" ui-sref="ld.projectDivisionContract">
-                    <span>工程划分</span>
-                </a>
-                <!--<a href="javascript:;" class="tab" ui-sref="second.projectDivisionStake">
-                    <span>工程划分-桩号</span>
-                </a>-->
-                <a href="javascript:;" class="tab" ui-sref="ld.listManageContract">
-                    <span>清单管理</span>
-                </a>
+<!--固定导航-->
+<div class="top-navbar" tab-active>
+    <a href="javascript:;" class="active tab" ui-sref="ld.first">
+        <span>合同管理</span>
+    </a>
+    <a href="javascript:;" class="tab" ui-sref="ld.projectDivisionContract">
+        <span>工程划分</span>
+    </a>
+    <a href="javascript:;" class="tab" ui-sref="ld.listManageContract">
+        <span>清单管理</span>
+    </a>
+</div>
+<div class="main-content" style="height: calc(100% - 40px);" window-resize constract-manage-drop-down-controll>
+    <div class="content contract-content">
+        <div class="inner-wrapper" style="height: calc(100vh - 120px)">
+            <div>
+                <div class="contract-name" id="construct" >{{constructConstractInfos.sectionNum?constructConstractInfos.sectionNum:'合同段'}}</div>
+                <div class="contract-name" id="supervision" style="display: none">{{supervisionConstractInfos.sectionNum?supervisionConstractInfos.sectionNum:'合同段'}}</div>
+                <div class="contract-name" id="labConstract" style="display: none">{{labConstractInfos.sectionNum?labConstractInfos.sectionNum:'合同段'}}</div>
             </div>
-            <div class="main-content" style="height: calc(100% - 40px);">
-                <div class="content contract-content">
-                    <div class="inner-wrapper" style="height: calc(100vh - 120px)">
-                        <div>
-                            <div class="contract-name" id="construct" >{{constructConstractInfos.sectionNum?constructConstractInfos.sectionNum:'合同段'}}</div>
-                            <div class="contract-name" id="supervision" style="display: none">{{supervisionConstractInfos.sectionNum?supervisionConstractInfos.sectionNum:'合同段'}}</div>
-                            <div class="contract-name" id="labConstract" style="display: none">{{labConstractInfos.sectionNum?labConstractInfos.sectionNum:'合同段'}}</div>
-                        </div>
-                        <div class="contract-operate" drop-down>
-                            <button class="btn-create contract-construction active"
-                                    id="createConstructModal">新增施工合同
-                            </button>
-                            <button class="btn-create contract-inspection"
-                                    id="createSuperviseModal" style="display:none;">新增监理合同
-                            </button>
-                            <button class="btn-create contract-laboratory" id="createLabModal"
-                                    style="display:none;">新增试验室合同
-                            </button>
-                            <button class="edit-contract" id="edit-contract">编辑合同</button>
-                            <button class="delete-contract" id="delete-contract">删除合同</button>
-                        </div>
-                        <!--<div>-->
-                            <div class="attachment" id="attachment-construct" arrow-swiper ng-show="constructConstractInfos.contractFiles">
-                                <!--<div class="attachment" arrow-swiper>-->
-                                <div class="arrow-left"></div>
-                                <div class="wrapper">
-                                    <!--<a class="attachment-operate">-->
-                                    <a class="attachment-operate" ng-repeat="item in constructConstractInfos.contractFiles track by $index" contract-files-repeat-finish>
-                                        <i class="ico-pdf"></i>
-                                        <!--<p class="attachment-name">111111111111111111</p>-->
-                                        <p class="attachment-name">{{item.fileName}}</p>
-                                        <div class="attachment-btn">
-                                            <button class="download">
-                                                <i class="ico-download"></i>
-                                                <span class="txt-download">下载</span>
-                                            </button>
-                                            <button class="preview" ng-click="previewModal()">
-                                                <i class="ico-preview"></i>
-                                                <span class="txt-preview">预览</span>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="arrow-right"></div>
+            <div class="contract-operate" drop-down>
+                <button class="btn-create contract-construction active"
+                        id="createConstructModal">新增施工合同
+                </button>
+                <button class="btn-create contract-inspection"
+                        id="createSuperviseModal" style="display:none;">新增监理合同
+                </button>
+                <button class="btn-create contract-laboratory" id="createLabModal"
+                        style="display:none;">新增试验室合同
+                </button>
+                <button class="edit-contract" id="edit-contract">编辑合同</button>
+                <button class="delete-contract" id="delete-contract">删除合同</button>
+            </div>
+            <!--<div>-->
+                <div class="attachment" id="attachment-construct" arrow-swiper ng-show="constructConstractInfos.contractFiles">
+                    <!--<div class="attachment" arrow-swiper>-->
+                    <div class="arrow-left"></div>
+                    <div class="wrapper">
+                        <!--<a class="attachment-operate">-->
+                        <a class="attachment-operate" ng-repeat="item in constructConstractInfos.contractFiles track by $index" contract-files-repeat-finish>
+                            <i class="ico-pdf"></i>
+                            <!--<p class="attachment-name">111111111111111111</p>-->
+                            <p class="attachment-name">{{item.fileName}}</p>
+                            <div class="attachment-btn">
+                                <button class="download">
+                                    <i class="ico-download"></i>
+                                    <span class="txt-download">下载</span>
+                                </button>
+                                <button class="preview" ng-click="previewModal()">
+                                    <i class="ico-preview"></i>
+                                    <span class="txt-preview">预览</span>
+                                </button>
                             </div>
-                            <div class="attachment" id="attachment-supervision" arrow-swiper ng-show="supervisionConstractInfos.contractFiles" style="display: none;">
-                                <!--<div class="attachment" arrow-swiper>-->
-                                <div class="arrow-left"></div>
-                                <div class="wrapper">
-                                    <!--<a class="attachment-operate">-->
-                                    <a class="attachment-operate" ng-repeat="item in supervisionConstractInfos.contractFiles track by $index" contract-files-repeat-finish>
-                                        <i class="ico-pdf"></i>
-                                        <!--<p class="attachment-name">2222</p>-->
-                                        <p class="attachment-name">{{item.fileName}}</p>
-                                        <div class="attachment-btn">
-                                            <button class="download">
-                                                <i class="ico-download"></i>
-                                                <span class="txt-download">下载</span>
-                                            </button>
-                                            <button class="preview" ng-click="previewModal()">
-                                                <i class="ico-preview"></i>
-                                                <span class="txt-preview">预览</span>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="arrow-right"></div>
+                        </a>
+                    </div>
+                    <div class="arrow-right"></div>
+                </div>
+                <div class="attachment" id="attachment-supervision" arrow-swiper ng-show="supervisionConstractInfos.contractFiles" style="display: none;">
+                    <!--<div class="attachment" arrow-swiper>-->
+                    <div class="arrow-left"></div>
+                    <div class="wrapper">
+                        <!--<a class="attachment-operate">-->
+                        <a class="attachment-operate" ng-repeat="item in supervisionConstractInfos.contractFiles track by $index" contract-files-repeat-finish>
+                            <i class="ico-pdf"></i>
+                            <!--<p class="attachment-name">2222</p>-->
+                            <p class="attachment-name">{{item.fileName}}</p>
+                            <div class="attachment-btn">
+                                <button class="download">
+                                    <i class="ico-download"></i>
+                                    <span class="txt-download">下载</span>
+                                </button>
+                                <button class="preview" ng-click="previewModal()">
+                                    <i class="ico-preview"></i>
+                                    <span class="txt-preview">预览</span>
+                                </button>
                             </div>
-                            <div class="attachment" id="attachment-labConstract" arrow-swiper ng-show="labConstractInfos.contractFiles" style="display: none;">
-                                <!--<div class="attachment" arrow-swiper>-->
-                                <div class="arrow-left"></div>
-                                <div class="wrapper">
-                                    <!--<a class="attachment-operate">-->
-                                    <a class="attachment-operate" ng-repeat="item in labConstractInfos.contractFiles track by $index" contract-files-repeat-finish>
-                                        <i class="ico-pdf"></i>
-                                        <!--<p class="attachment-name">333</p>-->
-                                        <p class="attachment-name">{{item.fileName}}</p>
-                                        <div class="attachment-btn">
-                                            <button class="download">
-                                                <i class="ico-download"></i>
-                                                <span class="txt-download">下载</span>
-                                            </button>
-                                            <button class="preview" ng-click="previewModal()">
-                                                <i class="ico-preview"></i>
-                                                <span class="txt-preview">预览</span>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="arrow-right"></div>
+                        </a>
+                    </div>
+                    <div class="arrow-right"></div>
+                </div>
+                <div class="attachment" id="attachment-labConstract" arrow-swiper ng-show="labConstractInfos.contractFiles" style="display: none;">
+                    <!--<div class="attachment" arrow-swiper>-->
+                    <div class="arrow-left"></div>
+                    <div class="wrapper">
+                        <!--<a class="attachment-operate">-->
+                        <a class="attachment-operate" ng-repeat="item in labConstractInfos.contractFiles track by $index" contract-files-repeat-finish>
+                            <i class="ico-pdf"></i>
+                            <!--<p class="attachment-name">333</p>-->
+                            <p class="attachment-name">{{item.fileName}}</p>
+                            <div class="attachment-btn">
+                                <button class="download">
+                                    <i class="ico-download"></i>
+                                    <span class="txt-download">下载</span>
+                                </button>
+                                <button class="preview" ng-click="previewModal()">
+                                    <i class="ico-preview"></i>
+                                    <span class="txt-preview">预览</span>
+                                </button>
                             </div>
+                        </a>
+                    </div>
+                    <div class="arrow-right"></div>
+                </div>
 
-                        <!--</div>-->
-                        <div class="contract-data">
-                            <div class="table-list" style="height: calc(100vh - 400px);overflow-y: scroll">
-                                <div id="table-construct" class="table-construct">
-                                    <div style="width: 12%" class="bold">合同编号：</div>
-                                    <div style="width: 37%" class="default" title="{{constructConstractInfos.contractNum}}">{{constructConstractInfos.contractNum}}
-                                    </div>
-                                    <div style="width: 12%" class="bold">标段号：</div>
-                                    <div style="width: 35%" class="default" title="{{constructConstractInfos.sectionNum}}">{{constructConstractInfos.sectionNum}}</div>
-                                    <div style="width: 12%" class="bold">合同金额：</div>
-                                    <div style="width: 37%" class="default" title="{{constructConstractInfos.contractAmount}}">{{constructConstractInfos.contractAmount}}
-                                        (人民币)元
-                                    </div>
-                                    <div style="width: 12%" class="bold">项目名称：</div>
-                                    <div style="width: 35%" class="default" title="{{constructConstractInfos.projectName}}">{{constructConstractInfos.projectName}}
-                                    </div>
-                                    <div style="width: 12%" class="bold">合同签订日期：</div>
-                                    <div style="width: 37%" class="default" title="{{constructConstractInfos.signedDate |
-                                        date:'yyyy-MM-dd'}}">{{constructConstractInfos.signedDate |
-                                        date:'yyyy-MM-dd'}}
-                                    </div>
-                                    <div style="width: 12%" class="bold">合同类型：</div>
-                                    <div style="width: 35%" class="default" title="施工合同">施工合同</div>
-                                    <div style="width: 12%" class="bold" >建设单位：</div>
-                                    <div style="width: 37%" class="default" title="{{constructConstractInfos.constructionUnit}}">
-                                        {{constructConstractInfos.constructionUnit}}
-                                    </div>
-                                    <div style="width: 12%" class="bold" >监理单位：</div>
-                                    <div style="width: 35%" class="default" title="{{constructConstractInfos.supervisionUnit}}">
-                                        {{constructConstractInfos.supervisionUnit}}
-                                    </div>
-                                    <div style="width: 12%" class="bold" title="">施工单位：</div>
-                                    <div style="width: 37%" class="default" title="{{constructConstractInfos.executionUnit}}">{{constructConstractInfos.executionUnit}}</div>
-                                    <div style="width: 12%" class="bold">总监理工程师：</div>
-                                    <div style="width: 35%" class="default" title="{{constructConstractInfos.supervisingEngineer}}">
-                                        {{constructConstractInfos.supervisingEngineer}}
-                                    </div>
-                                    <div style="width: 12%" class="bold">施工负责人：</div>
-                                    <div style="width: 37%" class="default" title="{{constructConstractInfos.constructionManager}}">
-                                        {{constructConstractInfos.constructionManager}}
-                                    </div>
-                                    <div style="width: 12%" class="bold">项目总工：</div>
-                                    <div style="width: 35%" class="default" title="{{constructConstractInfos.projectChief}}">{{constructConstractInfos.projectChief}}
-                                    </div>
-                                    <div style="width: 12%" class="bold">起始桩号：</div>
-                                    <div style="width: 37%" class="default" title=">{{constructConstractInfos.startStakeMark}}">{{constructConstractInfos.startStakeMark
-                                        }}
-                                    </div>
-                                    <div style="width: 12%" class="bold">结束桩号：</div>
-                                    <div style="width: 35%" class="default" title="{{constructConstractInfos.endStakeMark }}">{{constructConstractInfos.endStakeMark }}
-                                    </div>
-                                    <div style="width: 12%" class="bold">合同段长度：</div>
-                                    <div style="width: 37%" class="default" title="{{constructConstractInfos.sectionLength }}">{{constructConstractInfos.sectionLength }}
-                                    </div>
-                                    <div style="width: 12%" class="bold">关联工程：</div>
-                                    <div style="width: 35%" class="default" title="{{constructConstractInfos.ppid}}">{{constructConstractInfos.ppid}}</div>
-                                    <div style="width: 12%" class="bold">计划开工日期：</div>
-                                    <div style="width: 37%" class="default" title="{{constructConstractInfos.planStartDate |
-                                        date:'yyyy-MM-dd'}}">{{constructConstractInfos.planStartDate |
-                                        date:'yyyy-MM-dd'}}
-                                    </div>
-                                    <div style="width: 12%" class="bold">计划完工日期：</div>
-                                    <div style="width: 35%" class="default" title="{{constructConstractInfos.planEndDate |
-                                        date:'yyyy-MM-dd'}}">{{constructConstractInfos.planEndDate |
-                                        date:'yyyy-MM-dd'}}
-                                    </div>
-                                    <div style="width: 12%" class="bold">实际开工日期：</div>
-                                    <div style="width: 37%" class="default" title="{{constructConstractInfos.actualStartDate |
-                                        date:'yyyy-MM-dd'}}">{{constructConstractInfos.actualStartDate |
-                                        date:'yyyy-MM-dd'}}
-                                    </div>
-                                    <div style="width: 12%" class="bold">实际完工日期：</div>
-                                    <div style="width: 35%" class="default" title="{{constructConstractInfos.actualEndDate |
-                                        date:'yyyy-MM-dd'}}">{{constructConstractInfos.actualEndDate |
-                                        date:'yyyy-MM-dd'}}
-                                    </div>
-                                    <div style="width: 12%;margin-bottom: 0;" class="bold">工期：</div>
-                                    <div style="width: 37%;margin-bottom: 0;" class="default" title="{{constructConstractInfos.duration}}">
-                                        {{constructConstractInfos.duration }}
-                                    </div>
-                                    <div style="width: 12%;margin-bottom: 0;" class="bold">已完成产值：</div>
-                                    <div style="width: 35%;margin-bottom: 0;" class="default" title="{{constructConstractInfos.completedOutputValue}}">
-                                        {{constructConstractInfos.completedOutputValue}} (人民币)元
-                                    </div>
-                                </div>
-                                <div id="table-supervisor" class="table-supervisor" style="display:none;">
-                                    <div style="width: 12%" class="bold">合同编号：</div>
-                                    <div style="width: 37%" class="default" title="{{supervisionConstractInfos.contractNum }}">{{supervisionConstractInfos.contractNum }}</div>
-                                    <div style="width: 12%" class="bold">标段号：</div>
-                                    <div style="width: 35%" class="default" title="{{supervisionConstractInfos.sectionNum }}">{{supervisionConstractInfos.sectionNum }}</div>
-                                    <div style="width: 12%" class="bold">合同金额：</div>
-                                    <div style="width: 37%" class="default" title="{{supervisionConstractInfos.contractAmount }}">{{supervisionConstractInfos.contractAmount }} (人民币)元</div>
-                                    <div style="width: 12%" class="bold">项目名称：</div>
-                                    <div style="width: 35%" class="default" title="{{supervisionConstractInfos.projectName }}">{{supervisionConstractInfos.projectName }}</div>
-                                    <div style="width: 12%" class="bold">合同签订日期：</div>
-                                    <div style="width: 37%" class="default" title="{{supervisionConstractInfos.signedDate | date:'yyyy-MM-dd'}}">{{supervisionConstractInfos.signedDate | date:'yyyy-MM-dd'}}</div>
-                                    <div style="width: 12%" class="bold">合同类型：</div>
-                                    <div style="width: 35%" class="default" title="监理合同">监理合同</div>
-                                    <div style="width: 12%" class="bold">建设单位：</div>
-                                    <div style="width: 37%" class="default" title="{{supervisionConstractInfos.constructionUnit }}">{{supervisionConstractInfos.constructionUnit }}</div>
-                                    <div style="width: 12%" class="bold">监理单位：</div>
-                                    <div style="width: 35%" class="default" title="{{supervisionConstractInfos.supervisionUnit }}">{{supervisionConstractInfos.supervisionUnit }}</div>
-                                    <div style="width: 12%" class="bold">总监理工程师：</div>
-                                    <div style="width: 85%" class="default" title="{{supervisionConstractInfos.supervisingEngineer }}">{{supervisionConstractInfos.supervisingEngineer }}</div>
-                                </div>
-                                <div id="table-lab" class="table-lab" style="display:none;">
-                                    <div style="width: 12%" class="bold">合同编号：</div>
-                                    <div style="width: 37%" class="default" title="{{labConstractInfos.contractNum }}">{{labConstractInfos.contractNum }}</div>
-                                    <div style="width: 12%" class="bold">标段号：</div>
-                                    <div style="width: 35%" class="default" title="{{labConstractInfos.sectionNum }}">{{labConstractInfos.sectionNum }}</div>
-                                    <div style="width: 12%" class="bold">合同金额：</div>
-                                    <div style="width: 37%" class="default" title="{{labConstractInfos.contractAmount }}">{{labConstractInfos.contractAmount }}</div>
-                                    <div style="width: 12%" class="bold">项目名称：</div>
-                                    <div style="width: 35%" class="default" title="{{labConstractInfos.projectName }}">{{labConstractInfos.projectName }}</div>
-                                    <div style="width: 12%" class="bold">合同签订日期：</div>
-                                    <div style="width: 37%" class="default" title="{{labConstractInfos.signedDate | date:'yyyy-MM-dd'}}">{{labConstractInfos.signedDate | date:'yyyy-MM-dd'}}</div>
-                                    <div style="width: 12%" class="bold">合同类型：</div>
-                                    <div style="width: 35%" class="default" title="监理试验室合同">监理试验室合同</div>
-                                    <div style="width: 12%" class="bold">建设单位：</div>
-                                    <div style="width: 37%" class="default" title="{{labConstractInfos.constructionUnit}}">{{labConstractInfos.constructionUnit}}</div>
-                                    <div style="width: 12%" class="bold">监理单位：</div>
-                                    <div style="width: 35%" class="default" title="{{labConstractInfos.supervisionUnit}}">{{labConstractInfos.supervisionUnit}}</div>
-                                    <div style="width: 12%" class="bold">总监理工程师：</div>
-                                    <div style="width: 37%" class="default" title="{{labConstractInfos.supervisingEngineer}}">{{labConstractInfos.supervisingEngineer}}</div>
-                                    <div style="width: 12%" class="bold">监理试验室单位：</div>
-                                    <div style="width: 35%" class="default" title="{{labConstractInfos.supervisionLaboratoryUnit}}">{{labConstractInfos.supervisionLaboratoryUnit}}</div>
-                                </div>
-                            </div>
+            <!--</div>-->
+            <div class="contract-data">
+                <div class="table-list" style="height: calc(100vh - 400px);overflow-y: scroll">
+                    <div id="table-construct" class="table-construct">
+                        <div style="width: 12%" class="bold">合同编号：</div>
+                        <div style="width: 37%" class="default" title="{{constructConstractInfos.contractNum}}">{{constructConstractInfos.contractNum}}
                         </div>
+                        <div style="width: 12%" class="bold">标段号：</div>
+                        <div style="width: 35%" class="default" title="{{constructConstractInfos.sectionNum}}">{{constructConstractInfos.sectionNum}}</div>
+                        <div style="width: 12%" class="bold">合同金额：</div>
+                        <div style="width: 37%" class="default" title="{{constructConstractInfos.contractAmount}}">{{constructConstractInfos.contractAmount}}
+                            (人民币)元
+                        </div>
+                        <div style="width: 12%" class="bold">项目名称：</div>
+                        <div style="width: 35%" class="default" title="{{constructConstractInfos.projectName}}">{{constructConstractInfos.projectName}}
+                        </div>
+                        <div style="width: 12%" class="bold">合同签订日期：</div>
+                        <div style="width: 37%" class="default" title="{{constructConstractInfos.signedDate |
+                            date:'yyyy-MM-dd'}}">{{constructConstractInfos.signedDate |
+                            date:'yyyy-MM-dd'}}
+                        </div>
+                        <div style="width: 12%" class="bold">合同类型：</div>
+                        <div style="width: 35%" class="default" title="施工合同">施工合同</div>
+                        <div style="width: 12%" class="bold" >建设单位：</div>
+                        <div style="width: 37%" class="default" title="{{constructConstractInfos.constructionUnit}}">
+                            {{constructConstractInfos.constructionUnit}}
+                        </div>
+                        <div style="width: 12%" class="bold" >监理单位：</div>
+                        <div style="width: 35%" class="default" title="{{constructConstractInfos.supervisionUnit}}">
+                            {{constructConstractInfos.supervisionUnit}}
+                        </div>
+                        <div style="width: 12%" class="bold" title="">施工单位：</div>
+                        <div style="width: 37%" class="default" title="{{constructConstractInfos.executionUnit}}">{{constructConstractInfos.executionUnit}}</div>
+                        <div style="width: 12%" class="bold">总监理工程师：</div>
+                        <div style="width: 35%" class="default" title="{{constructConstractInfos.supervisingEngineer}}">
+                            {{constructConstractInfos.supervisingEngineer}}
+                        </div>
+                        <div style="width: 12%" class="bold">施工负责人：</div>
+                        <div style="width: 37%" class="default" title="{{constructConstractInfos.constructionManager}}">
+                            {{constructConstractInfos.constructionManager}}
+                        </div>
+                        <div style="width: 12%" class="bold">项目总工：</div>
+                        <div style="width: 35%" class="default" title="{{constructConstractInfos.projectChief}}">{{constructConstractInfos.projectChief}}
+                        </div>
+                        <div style="width: 12%" class="bold">起始桩号：</div>
+                        <div style="width: 37%" class="default" title=">{{constructConstractInfos.startStakeMark}}">{{constructConstractInfos.startStakeMark
+                            }}
+                        </div>
+                        <div style="width: 12%" class="bold">结束桩号：</div>
+                        <div style="width: 35%" class="default" title="{{constructConstractInfos.endStakeMark }}">{{constructConstractInfos.endStakeMark }}
+                        </div>
+                        <div style="width: 12%" class="bold">合同段长度：</div>
+                        <div style="width: 37%" class="default" title="{{constructConstractInfos.sectionLength }}">{{constructConstractInfos.sectionLength }}
+                        </div>
+                        <div style="width: 12%" class="bold">关联工程：</div>
+                        <div style="width: 35%" class="default" title="{{constructConstractInfos.ppid}}">{{constructConstractInfos.ppid}}</div>
+                        <div style="width: 12%" class="bold">计划开工日期：</div>
+                        <div style="width: 37%" class="default" title="{{constructConstractInfos.planStartDate |
+                            date:'yyyy-MM-dd'}}">{{constructConstractInfos.planStartDate |
+                            date:'yyyy-MM-dd'}}
+                        </div>
+                        <div style="width: 12%" class="bold">计划完工日期：</div>
+                        <div style="width: 35%" class="default" title="{{constructConstractInfos.planEndDate |
+                            date:'yyyy-MM-dd'}}">{{constructConstractInfos.planEndDate |
+                            date:'yyyy-MM-dd'}}
+                        </div>
+                        <div style="width: 12%" class="bold">实际开工日期：</div>
+                        <div style="width: 37%" class="default" title="{{constructConstractInfos.actualStartDate |
+                            date:'yyyy-MM-dd'}}">{{constructConstractInfos.actualStartDate |
+                            date:'yyyy-MM-dd'}}
+                        </div>
+                        <div style="width: 12%" class="bold">实际完工日期：</div>
+                        <div style="width: 35%" class="default" title="{{constructConstractInfos.actualEndDate |
+                            date:'yyyy-MM-dd'}}">{{constructConstractInfos.actualEndDate |
+                            date:'yyyy-MM-dd'}}
+                        </div>
+                        <div style="width: 12%;margin-bottom: 0;" class="bold">工期：</div>
+                        <div style="width: 37%;margin-bottom: 0;" class="default" title="{{constructConstractInfos.duration}}">
+                            {{constructConstractInfos.duration }}
+                        </div>
+                        <div style="width: 12%;margin-bottom: 0;" class="bold">已完成产值：</div>
+                        <div style="width: 35%;margin-bottom: 0;" class="default" title="{{constructConstractInfos.completedOutputValue}}">
+                            {{constructConstractInfos.completedOutputValue}} (人民币)元
+                        </div>
+                    </div>
+                    <div id="table-supervisor" class="table-supervisor" style="display:none;">
+                        <div style="width: 12%" class="bold">合同编号：</div>
+                        <div style="width: 37%" class="default" title="{{supervisionConstractInfos.contractNum }}">{{supervisionConstractInfos.contractNum }}</div>
+                        <div style="width: 12%" class="bold">标段号：</div>
+                        <div style="width: 35%" class="default" title="{{supervisionConstractInfos.sectionNum }}">{{supervisionConstractInfos.sectionNum }}</div>
+                        <div style="width: 12%" class="bold">合同金额：</div>
+                        <div style="width: 37%" class="default" title="{{supervisionConstractInfos.contractAmount }}">{{supervisionConstractInfos.contractAmount }} (人民币)元</div>
+                        <div style="width: 12%" class="bold">项目名称：</div>
+                        <div style="width: 35%" class="default" title="{{supervisionConstractInfos.projectName }}">{{supervisionConstractInfos.projectName }}</div>
+                        <div style="width: 12%" class="bold">合同签订日期：</div>
+                        <div style="width: 37%" class="default" title="{{supervisionConstractInfos.signedDate | date:'yyyy-MM-dd'}}">{{supervisionConstractInfos.signedDate | date:'yyyy-MM-dd'}}</div>
+                        <div style="width: 12%" class="bold">合同类型：</div>
+                        <div style="width: 35%" class="default" title="监理合同">监理合同</div>
+                        <div style="width: 12%" class="bold">建设单位：</div>
+                        <div style="width: 37%" class="default" title="{{supervisionConstractInfos.constructionUnit }}">{{supervisionConstractInfos.constructionUnit }}</div>
+                        <div style="width: 12%" class="bold">监理单位：</div>
+                        <div style="width: 35%" class="default" title="{{supervisionConstractInfos.supervisionUnit }}">{{supervisionConstractInfos.supervisionUnit }}</div>
+                        <div style="width: 12%" class="bold">总监理工程师：</div>
+                        <div style="width: 85%" class="default" title="{{supervisionConstractInfos.supervisingEngineer }}">{{supervisionConstractInfos.supervisingEngineer }}</div>
+                    </div>
+                    <div id="table-lab" class="table-lab" style="display:none;">
+                        <div style="width: 12%" class="bold">合同编号：</div>
+                        <div style="width: 37%" class="default" title="{{labConstractInfos.contractNum }}">{{labConstractInfos.contractNum }}</div>
+                        <div style="width: 12%" class="bold">标段号：</div>
+                        <div style="width: 35%" class="default" title="{{labConstractInfos.sectionNum }}">{{labConstractInfos.sectionNum }}</div>
+                        <div style="width: 12%" class="bold">合同金额：</div>
+                        <div style="width: 37%" class="default" title="{{labConstractInfos.contractAmount }}">{{labConstractInfos.contractAmount }}</div>
+                        <div style="width: 12%" class="bold">项目名称：</div>
+                        <div style="width: 35%" class="default" title="{{labConstractInfos.projectName }}">{{labConstractInfos.projectName }}</div>
+                        <div style="width: 12%" class="bold">合同签订日期：</div>
+                        <div style="width: 37%" class="default" title="{{labConstractInfos.signedDate | date:'yyyy-MM-dd'}}">{{labConstractInfos.signedDate | date:'yyyy-MM-dd'}}</div>
+                        <div style="width: 12%" class="bold">合同类型：</div>
+                        <div style="width: 35%" class="default" title="监理试验室合同">监理试验室合同</div>
+                        <div style="width: 12%" class="bold">建设单位：</div>
+                        <div style="width: 37%" class="default" title="{{labConstractInfos.constructionUnit}}">{{labConstractInfos.constructionUnit}}</div>
+                        <div style="width: 12%" class="bold">监理单位：</div>
+                        <div style="width: 35%" class="default" title="{{labConstractInfos.supervisionUnit}}">{{labConstractInfos.supervisionUnit}}</div>
+                        <div style="width: 12%" class="bold">总监理工程师：</div>
+                        <div style="width: 37%" class="default" title="{{labConstractInfos.supervisingEngineer}}">{{labConstractInfos.supervisingEngineer}}</div>
+                        <div style="width: 12%" class="bold">监理试验室单位：</div>
+                        <div style="width: 35%" class="default" title="{{labConstractInfos.supervisionLaboratoryUnit}}">{{labConstractInfos.supervisionLaboratoryUnit}}</div>
                     </div>
                 </div>
             </div>
-        </section>
-    </article>
+        </div>
+    </div>
 </div>
