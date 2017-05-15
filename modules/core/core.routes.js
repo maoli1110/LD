@@ -5,7 +5,7 @@
  4、计量的树：【计量支付】下“计量支付”*/
 angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 	function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/first');
+		$urlRouterProvider.otherwise('/ld/contractManage');
 		//路由按左侧树结构划分(第一类，第二类)
 		$stateProvider.
 		 state('login', {
@@ -14,13 +14,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			data: {
 				displayName: 'login'
 			}
-		}).state('first', {
-			url:'/first',//第一类-合同管理
-			templateUrl: 'template/category_first/contract_manage.html',
-			controller:'firstCtrl',
-			data: {
-				displayName: 'firstCtrl'
-			}
 		}).state('ld',{
 			url:'/ld',//第二类
 			templateUrl:'template/category_second/ld.html',
@@ -28,12 +21,12 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			displayName:{
 				displayName:"ld"
 			}
-		}).state('ld.first',{
-			url:'/first',//第二类-工程管理-工程划分-合同
+		}).state('ld.contractManage',{
+			url:'/contractManage',//第一类类-工程管理-合同管理
 			controller:'firstCtrl',
 			templateUrl: 'template/category_first/contract_manage.html',
 			data: {
-				displayName: 'firstCtrl'
+				displayName: 'contractManage'
 			}
 		}).state('ld.projectDivisionContract',{
 			url:'/projectDivisionContract',//第二类-工程管理-工程划分-合同
@@ -50,14 +43,14 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				displayName:"projectDivisionStake"
 			}
 		}).state('ld.listManageContract',{
-			url:'/listManageContract',//第二类-清单管理
+			url:'/listManageContract',//第二类-清单管理-合同
 			controller:'listManageContractCtrl',
 			templateUrl:'template/category_second/list_manage_contract.html',
 			displayName:{
 				displayName:"listManageContract"
 			}
 		}).state('ld.listManageItemized',{
-			url:'/listManageItemized',//第二类-清单管理-导入
+			url:'/listManageItemized',//第二类-清单管理-桩号
 			controller:'listManageItemizedCtrl',
 			templateUrl:'template/category_second/list_manage_itemized.html',
 			displayName:{

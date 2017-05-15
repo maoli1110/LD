@@ -5,19 +5,21 @@
  */
 angular.module('core').controller('projectDivisionContractCtrl', ['$scope', '$http','$uibModal','commonService','$timeout','$compile','$state',
     function ($scope, $http,$uibModal,commonService,$timeout,$compile,$state) {
-    	// console.log($scope.second.contractId)
 		// 分页参数
 		var pageParam = {pageSize: 3,pageNumber: 0,queryParam: "",sortField: "id",sortType: "desc"};
 
-		// 合同段id
-		//var sectionContractId;
-		$scope.$on('to-projectDivisionContract',function(){
-			commonService.findChildItemizedInfos(pageParam, $scope.sectionContractId).then(function(data){
+		// 进入页面时获取左侧树下合同段的数据
+		$scope.getContractList($scope.secondLeftTree.deptId, 2, true);
+
+		//此时$state.$current.name=ld.projectDivisionContract
+		$scope.$on('to-'+$state.$current.name,function(){
+			commonService.findChildItemizedInfos(pageParam, $scope.secondLeftTree.contractId).then(function(data){
 				$scope.childItemizedInfos = data.data;
 			});
 		});
 
-		commonService.findChildItemizedInfos(pageParam, $scope.sectionContractId).then(function(data){
+
+		commonService.findChildItemizedInfos(pageParam, $scope.secondLeftTree.contractId).then(function(data){
 			$scope.childItemizedInfos = data.data;
 		});
 

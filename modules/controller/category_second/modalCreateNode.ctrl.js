@@ -7,7 +7,6 @@ angular.module('core').controller('unitModalCtrl', ['$scope', '$http', '$uibModa
          * 创建单位工程
          * 
          * */
-
         //item包含当前选中节点的id,parentId,nodeType,当前用户创建的createNodeType
         $scope.selectedNodeInfo = items;
         $scope.data = {

@@ -465,7 +465,7 @@ angular.module('core').directive('constractManageDropDownControll', function (co
                 var btnNone = $(this).attr('btnNone');
                 onClick(buttonID, templateID, btnNone, constractId, attachmentID);
                 modalMap.buttonID = buttonID;
-                $('.contract-list').slideUp(300);
+               
             });
 
             //编辑合同点击合同段号
@@ -494,11 +494,11 @@ angular.module('core').directive('constractManageDropDownControll', function (co
             });
 
             scope.getCurrentClickItem = function (deptId, ele) {
-                function select(ele) {
-                    $(".select").removeClass("select");
-                    $(ele).addClass("select");
-                }
-                select(ele);
+                // function select(ele) {
+                //     $(".select").removeClass("select");
+                //     $(ele).addClass("select");
+                // }
+                // select(ele);
 
                 var $name = $('.menu-name').text();
                 switch ($name) {

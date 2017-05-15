@@ -1,3 +1,8 @@
 [
-	{ "id":1, "name":"普通的父节点", "t":"我很普通，随便点我吧","isParent":true}
-]
+  {"id":0,"nodeNum":"num单位工程","nodeName":"单位工程","nodeType":0,"parentId":0,"isParent":true},
+  {"id":1,"nodeNum":"num子单位工程","nodeName":"子单位工程","nodeType":1,"parentId":0,"isParent":true},
+  {"id":2,"nodeNum":"num分部工程","nodeName":"子分部工程","nodeType":2,"parentId":1,"isParent":true},
+  {"id":3,"nodeNum":"num子分部工程","nodeName":"子分部工程","nodeType":3,"parentId":2,"isParent":true},
+  {"id":4,"nodeNum":"num分项工程","nodeName":"分项工程","nodeType":4,"parentId":3,"isParent":true},
+  {"id":5,"nodeNum":"num子分项工程","nodeName":"子分项工程1","nodeType":5,"parentId":4,"isParent":false},
+  {"id":6,"nodeNum":"num子分项工程","nodeName":"子分项工程2","nodeType":5,"parentId":4,"isParent":false}]

@@ -7,9 +7,9 @@
                 <span class="arrow"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="menu1">
-                <li id="constructContract" buttonID="createConstructModal" btnNone="createSuperviseModal,createLabModal" templateID="table-construct" attachmentID="attachment-construct" constractId="construct"><a href="#">施工合同</a></li>
-                <li id="superviseContract" buttonID="createSuperviseModal" btnNone="createConstructModal,createLabModal" templateID="table-supervisor" attachmentID="attachment-supervision" constractId="supervision"><a href="#">监理合同</a></li>
-                <li id="labContract" buttonID="createLabModal" btnNone="createConstructModal,createSuperviseModal" templateID="table-lab" attachmentID="attachment-labConstract" constractId="labConstract"><a href="#">监理试验室合同</a></li>
+                <li ng-click="firstTreeGetDept('constructContract')" id="constructContract" buttonID="createConstructModal" btnNone="createSuperviseModal,createLabModal" templateID="table-construct" attachmentID="attachment-construct" constractId="construct" ><a href="#">施工合同</a></li>
+                <li ng-click="firstTreeGetDept('superviseContract')" id="superviseContract" buttonID="createSuperviseModal" btnNone="createConstructModal,createLabModal" templateID="table-supervisor" attachmentID="attachment-supervision" constractId="supervision"><a href="#">监理合同</a></li>
+                <li ng-click="firstTreeGetDept('labContract')" id="labContract" buttonID="createLabModal" btnNone="createConstructModal,createSuperviseModal" templateID="table-lab" attachmentID="attachment-labConstract" constractId="labConstract"><a href="#">监理试验室合同</a></li>
             </ul>
         </div>
     </div>

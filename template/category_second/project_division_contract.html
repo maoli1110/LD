@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="css/project_division_contract.css">
  <!--固定导航-->
 <div class="top-navbar" tab-active>
-    <a href="javascript:;" class="tab" ui-sref="ld.first">
+    <a href="javascript:;" class="tab" ui-sref="ld.contractManage">
         <span>合同管理</span>
     </a>
     <a href="javascript:;" class="active tab" ui-sref="ld.projectDivisionContract">
@@ -17,7 +17,7 @@
     <!-- 工程管理-工程划分-合同段数据展示页面 -->
     <div class="content division-contract">
         <div class="inner-wrapper" style="height: calc(100vh - 120px)">
-        <div class="contract-name">合同1</div>
+        <div class="contract-name">{{contractName}}</div>
         <!-- 搜索框 -->
         <div class="contract-search" style="margin-bottom: 20px;" input-search-child-items>
             <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称或桩号等关键词" style="width: 40%;">

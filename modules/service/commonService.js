@@ -114,10 +114,10 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.updateChildProjectName = function (param) {
         param = {
-          nodeNum: "TREE002",
-          nodeName: "子单位工程",
-          nodeType: -1,
-          parentId: 1
+            nodeNum: "TREE002",
+            nodeName: "子单位工程",
+            nodeType: -1,
+            parentId: 1
         };
         param = JSON.stringify(param);
         var delay = $q.defer();
@@ -144,8 +144,9 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.getTreeNode = function (param) {
         var delay = $q.defer();
-        var url_join = url + "projectTreeService/findChildNodesByParent/"+param.id +"/"+param.nodeType;
-        $http.get(url_join).then(function (data) {
+        var url_join = url + "projectTreeService/findChildNodesByParent/" + param.id + "/" + param.nodeType;
+        var url_test = "./json/simpleTree.json";
+        $http.get(url_test).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -162,7 +163,7 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.deleteTreeNode = function (treeNodeId, contractId) {
         var delay = $q.defer();
-        var url_join = url + "projectTreeService/deleteTreeNode/"+treeNodeId +"/"+contractId;
+        var url_join = url + "projectTreeService/deleteTreeNode/" + treeNodeId + "/" + contractId;
         $http.get(url_join).then(function (data) {
             delay.resolve(data);
         }, function (error) {
@@ -174,45 +175,37 @@ angular.module('core').service('commonService', function ($http, $q) {
     //获取项目部
     this.getDept = function () {
         var delay = $q.defer();
-        var url_join = url+"orgnization/getDeptInfos";
-        var test_join = './json/dept.json';
-        $http.post(url_join).then(function(data){
+        var url_join = url + "orgnization/getDeptInfos";
+        $http.post(url_join).then(function (data) {
             delay.resolve(data.data);
         }, function (error) {
             delay.reject(error);
         });
         return delay.promise;
     };
-    //获取项目部下施工合同段
-    this.getContractList = function(deptId){
-        var delay = $q.defer();
-        var url_join = url+"contracts/construction?deptId="+deptId;
-        var test_join = './json/contractList.json';
-        $http.get(test_join,{'withCredentials':true}).then(function(data){
-            delay.resolve(data);
-        }, function (error) {
-            delay.reject(error);
-        });
-        return delay.promise;
-    };
 
-    //获取项目部下监理合同段
-    this.getSupervisionList = function(deptId){
+    this.getContractList = function (deptId, contractType) {
         var delay = $q.defer();
-        var url_join = url+"contracts/supervision?deptId="+deptId;
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
-            delay.resolve(data);
-        }, function (error) {
-            delay.reject(error);
-        });
-        return delay.promise;
-    };
+        if(deptId == null) {
+            return delay.promise;
+        }
+        var url_join;
+        switch (contractType) {
+            //获取项目部下施工合同段
+            case 'constructContract' :
+                url_join = url + "contracts/construction?deptId=" + deptId;
+                break;
+            //获取项目部下监理合同段
+            case 'superviseContract':
+                url_join = url + "contracts/supervision?deptId=" + deptId;
+                break;
+            //获取项目部下监理试验室合同段
+            case 'labContract':
+                url_join = url + "contracts/supervisionLaboratory?deptId=" + deptId;
+                break;
+        }
 
-    //获取项目部下监理试验室合同段
-    this.getSupervisionLaboratoryList = function(deptId){
-        var delay = $q.defer();
-        var url_join = url+"contracts/supervisionLaboratory?deptId="+deptId;
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
+        $http.get(url_join, {'withCredentials': true}).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -227,9 +220,9 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.projectTreeService = function (params) {
         var delay = $q.defer();
-        var url_join = url+"contracts/construction?deptId="+deptId;
+        var url_join = url + "contracts/construction?deptId=" + deptId;
         var test_join = './json/contractList.json';
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
+        $http.get(url_join, {'withCredentials': true}).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -248,14 +241,14 @@ angular.module('core').service('commonService', function ($http, $q) {
     this.findChildItemizedInfos = function (pageParam, sectionContractId) {
         var delay = $q.defer();
         // 刷新页面时 sectionContractId有可能是空
-        if(sectionContractId == null) {
+        if (sectionContractId == null) {
             return delay.promise;
         }
         pageParam = JSON.stringify(pageParam);
         var url_join = url + 'childItemizedService/findChildItemizedInfos/' + sectionContractId;
         $http.post(url_join, pageParam, {transformRequest: angular.identity}).then(function (data) {
             // 后台返回的当前页码是从0开始，此处先加1
-            ++data.number;
+            ++data.data.number;
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -270,8 +263,8 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.findChildItemizedDetail = function (treeNodeId) {
         var delay = $q.defer();
-        var url_join = url+"childItemizedService/findChildItemizedDetail/" + treeNodeId;
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
+        var url_join = url + "childItemizedService/findChildItemizedDetail/" + treeNodeId;
+        $http.get(url_join, {'withCredentials': true}).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -286,8 +279,8 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.updateContractPictureNum = function (childItemId, contractPictureNum) {
         var delay = $q.defer();
-        var url_join = url+"childItemizedService/updateContractPictureNum/" + childItemId +'/'+contractPictureNum;
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
+        var url_join = url + "childItemizedService/updateContractPictureNum/" + childItemId + '/' + contractPictureNum;
+        $http.get(url_join, {'withCredentials': true}).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -302,8 +295,8 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.findCompGroupsByPpid = function (ppid) {
         var delay = $q.defer();
-        var url_join = url+"childItemizedService/findCompGroupsByPpid/" + ppid;
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
+        var url_join = url + "childItemizedService/findCompGroupsByPpid/" + ppid;
+        $http.get(url_join, {'withCredentials': true}).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -319,8 +312,8 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.updateCompGroupId = function (childItemId, compGroupId) {
         var delay = $q.defer();
-        var url_join = url+"childItemizedService/updateCompGroupId/" + childItemId + "/" + compGroupId;
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
+        var url_join = url + "childItemizedService/updateCompGroupId/" + childItemId + "/" + compGroupId;
+        $http.get(url_join, {'withCredentials': true}).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -331,49 +324,28 @@ angular.module('core').service('commonService', function ($http, $q) {
     /**
      * 获取施工合同展示数据
      */
-    this.getConstructConstractInfos = function (constructConstractId) {
-        var delay = $q.defer();
-        $.ajax({
-            type: "GET",
-            url: url + 'contracts/construction/' + constructConstractId,
-            contentType: 'application/json',
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
-        });
-        return delay.promise;
-    };
+    this.getConstructConstractInfos = function (constractId,contractType) {
 
-    /**
-     *     获取监理合同展示数据
-     */
-    this.getSupervisionConstractInfos = function (supervisionConstractId) {
+        debugger
         var delay = $q.defer();
+        var url_join;
+        switch (contractType) {
+            //获取项目部下施工合同段
+            case 'constructContract' :
+                url_join = url + 'contracts/construction/' + constractId;
+                break;
+            //获取项目部下监理合同段
+            case 'superviseContract':
+                url_join = url + 'contracts/supervision/' + constractId;
+                break;
+            //获取项目部下监理试验室合同段
+            case 'labContract':
+                url_join = url + 'contracts/supervisionLaboratory/' + constractId;
+                break;
+        }
         $.ajax({
             type: "GET",
-            url: url + 'contracts/supervision/' + supervisionConstractId,
-            contentType: 'application/json',
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
-        });
-        return delay.promise;
-    };
-
-    /**
-     *     获取监理试验室合同展示数据
-     */
-    this.getLabConstractInfos = function (labConstractId) {
-        var delay = $q.defer();
-        $.ajax({
-            type: "GET",
-            url: url + 'contracts/supervisionLaboratory/' + labConstractId,
+            url: url_join,
             contentType: 'application/json',
             success: function (data) {
                 delay.resolve(data);
@@ -386,7 +358,7 @@ angular.module('core').service('commonService', function ($http, $q) {
     };
 
     // 新增和编辑施工合同
-    this.createConstruction = function(sendConstructContent){
+    this.createConstruction = function (sendConstructContent) {
         sendConstructContent = JSON.stringify(sendConstructContent);
         var delay = $q.defer();
         $.ajax({
@@ -404,7 +376,7 @@ angular.module('core').service('commonService', function ($http, $q) {
         return delay.promise;
     };
     // 新增和编辑监理合同
-    this.createSupervision = function(sendSupervisionContent){
+    this.createSupervision = function (sendSupervisionContent) {
         sendSupervisionContent = JSON.stringify(sendSupervisionContent);
         var delay = $q.defer();
         $.ajax({
@@ -422,7 +394,7 @@ angular.module('core').service('commonService', function ($http, $q) {
         return delay.promise;
     };
     // 新增和编辑监理试验室合同
-    this.createSupervisionLaboratory = function(sendSupervisionLabContent){
+    this.createSupervisionLaboratory = function (sendSupervisionLabContent) {
         sendSupervisionLabContent = JSON.stringify(sendSupervisionLabContent);
         var delay = $q.defer();
         $.ajax({
@@ -441,13 +413,12 @@ angular.module('core').service('commonService', function ($http, $q) {
     };
 
 
-
     // 删除施工合同
     // /contracts/construction/delete/{id}
-    this.deleteConstruction= function(id){
+    this.deleteConstruction = function (id) {
         var delay = $q.defer();
-        var url_join = url+"contracts/construction/delete/"+id;
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
+        var url_join = url + "contracts/construction/delete/" + id;
+        $http.get(url_join, {'withCredentials': true}).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -456,10 +427,10 @@ angular.module('core').service('commonService', function ($http, $q) {
     };
     // 删除监理合同
     // /contracts/supervision/delete/{id}
-    this.deleteSupervision = function(id){
+    this.deleteSupervision = function (id) {
         var delay = $q.defer();
-        var url_join = url+"contracts/supervision/delete/"+id;
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
+        var url_join = url + "contracts/supervision/delete/" + id;
+        $http.get(url_join, {'withCredentials': true}).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -468,10 +439,10 @@ angular.module('core').service('commonService', function ($http, $q) {
     };
     // 删除监理试验室合同
     // /contracts/supervisionLaboratory/delete/{id}
-    this.deleteSupervisionLaboratory = function(id){
+    this.deleteSupervisionLaboratory = function (id) {
         var delay = $q.defer();
-        var url_join = url+"contracts/supervisionLaboratory/delete/"+id;
-        $http.get(url_join,{'withCredentials':true}).then(function(data){
+        var url_join = url + "contracts/supervisionLaboratory/delete/" + id;
+        $http.get(url_join, {'withCredentials': true}).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -481,11 +452,11 @@ angular.module('core').service('commonService', function ($http, $q) {
 
     // 删除合同附件post
     // /contracts/files/{id}
-    this.deleteContractAttachment=function (id) {
+    this.deleteContractAttachment = function (id) {
         var delay = $q.defer();
         $.ajax({
             type: "POST",
-            url: url + 'contracts/files/'+id,
+            url: url + 'contracts/files/' + id,
             contentType: 'application/json;',
             success: function (data) {
                 delay.resolve(data);
@@ -498,43 +469,59 @@ angular.module('core').service('commonService', function ($http, $q) {
     }
 
 
-	
-    /**fwq
+    /**
      * 分页查询合同清单列表
      */
-
-    this.getContractlist = function(contractId,chapterId,pageParam){
-        pageParam = JSON.stringify(pageParam);
+   this.getContractlist = function (contractId,chapterId,pageParam) {
         var delay = $q.defer();
-        $.ajax({
-            type: "POST",
-            url: url + 'contractlist/'+ contractId +'/'+chapterId,
-            contentType: 'application/json;',
-            data: pageParam,
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
+        if(contractId == null) {
+            return delay.promise;
+        }
+        pageParam = JSON.stringify(pageParam);
+        var url_join = url + 'contractlist/'+ contractId +'/'+chapterId;
+        $http.post(url_join, pageParam, {transformRequest: angular.identity}).then(function (data) {
+            // 后台返回的当前页码是从0开始，此处先加1
+            ++data.data.number;
+            delay.resolve(data.data);
+        }, function (error) {
+            delay.reject(error);
         });
+
         return delay.promise;
     };
 
 
+     /**
+     * 章节分页查询桩号清单列表
+     */
+     this.getItemizedlist = function (itemizedId,chapterId,pageParam) {
+        pageParam = JSON.stringify(pageParam);
+        var delay = $q.defer();
 
+        var url_join = url + 'itemizedlist/'+ itemizedId +'/'+chapterId;
+        $http.post(url_join, pageParam, {transformRequest: angular.identity}).then(function (data) {
+            // 后台返回的当前页码是从0开始，此处先加1
+            ++data.data.number;
+            delay.resolve(data.data);
+        }, function (error) {
+            delay.reject(error);
+        });
+
+        return delay.promise;
+    };
 
     /**
      * 导入合同清单
      */
 
-     this.uploadContractlist = function(contractId){
+    this.uploadContractlist = function (contractId) {
         var delay = $q.defer();
         $.ajax({
             type: "POST",
-            url: url + 'contractlist/'+contractId,
+            url: url + 'contractlist/' + contractId,
             contentType: 'application/json;',
             success: function (data) {
+
                 delay.resolve(data);
             },
             error: function (error) {
@@ -543,8 +530,6 @@ angular.module('core').service('commonService', function ($http, $q) {
         });
         return delay.promise;
     };
-
-
 
 
     /**
@@ -554,7 +539,7 @@ angular.module('core').service('commonService', function ($http, $q) {
         var delay = $q.defer();
         $.ajax({
             type: "GET",
-            url: url + 'contractlist/'+contractId+'/download',
+            url: url + 'contractlist/' + contractId + '/download',
             contentType: 'application/json',
             success: function (data) {
                 delay.resolve(data);
@@ -574,7 +559,7 @@ angular.module('core').service('commonService', function ($http, $q) {
         var delay = $q.defer();
         $.ajax({
             type: "GET",
-            url: url + 'contractlist/'+contractId+'/clear',
+            url: url + 'contractlist/' + contractId + '/clear',
             contentType: 'application/json',
             success: function (data) {
                 delay.resolve(data);
@@ -585,8 +570,6 @@ angular.module('core').service('commonService', function ($http, $q) {
         });
         return delay.promise;
     };
-
-
 
 
     /**
@@ -596,7 +579,7 @@ angular.module('core').service('commonService', function ($http, $q) {
         var delay = $q.defer();
         $.ajax({
             type: "GET",
-            url: url + 'itemizedlist/'+itemizedId+'/clear',
+            url: url + 'itemizedlist/' + itemizedId + '/clear',
             contentType: 'application/json',
             success: function (data) {
                 delay.resolve(data);
@@ -608,14 +591,14 @@ angular.module('core').service('commonService', function ($http, $q) {
         return delay.promise;
     };
 
-      /**
+    /**
      * 导出桩号清单接口
      */
     this.itemizedlistDownload = function (itemizedId) {
         var delay = $q.defer();
         $.ajax({
             type: "GET",
-            url: url + 'itemizedlist/'+itemizedId+'/download',
+            url: url + 'itemizedlist/' + itemizedId + '/download',
             contentType: 'application/json',
             success: function (data) {
                 delay.resolve(data);
@@ -626,6 +609,7 @@ angular.module('core').service('commonService', function ($http, $q) {
         });
         return delay.promise;
     };
+
 
 
     /**
@@ -649,16 +633,38 @@ angular.module('core').service('commonService', function ($http, $q) {
         return delay.promise;
     };
 
-
-
-      /**
+    /**
+     * 章节分页查询桩号清单列表
+     */
+    this.getItemizedlist = function (itemizedId, chapterId, pageParam) {
+        pageParam = JSON.stringify(pageParam);
+        var delay = $q.defer();
+        $.ajax({
+            type: "POST",
+            url: url + 'contractlist/' + itemizedId + '/' + chapterId,// contractlist //换一下没数据itemizedlist
+            contentType: 'application/json;',
+            data: pageParam,
+            success: function (data) {
+                delay.resolve(data);
+            },
+            error: function (error) {
+                delay.reject(JSON.parse(error.responseText));
+            }
+        });
+        return delay.promise;
+    };
+    /*
      * 查询合同清单中的章
      */
     this.contractlistChapters = function (contractId) {
         var delay = $q.defer();
+        if(contractId == null) {
+            return delay.promise;
+        }
+        
         $.ajax({
             type: "GET",
-            url: url + 'contractlist/'+contractId+'/chapters',
+            url: url + 'contractlist/' + contractId + '/chapters',
             contentType: 'application/json',
             success: function (data) {
                 delay.resolve(data);
@@ -674,12 +680,12 @@ angular.module('core').service('commonService', function ($http, $q) {
     /**
      * 保存图纸工程量
      */
-     this.saveItemizedlist = function(itemizedId,pageParam){
+    this.saveItemizedlist = function (itemizedId, pageParam) {
         pageParam = JSON.stringify(pageParam);
         var delay = $q.defer();
         $.ajax({
             type: "POST",
-            url: url + 'itemizedlist/'+ itemizedId ,
+            url: url + 'itemizedlist/' + itemizedId,
             contentType: 'application/json;',
             data: pageParam,
             success: function (data) {
@@ -696,11 +702,11 @@ angular.module('core').service('commonService', function ($http, $q) {
     /**
      * 提交桩号清单
      */
-     this.submitItemizedlist = function(itemizedId){
+    this.submitItemizedlist = function (itemizedId) {
         var delay = $q.defer();
         $.ajax({
             type: "POST",
-            url: url + 'itemizedlist/'+ itemizedId +'/submit',
+            url: url + 'itemizedlist/' + itemizedId + '/submit',
             contentType: 'application/json;',
             data: pageParam,
             success: function (data) {
@@ -716,11 +722,11 @@ angular.module('core').service('commonService', function ($http, $q) {
     /**
      * 提交合同清单
      */
-     this.submitContractlist = function(contractId){
+    this.submitContractlist = function (contractId) {
         var delay = $q.defer();
         $.ajax({
             type: "POST",
-            url: url + 'contractlist/'+ contractId +'/submit',
+            url: url + 'contractlist/' + contractId + '/submit',
             contentType: 'application/json;',
             data: pageParam,
             success: function (data) {
@@ -733,32 +739,22 @@ angular.module('core').service('commonService', function ($http, $q) {
         return delay.promise;
     };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * [获取单位工程、分部工程、分项工程默认名称]
+     * @param  {string} 1单位工程,2分部工程,3分项工程
+     * @return {[type]} [description]
+     */
+    this.getDefaultNodeName = function (param){
+        var delay = $q.defer();
+        var url_join = url + "contracts/construction/delete/" + param;
+        var test_join = './json/unitName.json';
+        $http.get(test_join, {'withCredentials': true}).then(function (data) {
+            delay.resolve(data);
+        }, function (error) {
+            delay.reject(error);
+        });
+        return delay.promise;
+    }
 
     /**
      * 获取当前路由编号
@@ -766,18 +762,18 @@ angular.module('core').service('commonService', function ($http, $q) {
      * @param  {string} currentRouterName 当前路由名称
      * @return {int} 1 2 3 4 分别代表不同的左侧树结构
      */
-    this.getCurrentRouterNum=function(currentRouterName){
-        var firstCategory = ['ld.first']
-        var secondCategory = ['ld.projectDivisionContract','ld.projectDivisionStake','ld.listManageContract'];
+    this.getCurrentRouterNum = function (currentRouterName) {
+        var firstCategory = ['ld.contractManage']
+        var secondCategory = ['ld.projectDivisionContract', 'ld.projectDivisionStake', 'ld.listManageContract'];
         var thirdCategory = ['ld.projectChange'];
         var fourCategory = [''];
-        if(firstCategory.indexOf(currentRouterName) !== -1){
+        if (firstCategory.indexOf(currentRouterName) !== -1) {
             return 1;
-        } else if (secondCategory.indexOf(currentRouterName) !== -1){
+        } else if (secondCategory.indexOf(currentRouterName) !== -1) {
             return 2;
-        } else if (thirdCategory.indexOf(currentRouterName) !== -1){
+        } else if (thirdCategory.indexOf(currentRouterName) !== -1) {
             return 3;
-        } else if (thirdCategory.indexOf(currentRouterName) !== -1){
+        } else if (thirdCategory.indexOf(currentRouterName) !== -1) {
             return 4;
         }
     }

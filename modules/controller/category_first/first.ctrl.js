@@ -4,25 +4,58 @@
  */
 angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 'commonService', '$timeout', '$compile', '$state', 'FileUploader',
     function ($scope, $http, $uibModal, commonService, $timeout, $compile, $state, FileUploader) {
-        // console.log($scope.first.contractId);
+        console.log($scope.firstLeftTree.contractId);
         //获取当前路由的routerNum,同时通知父级修改
         commonService.getCurrentRouterNum($state.$current.name);
-        $scope.$emit('changeRouter',commonService.getCurrentRouterNum($state.$current.name));
+        $scope.$emit('changeRouter', commonService.getCurrentRouterNum($state.$current.name));
 
         // contractlist是否完成repeat标志
         $scope.flag = {
             contractListRepeat: false
         };
+        $scope.$on('to-ContractManage',function (event,contractId,currentContractType) {
+            var currentContractType = currentContractType;
+            $scope.firstLeftTree.contractId = contractId;
+            console.log($scope.firstLeftTree.contractId);
+            commonService.getConstructConstractInfos($scope.firstLeftTree.contractId,currentContractType).then(function (data) {
+                // $.each(data, function (i, v) {
+                //     if (null == v || undefined == v) {
+                //         data[i] = ' ';
+                //     }
+                // });
+                // ！！！！！！！！！！！！！！！文件假数据
+                // ！！！！！！！！！！！！！！！文件假数据
+                // data.contractFiles = [
+                //     {
+                //         fileMD5: 2222222,
+                //         fileName: "只是为了好玩：Linux之父林纳斯自传.pdf",
+                //         fileSize: 25269642,
+                //         fileUUID: 1,
+                //         id: 0
+                //     },
+                //     {
+                //         fileMD5: 2222222,
+                //         fileName: "Linux之父林纳斯自传.pdf",
+                //         fileSize: 25269642,
+                //         fileUUID: 1,
+                //         id: 0
+                //     }
+                // ];
+                $scope.constructConstractInfos = data;
 
-        //获取项目部
-        commonService.getDept().then(function (data) {
-            $scope.deptList = data;
+                console.log(data);
+            })
         })
 
-        // 获取左侧的项目部id
-        $scope.getContractId = function (deptId) {
-            $scope.deptId = deptId;
-        };
+        // //获取项目部
+        // commonService.getDept().then(function (data) {
+        //     $scope.deptList = data;
+        // })
+        //
+        // // 获取左侧的项目部id
+        // $scope.getContractId = function (deptId) {
+        //     $scope.deptId = deptId;
+        // };
 
         /*
          * 初始化模态框
@@ -214,99 +247,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
             $scope.animationsEnabled = !$scope.animationsEnabled;
         };
 
-        // 获取左侧的合同id
-        $scope.getContractTarget = function (element, id) {
-            $scope.id = id;
-            // console.log(element);
-            // console.log(id);
-            // 施工合同数据展示
-            var constructConstractId = id;
-            if (!constructConstractId) {
-                constructConstractId = 2;
-            }
-            commonService.getConstructConstractInfos(constructConstractId).then(function (data) {
-                $.each(data, function (i, v) {
-                    if (null == v || undefined == v) {
-                        data[i] = ' ';
-                    }
-                });
-                // ！！！！！！！！！！！！！！！文件假数据
-                // ！！！！！！！！！！！！！！！文件假数据
-                data.contractFiles = [
-                    {
-                        fileMD5: 2222222,
-                        fileName: "只是为了好玩：Linux之父林纳斯自传.pdf",
-                        fileSize: 25269642,
-                        fileUUID: 1,
-                        id: 0
-                    },
-                    {
-                        fileMD5: 2222222,
-                        fileName: "Linux之父林纳斯自传.pdf",
-                        fileSize: 25269642,
-                        fileUUID: 1,
-                        id: 0
-                    }
-                ];
-                $scope.constructConstractInfos = data;
 
-                console.log(data);
-            })
-            // 删除合同和编辑合同控制请选中一个合同
-            selectProject(element)
-            function selectProject(element) {
-                $(".selectProject").removeClass("selectProject");
-                $(element).addClass("selectProject");
-            }
-
-            // 监理合同数据展示
-            var supervisionConstractId = id;
-            commonService.getSupervisionConstractInfos(supervisionConstractId).then(function (data) {
-                // ！！！！！！！！！！！！！！！文件假数据
-                data.contractFiles = [
-                    {
-                        fileMD5: 2222222,
-                        fileName: "林纳斯自传.pdf",
-                        fileSize: 25269642,
-                        fileUUID: 1,
-                        id: 0
-                    },
-                    {
-                        fileMD5: 2222222,
-                        fileName: "林纳斯自传.pdf",
-                        fileSize: 25269642,
-                        fileUUID: 1,
-                        id: 0
-                    }
-                    ]
-                $scope.supervisionConstractInfos = data;
-                // console.log(data);
-            })
-
-            // // 监理试验室合同数据展示
-            var labConstractId = id;
-            commonService.getLabConstractInfos(labConstractId).then(function (data) {
-                // ！！！！！！！！！！！！！！！文件假数据
-                $scope.labConstractInfos = data;
-                data.contractFiles = [
-                    {
-                        fileMD5: 2222222,
-                        fileName: "只是为了好玩.pdf",
-                        fileSize: 25269642,
-                        fileUUID: 1,
-                        id: 0
-                    },
-                    {
-                        fileMD5: 2222222,
-                        fileName: "Linux.pdf",
-                        fileSize: 25269642,
-                        fileUUID: 1,
-                        id: 0
-                    }
-                ];
-                // console.log(data);
-            })
-        }
 
         //contractlist repeat finish end
         $scope.$on('contractlistNgRepeatFinished', function () {

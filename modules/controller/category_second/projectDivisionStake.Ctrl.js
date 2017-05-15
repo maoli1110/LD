@@ -10,7 +10,6 @@ angular.module('core').controller('projectDivisionStakeCtrl', ['$scope', '$http'
             $state.go('ld.projectDivisionContract');
             return;
         }
-        console.log($scope.name,'$scope.name');
         //点击左侧树节点对应的桩号(sendCtrl->projectDivisionStakeCtrl父子通信)
         $scope.$on('to-projectDivisionStake',function(event,stakeInfo, ppid){
             $scope.stakeInfo = stakeInfo;

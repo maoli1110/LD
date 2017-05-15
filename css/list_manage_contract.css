@@ -8,7 +8,7 @@
 .list-manage-contract .searchBox{ width: 50%; float: right;}
 .list-manage-contract .twoLetter{ height: 28px; }
 .list-manage-contract .contract-search input{ width: 250px;}
-.list-manage-contract .contract-search input,.list-manage-contract .contract-search button{float: left; margin-right: 10px;}
+.list-manage-contract .contract-search input,.list-manage-contract .contract-search button{float: left;}
 .list-manage-contract .borderTop{ padding: 20px 0; border-top: 1px solid #dbdee7; clear: both;}
 .list-manage-contract .menu{ height: 30px;}
 .list-manage-contract .button { background: #bdc4ce; border: 0px; width: 70px; height: 28px; -webkit-border-radius: 3px; color: #fff;}

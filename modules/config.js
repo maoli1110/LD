@@ -12,18 +12,30 @@ var ApplicationConfiguration = (function(){
 	};
 
 	var urls = {
-        apiUrl: 'http://172.16.21.47:8080/bx/rs/TestRestServices/testRestMethod?str=15221113063'
-        // wwwUrl: 'https://www.suncloud.cn',
-        // panelApiUrl: 'https://panel.suncloud.cn/api/index.php?r=',
-        // loginUrl: 'https://passport.suncloud.cn/index.php?client_id=panel'
+        apiUrl: ''
     };
+
+    
 
 	return {
 		applicationModuleName: applicationModuleName,
 		applicationModuleVendorDependencies: applicationModuleVendorDependencies,
 		registerModule: registerModule,
 		urls:urls
+	};
 
+})();
+
+var staticData = (function(){
+
+	var defaultNodeName = {
+    	unitNameArr:null,
+    	partNameArr:null,
+    	itemNameArr:null
+    };
+
+	return {
+		defaultNodeName: defaultNodeName
 	};
 
 })();

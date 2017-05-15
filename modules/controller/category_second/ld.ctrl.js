@@ -18,7 +18,20 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
             deptId:null,
             contractId:null
         }
-
+        $scope.thirdLeftTree = {
+            deptId:null,
+            contractId:null
+        }
+        $scope.fourLeftTree = {
+            deptId:null,
+            contractId:null
+        }
+        var currentContractType; //当前合同类型
+        var DefaultNodeName = {
+            unitNameArr:null,
+            partNameArr:null,
+            itemNameArr:null
+        }
         //根据子级的路由变化改变父级左侧树
         $scope.$on('changeRouter',function(event,currentRouterNum){
             $scope.currentRouterNum = currentRouterNum;
@@ -26,15 +39,25 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
 
         //首次进入页面或者F5刷新，项目部repeat完成之后的动作
         $scope.$on('deptNgRepeatFinished',function(event,currentRouterNum){
-            // 如果是刷新工程划分-合同段页面 设置当前选择的合同段id为第一个项目部下的第一个合同段
-            if($scope.currentRouterNum == 2 && $state.$current.name == 'ld.projectDivisionContract' && $scope.secondLeftTree.contractId == null) {
+            // 第二种树 刷新时都要默认展开第一个项目部下的第一个合同段 设置当前选择的合同段id为第一个项目部下的第一个合同段
+            if($scope.currentRouterNum == 1 && $scope.firstLeftTree.contractId == null) {
                 // var deptId = $($('#secondLeftTree').children()[0]).attr('deptId');
                 var deptId = $scope.firstLeftTree.deptId;
                 $scope.getContractList(deptId, $scope.currentRouterNum, true);
             }
-            if($scope.currentRouterNum == 1 && $state.$current.name == 'ld.first' && $scope.firstLeftTree.contractId == null) {
+            if($scope.currentRouterNum == 2 && $scope.secondLeftTree.contractId == null) {
                 // var deptId = $($('#secondLeftTree').children()[0]).attr('deptId');
-                 var deptId = $scope.secondLeftTree.deptId;
+                var deptId = $scope.secondLeftTree.deptId;
+                $scope.getContractList(deptId, $scope.currentRouterNum, true);
+            }
+            if($scope.currentRouterNum == 3 && $scope.thirdLeftTree.contractId == null) {
+                // var deptId = $($('#secondLeftTree').children()[0]).attr('deptId');
+                var deptId = $scope.secondLeftTree.deptId;
+                $scope.getContractList(deptId, $scope.currentRouterNum, true);
+            }
+            if($scope.currentRouterNum == 4 && $scope.fourLeftTree.contractId == null) {
+                // var deptId = $($('#secondLeftTree').children()[0]).attr('deptId');
+                var deptId = $scope.secondLeftTree.deptId;
                 $scope.getContractList(deptId, $scope.currentRouterNum, true);
             }
         });
@@ -51,12 +74,26 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
 
         //获取项目部
         commonService.getDept().then(function(data){
+            currentContractType = 'constructContract';
             $scope.deptList = data;
-            //首次加载默认的deptId 
+            //首次加载默认的deptId
             var defaultDeptId = data[0].deptId;
             $scope.firstLeftTree.deptId = defaultDeptId;
             $scope.secondLeftTree.deptId = defaultDeptId;
         });
+
+        //firstLeftTree页面获取项目部
+        $scope.firstTreeGetDept = function (contractType) {
+            currentContractType = contractType;
+            commonService.getDept().then(function(data){
+                $scope.deptList = data;
+                //首次加载默认的deptId
+                var defaultDeptId = data[0].deptId;
+                $scope.firstLeftTree.deptId = defaultDeptId;
+                $scope.getContractList(1,1,true)
+            });
+        }
+
 
         //获取项目部下合同段
         $scope.getContractList = function(deptId, leftTreeType, refresh){
@@ -67,17 +104,45 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
                 case 2 :
                 $scope.secondLeftTree.deptId = deptId;
             }
-            commonService.getContractList(deptId).then(function(data){
+            currentContractType = currentContractType?currentContractType:'constructContract';
+            commonService.getContractList(deptId,currentContractType).then(function(data){
                 $scope.flag.deptRepeatFinish = false;
                 var contractList = data.data;
                 contractListHtml(contractList,deptId,leftTreeType);//生成合同段列表
-                // 如果是刷新第二种树 默认展开第一个项目部
-                if(refresh && $scope.currentRouterNum == 2){
-                    $($('#secondLeftTree li ul')[0]).css('display','block');
-                    var contractId = $($('#secondLeftTree li ul a')[0]).attr('id').substring('contract_'.length).trim();
-                    // 如果刷新页是工程划分-合同段页面 设置右侧内容页的选中合同段id
-                    if($state.$current.name == 'ld.projectDivisionContract') {
-                        $scope.getContractInfo2(contractId);
+                // 如果是刷新 默认展开第一个项目部
+                var id = '';
+                // 后面做记忆功能要加上判断 session中是否有数据
+                if(refresh/* && session != null*/) {
+                    // 刷新并且session中无数据 默认展示第一个项目部下的第一个合同段
+                    if ($scope.currentRouterNum == 1) {
+                        id = 'firstLeftTree';
+                    } else if ($scope.currentRouterNum == 2) {
+                        id = 'secondLeftTree';
+                    } else if ($scope.currentRouterNum == 3) {
+                        id = 'thirdLeftTree';
+                    } else if ($scope.currentRouterNum == 4) {
+                        id = 'fourLeftTree';
+                    }
+                    $scope.contractName = $($('#' + id + ' li ul li a')[0]).text();
+                    $($('#' + id + ' li ul')[0]).css('display', 'block');
+                    var id = $($('#' + id + ' li ul a')[0]).attr('id');
+                    if (id != null) {
+                        var contractId = id.substring('contract_'.length).trim();
+                    }
+                    if($scope.currentRouterNum == 1) {
+                        if ($state.$current.name == 'ld.contractManage'){
+                             $scope.getContractInfo1(contractId);
+                        }
+                    } else if($scope.currentRouterNum == 2) {
+                        if ($state.$current.name == 'ld.projectDivisionContract') {
+                            $scope.getContractInfo2(contractId);
+                        } else if($state.$current.name == 'ld.listManageContract') {
+                            $scope.getContractInfo2(contractId);
+                        }
+                    } else if($scope.currentRouterNum == 3) {
+
+                    } else if($scope.currentRouterNum == 4) {
+
                     }
                 }
             });
@@ -145,29 +210,40 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
         $scope.getContractInfo1 = function(id){
             currentContractId = id;
             $scope.firstLeftTree.contractId = id;
-            $scope.$broadcast('to-projectDivisionContract', $scope.secondLeftTree.contractId);//传当前合同段的id
-            $state.go('ld.first');
+            $scope.$broadcast('to-ContractManage', $scope.firstLeftTree.contractId,currentContractType);//传当前合同段的id
+            $state.go('ld.contractManage');
         };
 
         //点击项目部下合同段
         $scope.getContractInfo2 = function(id){
             currentContractId = id;
             $scope.secondLeftTree.contractId = id;
-            $scope.$broadcast('to-projectDivisionContract', $scope.secondLeftTree.contractId);//传当前合同段的id
-            $state.go('ld.projectDivisionContract');
+            // 当前页面的路由地址
+            var routeUrl = $state.$current.name;
+            $scope.$broadcast('to-'+routeUrl, $scope.secondLeftTree.contractId);//传当前合同段的id
+            //$state.go(routeUrl);
         };
 
 
         //获取树节点
         $scope.getzTreeNode = function(id,deptId){
             var testParam = {
-                id:1,
+                id:67,
                 nodeType:-1,
                 deptId:deptId
             };
             commonService.getTreeNode(testParam).then(function(data){
                 zTree = $.fn.zTree.init($("#ztree-"+deptId+"-"+id), setting, data.data);
             });
+            /*var data = [];
+            data[0] = {"id":0,"nodeNum":"num单位工程","nodeName":"单位工程","nodeType":0,"parentId":0,"isParent":true};
+            data[1] = {"id":1,"nodeNum":"num子单位工程","nodeName":"子单位工程","nodeType":1,"parentId":0,"isParent":true};
+            data[2] = {"id":2,"nodeNum":"num分部工程","nodeName":"子分部工程","nodeType":2,"parentId":1,"isParent":true};
+            data[3] = {"id":3,"nodeNum":"num子分部工程","nodeName":"子分部工程","nodeType":3,"parentId":2,"isParent":true};
+            data[4] = {"id":4,"nodeNum":"num分项工程","nodeName":"分项工程","nodeType":4,"parentId":3,"isParent":true};
+            data[5] = {"id":5,"nodeNum":"num子分项工程","nodeName":"子分项工程1","nodeType":5,"parentId":4,"isParent":false};
+            data[6] = {"id":6,"nodeNum":"num子分项工程","nodeName":"子分项工程2","nodeType":5,"parentId":4,"isParent":false};
+            zTree = $.fn.zTree.init($("#ztree-"+deptId+"-"+id), setting, data);*/
         };
 
         //新建单位/子单位/分部/子分部/分项/子分项工程弹框
@@ -221,16 +297,17 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
             },
             data: {
                 simpleData: {
-                    enable: false,
+                    enable: true,
                     idKey: "id",
-                    pIdKey: "parentId"
+                    pIdKey: "parentId",
+                    rootPId:null
                 },
                 key: {
                     name: "nodeName"
                 }
             },
             callback: {
-                beforeExpand: beforeExpand,
+                //beforeExpand: beforeExpand,
                 onClick:ztreeOnclick,
                 onRightClick: OnRightClick
             }
@@ -260,30 +337,68 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
         //单击树节点的callback事件
         function ztreeOnclick () {
             //异步获取当前选中节点的子节点
-            $scope.name="hello1";
+            //$scope.name="hello1";
             var zTree = $.fn.zTree.getZTreeObj($scope.ztreeOpenId),
                 nodes = zTree.getSelectedNodes(),
                 treeNode = nodes[0];
-            // 通过左侧树拿到工程划分-桩号页面需要展示的数据
-            if(treeNode.nodeType == 5) {    // 当前节点是子分项工程，工程划分-桩号内容页才有数据
-                var itemized = treeNode.getParentNode();    // 分项
-                var childDeptProject = itemized.getParentNode();    // 子分部
-                var deptProject = childDeptProject.getParentNode();    // 分部
-                var childUnitProject = deptProject.getParentNode();    // 子单位
-                var unitProject = childUnitProject.getParentNode();    // 单位
 
-                $scope.stakeInfo = {
-                    'contractName':$('#'+$scope.ztreeOpenId).prev().text(), // 合同段名字
-                    'unitProjectName':unitProject.nodeName, 'unitProjectNameNum':unitProject.nodeNum, // 单位名称
-                    'childUnitProjectName':childUnitProject.nodeName,    // 子单位
-                    'deptProjectName':deptProject.nodeName,'deptProjectNameNum':deptProject.nodeNum, // 分部名称
-                    'childDeptProjectName':childDeptProject.nodeName, // 子分部
-                    'itemizedName':itemized.nodeName,'itemizedNameNum':treeNode.nodeNum,   // 分项
-                    'childItemizedName':treeNode.nodeName,   // 子分项名称
-                    'treeId':treeNode.id  // 左侧树的id
-                };
-                $scope.$broadcast('to-projectDivisionStake', $scope.stakeInfo, $scope.openPpid);//传值
-                $state.go('ld.projectDivisionStake');
+            // 只有是第5级树节点 即当前节点是子分项工程 点击才跳页面
+            if(treeNode.nodeType == 5) {
+                if($state.$current.name == "ld.projectDivisionContract" || $state.$current.name == "ld.projectDivisionStake") {
+                    // 通过左侧树拿到工程划分-桩号页面需要展示的数据
+                    var itemized = treeNode.getParentNode();    // 分项
+                    var childDeptProject = itemized.getParentNode();    // 子分部
+                    var deptProject = childDeptProject.getParentNode();    // 分部
+                    var childUnitProject = deptProject.getParentNode();    // 子单位
+                    var unitProject = childUnitProject.getParentNode();    // 单位
+
+                    $scope.stakeInfo = {
+                        'contractName':$('#'+$scope.ztreeOpenId).prev().text(), // 合同段名字
+                        'unitProjectName':unitProject.nodeName, 'unitProjectNameNum':unitProject.nodeNum, // 单位名称
+                        'childUnitProjectName':childUnitProject.nodeName,    // 子单位
+                        'deptProjectName':deptProject.nodeName,'deptProjectNameNum':deptProject.nodeNum, // 分部名称
+                        'childDeptProjectName':childDeptProject.nodeName, // 子分部
+                        'itemizedName':itemized.nodeName,'itemizedNameNum':treeNode.nodeNum,   // 分项
+                        'childItemizedName':treeNode.nodeName,   // 子分项名称
+                        'treeId':treeNode.id  // 左侧树的id
+                    };
+                    $scope.$broadcast('to-projectDivisionStake', $scope.stakeInfo, $scope.openPpid);//传值
+                    $state.go('ld.projectDivisionStake');
+                } else if($state.$current.name == "ld.listManageContract" || $state.$current.name == "ld.listManageItemized") {
+                    // 跳转到清单管理-桩号页面
+
+                    // 通过左侧树拿到清单管理-桩号页面需要展示的数据
+                    var itemized = treeNode.getParentNode();    // 分项
+                    var childDeptProject = itemized.getParentNode();    // 子分部
+                    var deptProject = childDeptProject.getParentNode();    // 分部
+                    var childUnitProject = deptProject.getParentNode();    // 子单位
+                    var unitProject = childUnitProject.getParentNode();    // 单位
+
+                    $scope.stakeInfo = {
+                        'contractName':$('#'+$scope.ztreeOpenId).prev().text(), // 合同段名字
+                        'unitProjectName':unitProject.nodeName, 'unitProjectNameNum':unitProject.nodeNum, // 单位名称
+                        'childUnitProjectName':childUnitProject.nodeName,    // 子单位
+                        'deptProjectName':deptProject.nodeName,'deptProjectNameNum':deptProject.nodeNum, // 分部名称
+                        'childDeptProjectName':childDeptProject.nodeName, // 子分部
+                        'itemizedName':itemized.nodeName,'itemizedNameNum':treeNode.nodeNum,   // 分项
+                        'childItemizedName':treeNode.nodeName,   // 子分项名称
+                        'treeId':treeNode.id  // 左侧树的id
+                    };
+                    $scope.$broadcast('to-listManageItemized', $scope.stakeInfo, $scope.openPpid);//传值
+                    $state.go('ld.listManageItemized');
+
+
+
+
+
+
+
+
+
+                    
+
+                }
+
             }
         }
 
@@ -346,38 +461,6 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
             }
         }
 
-        //删除节点
-        /*function removeTreeNode(e) {
-            hideRMenu();
-            var zTree = $.fn.zTree.getZTreeObj($scope.ztreeOpenId),
-                nodes = zTree.getSelectedNodes(),
-                treeNode = nodes[0];
-            //var delUrl = config.delDeptUrl;
-            if (nodes && nodes.length>0) {
-                var msg;
-                if (nodes[0].child && nodes[0].child.length > 0) {//父部门的情况
-                    msg = "此部门有下级部门，确认删除此部门？";
-                } else{//子部门的情况
-                    msg = "确认删除此部门？";
-                }
-                $body.modalBox({
-                    msg:msg,
-                    okFun:function(){
-                        ajaxServer(delUrl,JSON.stringify({"id":nodes[0].id}),function(data){
-                            if (data.success) {
-                                $.modalBox.close();
-                                zTree.removeNode(treeNode, callbackFlag);
-                                $body.msgBox({
-                                     status : 'success',
-                                     msg : "删除成功",
-                                     time:1000
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-        }*/
         // 删除节点
         function removeTreeNode() {
             hideRMenu();
@@ -575,6 +658,21 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
                 moveDownTreeNode();
             });
         });
+
+
+        //单位工程名称
+        commonService.getDefaultNodeName(1).then(function(data){
+            staticData.defaultNodeName.unitNameArr = data.data;
+        });
+        //分部工程名称
+        commonService.getDefaultNodeName(2).then(function(data){
+            staticData.defaultNodeName.partNameArr = data.data;
+        });
+        //分项工程名称
+        commonService.getDefaultNodeName(3).then(function(data){
+            staticData.defaultNodeName.itemNameArr = data.data;
+        });
+
 
         //=====我是合同管理分割线
         
