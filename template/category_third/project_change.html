@@ -1,70 +1,91 @@
 <!-- 工程管理-工程划分-合同页面展示css -->
 <!-- <link rel="stylesheet" href="css/index.css"> -->
 <link rel="stylesheet" href="css/project_division_contract.css">
+<link rel="stylesheet" href="css/project_change.css">
  <!--固定导航-->
 <div class="top-navbar" tab-active>
     <a href="javascript:;" class="active tab" ui-sref="ld.projectChange">
         <span>工程变更</span>
     </a>
 </div>
-<div class="main-content" style="height: calc(100% - 40px);">
+<div class="main-content " style="height: calc(100% - 40px);">
     <!-- 工程管理-工程划分-合同段数据展示页面 -->
-    <div class="content division-contract">
-        <div class="inner-wrapper" style="height: calc(100vh - 120px)">
-        <div class="contract-name">合同1</div>
-        <!-- 搜索框 -->
-        <div class="contract-search" style="margin-bottom: 20px;" input-search-child-items>
-            <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称或桩号等关键词" style="width: 40%;">
-            <a id="clearSearchKey" class="clear" style="position: absolute;margin: 6px 0 0 -46px;display: none;" ng-click="clearSearchKey()">
-                <i class="btn-close"></i>
-            </a>
-            <a class="btn-wrap" style="position: absolute;margin: 6px 0 0 -20px;" ng-click="searchChildItems()">
-                <i class="btn-search"></i>
-            </a>
-        </div>
-        <div class="division_content">
-            <div class="ttitle" style="text-align: center;">工程划分</div>
-            <div style="height: 40px;">
-                <div class="thead" style="width: 10%;padding-left: 10px;">序号</div>
-                <div class="thead" style="width: 19%;">单位工程
-                    <div ng-click="sortChildItems('unitProjectName',0)" class="triangle-up" style="left: 75px;"></div>
-                    <div ng-click="sortChildItems('unitProjectName',1)" class="triangle-down" style="left: 69px;"></div>
+    <div class="content change-content">
+        <div class="division-contract contract-content">
+            <div class="inner-wrapper " style="height: calc(100vh - 120px)">
+            <div class="contract-name" ui-sref="ld.projectChangeStake">{{contractName}}合同1</div>
+            <div class="contract-operate" drop-down="">
+                <button class="active" id="createChangeModal" ng-click="createChangeModal()" >发起变更</button>
+            </div>
+            <!-- 搜索框 -->
+            <div class="contract-search" style="margin-bottom: 20px;" input-search-child-items>
+                <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称或桩号等关键词" style="width:26%;">
+                <a id="clearSearchKey" class="clear" style="position: absolute;margin: 6px 0 0 -46px;display: none;" ng-click="clearSearchKey()">
+                    <i class="btn-close"></i>
+                </a>
+                <a class="btn-wrap" style="position: absolute;margin: 6px 0 0 -20px;" ng-click="searchChildItems()">
+                    <i class="btn-search"></i>
+                </a>
+                <select class="input-select input-border" ng-model="selectValue" ng-change="changeList(selectValue)">
+                    <option value="list">全部</option>
+                    <option value="ilist">待操作</option>
+                </select>
+            </div>
+            <div class="division_content">
+                <div class="ttitle">工程变更
+                    <div class="ttitleleft">待操作表单：<span>1111111</span>张</div>
+                    <div class="ttitleleft">已通过变更金额总计：<span>1111111</span>元</div>
                 </div>
-                <div class="thead" style="width: 19%;">分部工程
-                    <div ng-click="sortChildItems('deptProjectName',0)" class="triangle-up" style="left: 75px;"></div>
-                    <div ng-click="sortChildItems('deptProjectName',1)" class="triangle-down" style="left: 69px;"></div>
+                <div style="height: 40px;">
+                    <div class="thead" style="width: 12%;">申请编号
+                        <div ng-click="sortChildItems('unitProjectName',0)" class="triangle-up" style="left: 73px;"></div>
+                        <div ng-click="sortChildItems('unitProjectName',1)" class="triangle-down" style="left: 67px;"></div>
+                    </div>
+                    <div class="thead" style="width: 16%;">变更工程名称
+                        <div ng-click="sortChildItems('unitProjectName',0)" class="triangle-up" style="left: 102px;"></div>
+                        <div ng-click="sortChildItems('unitProjectName',1)" class="triangle-down" style="left: 96px;"></div>
+                    </div>
+                    <div class="thead" style="width: 20%;">变更桩号
+                        <div ng-click="sortChildItems('deptProjectName',0)" class="triangle-up" style="left: 75px;"></div>
+                        <div ng-click="sortChildItems('deptProjectName',1)" class="triangle-down" style="left: 69px;"></div>
+                    </div>
+                    <div class="thead" style="width: 12%">发起时间
+                        <div ng-click="sortChildItems('createTime',0)" class="triangle-up" style="left: 75px;"></div>
+                        <div ng-click="sortChildItems('createTime',1)" class="triangle-down" style="left: 69px;"></div>
+                    </div>
+                    <div class="thead" style="width: 16%;">变更金额(元)
+                        <div ng-click="sortChildItems('childItemizedName',0)" class="triangle-up" style="left: 100px;"></div>
+                        <div ng-click="sortChildItems('childItemizedName',1)" class="triangle-down" style="left: 94px;"></div>
+                    </div>
+                    <div class="thead" style="width: 14%;">审核状态
+                        <div ng-click="sortChildItems('stakeMark',0)" class="triangle-up" style="left: 74px;"></div>
+                        <div ng-click="sortChildItems('stakeMark',1)" class="triangle-down" style="left: 68px;"></div>
+                    </div>
+                    <div class="thead" style="width: 10%;">待操作
+                        <div ng-click="sortChildItems('createTime',0)" class="triangle-up" style="left: 60px;"></div>
+                        <div ng-click="sortChildItems('createTime',1)" class="triangle-down" style="left: 54px;"></div>
+                    </div>
                 </div>
-                <div class="thead" style="width: 19%;">分项工程编号
-                    <div ng-click="sortChildItems('childItemizedName',0)" class="triangle-up" style="left: 100px;"></div>
-                    <div ng-click="sortChildItems('childItemizedName',1)" class="triangle-down" style="left: 94px;"></div>
-                </div>
-                <div class="thead" style="width: 19%">分项工程桩号
-                    <div ng-click="sortChildItems('stakeMark',0)" class="triangle-up" style="left: 100px;"></div>
-                    <div ng-click="sortChildItems('stakeMark',1)" class="triangle-down" style="left: 94px;"></div>
-                </div>
-                <div class="thead" style="width: 14%">发起时间
-                    <div ng-click="sortChildItems('createTime',0)" class="triangle-up" style="left: 75px;"></div>
-                    <div ng-click="sortChildItems('createTime',1)" class="triangle-down" style="left: 69px;"></div>
+                <div class="aline" ng-repeat="item in childItemizedInfos.content">
+                    <div class="tbody" style="width: 12%">{{item.aa}}</div>
+                    <div class="tbody" style="width: 16%" title="{{item.unitProjectName}}">{{item.bb}}</div>
+                    <div class="tbody" style="width: 20%" title="{{item.deptProjectName}}">{{item.cc}}</div>
+                    <div class="tbody" style="width: 12%;" title="{{item.createTime | date:'yyyy-MM-dd'}}">{{item.dd | date:'yyyy-MM-dd'}}</div>
+                    <div class="tbody" style="width: 16%;" title="{{item.childItemizedName}}"><span  ng-style="selectDisplay(item.ff);">{{item.ee}}</span></div>
+                    <div class="tbody" style="width: 14%;" title="{{item.childItemizedNum}}">{{item.ff}}</div>
+                    <div class="tbody" style="width: 10%;" title="{{item.childItemizedNum}}"><a href="javascript:;" ui-sref="ld.projectChangeStake({changeFarterId:item.hh})">{{item.hh}}</a></div>
                 </div>
             </div>
-            <div class="aline" ng-repeat="item in childItemizedInfos.content">
-                <div class="tbody" style="width: 10%">{{$index+1}}</div>
-                <div class="tbody" style="width: 19%" title="{{item.unitProjectName}}">{{item.unitProjectName}}</div>
-                <div class="tbody" style="width: 19%" title="{{item.deptProjectName}}">{{item.deptProjectName}}</div>
-                <div class="tbody" style="width: 19%" title="{{item.childItemizedName}}">{{item.childItemizedName}}</div>
-                <div class="tbody" style="width: 19%" title="{{item.childItemizedNum}}">{{item.childItemizedNum}}</div>
-                <div class="tbody" style="width: 14%" title="{{item.createTime | date:'yyyy-MM-dd'}}">{{item.createTime | date:'yyyy-MM-dd'}}</div>
+            <div style="text-align: center;margin-top: 10px;font-size: 14px;">
+                <span style="margin-right: 40px;">共{{childItemizedInfos.totalElements}}条</span>
+                <i class="first page" ng-click="firstPage()"></i>
+                <i class="previous page" ng-click="prevPage()"></i>
+                <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number}}"/>
+                / <span>{{childItemizedInfos.totalPages}}</span>
+                <i class="next page" ng-click="nextPage()"></i>
+                <i class="last page" ng-click="lastPage()"></i>
             </div>
-        </div>
-        <div style="text-align: center;margin-top: 10px;font-size: 14px;">
-            <span style="margin-right: 40px;">共{{childItemizedInfos.totalElements}}条</span>
-            <i class="first page" ng-click="firstPage()"></i>
-            <i class="previous page" ng-click="prevPage()"></i>
-            <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number}}"/>
-            / <span>{{childItemizedInfos.totalPages}}</span>
-            <i class="next page" ng-click="nextPage()"></i>
-            <i class="last page" ng-click="lastPage()"></i>
-        </div>
+            </div>
         </div>
     </div>
 </div>

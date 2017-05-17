@@ -14,8 +14,8 @@
 
 <!-- 工程管理-清单管理-合同段数据展示页面 -->
 <div class="content list-manage-contract">
-    <div class="inner-wrapper">
-    <div class="contract-name">合同1</div>
+    <div class="inner-wrapper" style="height: calc(100vh - 120px)">
+    <div class="contract-name">{{contractName}}</div>
     <div>
         <!-- 下拉框 -->
         <div class="contract-section">
@@ -29,24 +29,19 @@
         </div>
 
         <!-- 搜索框 -->
-        <div class="contract-search clearfix" input-search-child-items>
+
+
+        <div class="contract-search" style="margin-bottom: 20px;" input-search-child-items="">
             <span class="titleText">关键词：</span>
-            <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 20%;">
-            <a id="clearSearchKey" class="clear" style="right: 56px;position: relative;top: 5px;" ng-click="clearSearchKey()">
+            <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 30%;padding-right:44px;">
+            <a id="clearSearchKey" class="clear" style="position: absolute; margin: 6px 0px 0px -46px; display: inline-block; " ng-click="clearSearchKey()">
                 <i class="btn-close"></i>
             </a>
-            <a class="btn-wrap" style="right: 50px;position: relative;top: 5px;" ng-click="searchChildItems()">
+            <a class="btn-wrap" style="position: absolute;margin: 6px 0 0 -20px;" ng-click="searchChildItems()">
                 <i class="btn-search"></i>
             </a>
         </div>
-        <!-- <div style="width: 51%;float: right;">
-            <span style=" line-height:32px; float:left">关键词:</span>
-            <div class="contract-search" >
-                <input type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词">
-                <button class="button twoLetter">查询</button>
-                 <button class="button-empty twoLetter">清空</button>
-            </div>
-        </div> -->
+
     </div>
     <div class="borderTop">
         <button class="button twoLetter" ng-click="uploadFile()">导入</button>
@@ -56,9 +51,9 @@
 
         <div class="QA-icon">
             <span></span>
-            <p>
+            <p style="box-shadow: 0 5px 7px rgba(0,0,0,0.1);border: 1px solid rgba(0,0,0,0.1);">
                 必须遵守的规则：<br>
-                1、第一行为字段标题；
+                1、第一行为字段标题;<br>
                 2、列的顺序依次为：清单编号、项目名称、计量单位、合同单价、合同数量、金额<br>
                 3、章节号编号必须带“章”；<br>
                 4、汇总类项目的计量单位必须为空；<br>
@@ -70,7 +65,7 @@
     </div>
 
 
-    <div  class="division_content"  ng-show="{{divShow}}" style="height:calc(100% - 180px);">
+    <div  class="division_content {{divShow?'':'hide'}}" style="height:calc(100% - 200px); overflow: hidden;">
 
             <div class="fileUpload">
                 <img src="./imgs/icon-form.png">
@@ -81,11 +76,11 @@
 
 
 
-    <div ng-show="{{!divShow}}">
+    <div class="{{!divShow?'':'hide'}}">
      <div class="division_content" style="clear: both;">
         <div class="ttitle" style="padding: 0px 10px;">
             <span>清单管理:</span>
-            <span style="float: right;">合计：xxx,x元</span>
+            <span style="float: right;">合计：{{childItemizedInfos.xxx | number}} 元</span>
         </div>
 
         <div class="clearfix">
@@ -102,14 +97,14 @@
             <div class="thead" style="width: 14%"><span>合同金额（元）</span>
             </div>
         </div>
-        <div class="table-list" style="height: calc(100vh - 430px);overflow-y: scroll">
+        <div class="table-list" style="height: calc(100vh - 445px);overflow-y: scroll">
             <div class="aline" listid={{item.id}} ng-repeat="item in childItemizedInfos.content">
                 <div class="tbody" style="width: 10%">{{item.listNum}}</div>
                 <div class="tbody" style="width: 19%">{{item.itemName}}</div>
                 <div class="tbody" style="width: 19%">{{item.measurementUnit}}</div>
-                <div class="tbody" style="width: 19%">{{item.contractPrice}}</div>
-                <div class="tbody" style="width: 19%">{{item.contractQuantity}}</div>
-                <div class="tbody" style="width: 14%">{{item.contractAmount}}</div>
+                <div class="tbody" style="width: 19%">{{item.contractPrice | number}}</div>
+                <div class="tbody" style="width: 19%">{{item.contractQuantity | number}}</div>
+                <div class="tbody" style="width: 14%">{{item.contractAmount | number}}</div>
             </div>
         </div>
     </div>
@@ -117,7 +112,7 @@
         <span style="margin-right: 40px;">共{{childItemizedInfos.totalElements}}条</span>
         <i class="first page" ng-click="firstPage()"></i>
         <i class="previous page" ng-click="prevPage()"></i>
-        <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number+1}}"/>
+        <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number}}"/>
         / <span>{{childItemizedInfos.totalPages}}</span>
         <i class="next page" ng-click="nextPage()"></i>
         <i class="last page" ng-click="lastPage()"></i>

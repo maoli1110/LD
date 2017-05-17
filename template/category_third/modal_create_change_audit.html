@@ -1,0 +1,43 @@
+
+<div class="modal-content">
+    <div class="model-content ng-scope">
+        <div class="window-title">
+            <span>审核表单</span>
+            <div ng-click="cancel()" class="window-close">
+                <div class="window-close-left"></div>
+                <div class="window-close-right"></div>
+            </div>
+        </div>
+        <div class="modal-body" id="modal-body">
+        <link rel="stylesheet" href="css/bounced.css" class="ng-scope" >
+        <link rel="stylesheet" href="css/project_change.css" class="ng-scope" >
+            <div class="bottom-content">
+                <div class="table-construct" style="line-height:32px;">
+                    <div class="form-inline form-group">
+                        <label style="margin-right:40px;"><input type="radio" ng-value=true ng-model="state" name="selectState">通过</label>
+                        <label>
+                            <input type="radio" ng-value=false ng-model="state" name="selectState">不通过，退回至
+                            <select class="input-select input-border ng-pristine ng-valid ng-empty ng-touched" ng-model="selectValue" style="width:200px;height:32px;">
+                                <option value="">发起(资料员)</option>
+                                <option value="">项目建工</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-inline form-group">
+                        <label style="margin-right:20px">审核意见</label>
+                        <textarea style="width: 80%;" class="form-control" rows="3" name="changeauditMark" ng-maxlength="500" ng-model="changeauditMark" placeholder="若不通过审核意见必填"></textarea>
+                    </div>
+                    <div>下一步审批截止日期：</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="window-bottom">
+        <div style="text-align: right">
+            <button class="btn ok fiveLetter" type="button" ng-click="ok()">确定</button>
+        </div>
+        <div style="text-align: left">
+            <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</div>

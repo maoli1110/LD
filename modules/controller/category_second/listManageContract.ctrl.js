@@ -14,7 +14,7 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
       var chapterId = $scope.myValue ='list';
 
        //获取当前页面的currentRouterNum
-        $scope.$emit('changeRouter',commonService.getCurrentRouterNum($state.$current.name));
+      $scope.$emit('changeRouter',commonService.getCurrentRouterNum($state.$current.name));
 
 
 
@@ -22,25 +22,30 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
         $scope.getContractList($scope.secondLeftTree.deptId, 2, true);
         //此时$state.$current.name=ld.listManageContract
         $scope.$on('to-'+$state.$current.name,function(){
-
+          //分页查询合同
          commonService.getContractlist($scope.secondLeftTree.contractId,chapterId,pageParam).then(function(data){
             $scope.childItemizedInfos = data;
             $scope.childItemizedInfos.content.length==0?$scope.divShow=true:$scope.divShow=false;
           });
+          //查询合同章节
+          commonService.contractlistChapters($scope.secondLeftTree.contractId).then(function (data) {
+            $scope.chapters = data.data;
+          })
         });
-
+        //分页查询合同
         commonService.getContractlist($scope.secondLeftTree.contractId,chapterId,pageParam).then(function(data){
             $scope.childItemizedInfos = data;
             $scope.childItemizedInfos.content.length==0?$scope.divShow=true:$scope.divShow=false;
           });
-
-
+         //查询合同章节
+        commonService.contractlistChapters($scope.secondLeftTree.contractId).then(function (data) {
+            $scope.chapters = data.data;
+        })
 
 
         //获取当前路由的routerNum,同时通知父级修改
         commonService.getCurrentRouterNum($state.$current.name);
         $scope.$emit('changeRouter',commonService.getCurrentRouterNum($state.$current.name));
-
 
 
 
@@ -58,26 +63,14 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
       })
 
 
-
-
-
- 
        //分页根据章节查询合同清单
       $scope.changeFn = function(){
         chapterId = $scope.myValue;
         pageParam.pageNumber=0;
-        commonService.getContractlist($scope.sectionContractId,chapterId,pageParam).then(function(data){
+        commonService.getContractlist($scope.secondLeftTree.contractId,chapterId,pageParam).then(function(data){
             $scope.childItemizedInfos = data;
           });
       }
-
-      //查询合同章节
-      commonService.contractlistChapters($scope.sectionContractId,pageParam).then(function (data) {
-          //console.log(data);
-          $scope.chapters = data;
-      })
-
-
 
       /**
        * 上一页
@@ -89,7 +82,7 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
         }
         $("#currentPage").val(--currentPage);
         pageParam.pageNumber = currentPage - 1;
-        commonService.getContractlist($scope.sectionContractId,chapterId,pageParam).then(function(data){
+        commonService.getContractlist($scope.secondLeftTree.contractId,chapterId,pageParam).then(function(data){
           $scope.childItemizedInfos = data;
         });
       };
@@ -103,7 +96,7 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
         }
         $("#currentPage").val(++currentPage);
         pageParam.pageNumber = currentPage - 1;
-        commonService.getContractlist($scope.sectionContractId,chapterId,pageParam).then(function(data){
+        commonService.getContractlist($scope.secondLeftTree.contractId,chapterId,pageParam).then(function(data){
           $scope.childItemizedInfos = data;
         });
       };
@@ -118,7 +111,7 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
         currentPage = 1;
         $("#currentPage").val(currentPage);
         pageParam.pageNumber = currentPage - 1;
-        commonService.getContractlist($scope.sectionContractId,chapterId,pageParam).then(function(data){
+        commonService.getContractlist($scope.secondLeftTree.contractId,chapterId,pageParam).then(function(data){
           $scope.childItemizedInfos = data;
         });
       };
@@ -133,7 +126,7 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
         }
         $("#currentPage").val(totalPage);
         pageParam.pageNumber = totalPage - 1;
-        commonService.getContractlist($scope.sectionContractId,chapterId,pageParam).then(function(data){
+        commonService.getContractlist($scope.secondLeftTree.contractId,chapterId,pageParam).then(function(data){
           $scope.childItemizedInfos = data;
         });
       };
@@ -144,7 +137,7 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
         var queryParam = $("#searchChildItemsValue").val();
         pageParam.queryParam = queryParam;
         pageParam.pageNumber = 0;
-        commonService.getContractlist($scope.sectionContractId,chapterId,pageParam).then(function(data){
+        commonService.getContractlist($scope.secondLeftTree.contractId,chapterId,pageParam).then(function(data){
           $scope.childItemizedInfos = data;
           //console.log($scope.childItemizedInfos)
         });
@@ -161,26 +154,23 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
       //导入合同清单
       $scope.uploadFile = function(){
         alert("导入清单")
-        /*commonService.uploadContractlist($scope.sectionContractId).then(function(data){
+        /*commonService.uploadContractlist($scope.secondLeftTree.contractId).then(function(data){
             $scope.childItemizedInfos = data;
             console.log($scope.childItemizedInfos)
           });*/
       }
 
-
-       //导出合同清单
+      //导出合同清单
 
       $scope.DownloadContractlist = function(){
-        $http.get('http://192.168.13.215:8080/LBLD/rs/contractlist/'+ $scope.sectionContractId +'/download' , {
-          parameter:""
-        },{
-            responseparameterType: 'arraybuffer'
-        }).then(function (res) {
-            var blob = new Blob([res.data], {type: 'application/vnd.ms-excel'});
-            var fileName = 'Download contractlist.xls';
-            downFile(blob, fileName);
+        if($scope.childItemizedInfos.content.length==0){
+          alert("请导入清单");
+          return false;
+        }
+        commonService.contractlistDownload($scope.secondLeftTree.contractId).then(function(data){
+          console.log(data)
+          //$scope.childItemizedInfos = data;
         });
-
         function downFile(blob, fileName) {
             if (window.navigator.msSaveOrOpenBlob) {
                 navigator.msSaveBlob(blob, fileName);
@@ -193,10 +183,13 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
             }
         }
       }
-     
 
       //清空合同清单接口
       $scope.clearContractlist=function(){
+        if($scope.childItemizedInfos.content.length==0){
+          alert("请导入清单");
+          return false;
+        }
         var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 //size: 'lg',
@@ -204,14 +197,17 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
                 controller: 'clearContractlistCtrl',
                 resolve: {
                     items: function () {
-                        return $scope.items;
+                        return $scope.secondLeftTree.contractId;
                     }
                 }
             });
             modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
+                $scope.childItemizedInfos.content = selectedItem.content;
+                $scope.divShow = selectedItem.divShow;
+                $scope.chapters = selectedItem.chapters;
+                chapterId = 'list';
             }, function () {
-                //console.info('Modal dismissed at: ' + new Date());
+                //console.log('取消')
             });
 
       }
@@ -219,6 +215,10 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
 
       //提交清单
         $scope.subContractlist=function(){
+        if($scope.childItemizedInfos.content.length==0){
+          alert("请导入清单");
+          return false;
+        }
         var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 //size: 'lg',
@@ -226,7 +226,7 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
                 controller: 'subContractlistCtrl',
                 resolve: {
                     items: function () {
-                        return $scope.items;
+                        return $scope.secondLeftTree.contractId;
                     }
                 }
             });
@@ -244,18 +244,19 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
     //清空合同清单
     angular.module('core').controller('clearContractlistCtrl', ['$scope', '$http', '$uibModalInstance', 'items', '$timeout', 'commonService',
         function ($scope, $http, $uibModalInstance, items, $timeout, commonService) {
-
+          //当前合同ID
+          $scope.contractId = items;
 
           $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
             };
          $scope.ok = function () {
-              alert("清空了")
-              commonService.ContractlistClear($scope.sectionContractId).then(function (data) {
-                $scope.childItemizedInfos = data;
-                //console.log(data);
+              var selectedItem
+              commonService.ContractlistClear($scope.contractId).then(function (data) {
+                selectedItem={"content":[],"divShow":true,"chapters":[]}
+                $uibModalInstance.close(selectedItem);
                })
-              $uibModalInstance.close();
+              
           };
       }])
 
@@ -264,12 +265,13 @@ angular.module('core').controller('listManageContractCtrl', ['$scope', '$http','
     angular.module('core').controller('subContractlistCtrl', ['$scope', '$http', '$uibModalInstance', 'items', '$timeout', 'commonService',
         function ($scope, $http, $uibModalInstance, items, $timeout, commonService) {
 
-
+          //当前清单ID
+          $scope.contractId = items;
           $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
             };
          $scope.ok = function () {
-            commonService.submitContractlist($scope.sectionContractId).then(function (data) {
+            commonService.submitContractlist($scope.contractId).then(function (data) {
                 //console.log(data);
             })
             $uibModalInstance.close();

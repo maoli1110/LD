@@ -146,7 +146,7 @@ angular.module('core').service('commonService', function ($http, $q) {
         var delay = $q.defer();
         var url_join = url + "projectTreeService/findChildNodesByParent/" + param.id + "/" + param.nodeType;
         var url_test = "./json/simpleTree.json";
-        $http.get(url_test).then(function (data) {
+        $http.get(url_join).then(function (data) {
             delay.resolve(data);
         }, function (error) {
             delay.reject(error);
@@ -325,8 +325,6 @@ angular.module('core').service('commonService', function ($http, $q) {
      * 获取施工合同展示数据
      */
     this.getConstructConstractInfos = function (constractId,contractType) {
-
-        debugger
         var delay = $q.defer();
         var url_join;
         switch (contractType) {
@@ -412,7 +410,6 @@ angular.module('core').service('commonService', function ($http, $q) {
         return delay.promise;
     };
 
-
     // 删除施工合同
     // /contracts/construction/delete/{id}
     this.deleteConstruction = function (id) {
@@ -468,6 +465,17 @@ angular.module('core').service('commonService', function ($http, $q) {
         return delay.promise;
     }
 
+    // 关联工程树
+    this.getProjectTree = function () {
+        var delay = $q.defer();
+        var url_join = url + "orgnization/projectTree";
+        $http.get(url_join, {'withCredentials': true}).then(function (data) {
+            delay.resolve(data);
+        }, function (error) {
+            delay.reject(error);
+        });
+        return delay.promise;
+    };
 
     /**
      * 分页查询合同清单列表
@@ -492,13 +500,16 @@ angular.module('core').service('commonService', function ($http, $q) {
 
 
      /**
-     * 章节分页查询桩号清单列表
+     * 分页查询桩号清单列表
      */
      this.getItemizedlist = function (itemizedId,chapterId,pageParam) {
         pageParam = JSON.stringify(pageParam);
         var delay = $q.defer();
-
-        var url_join = url + 'itemizedlist/'+ itemizedId +'/'+chapterId;
+        if(itemizedId == null) {
+            return delay.promise;
+        }
+        var url_join = url + 'contractlist/'+ itemizedId +'/'+chapterId;
+        //var url_test = './json/list.json';
         $http.post(url_join, pageParam, {transformRequest: angular.identity}).then(function (data) {
             // 后台返回的当前页码是从0开始，此处先加1
             ++data.data.number;
@@ -516,17 +527,11 @@ angular.module('core').service('commonService', function ($http, $q) {
 
     this.uploadContractlist = function (contractId) {
         var delay = $q.defer();
-        $.ajax({
-            type: "POST",
-            url: url + 'contractlist/' + contractId,
-            contentType: 'application/json;',
-            success: function (data) {
-
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
+        var url_join = url + 'contractlist/' + contractId;
+       $http.post(url_join).then(function (data) {
+            delay.resolve(data);
+        }, function (error) {
+            delay.reject(error);
         });
         return delay.promise;
     };
@@ -535,38 +540,42 @@ angular.module('core').service('commonService', function ($http, $q) {
     /**
      * 导出合同清单
      */
-    this.getContractlistDownload = function (contractId) {
+    this.contractlistDownload = function (contractId) {
         var delay = $q.defer();
-        $.ajax({
-            type: "GET",
-            url: url + 'contractlist/' + contractId + '/download',
-            contentType: 'application/json',
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
+        var url_join = url + 'contractlist/' + contractId + '/download';
+       $http.get(url_join).then(function (data) {
+            delay.resolve(data);
+        }, function (error) {
+            delay.reject(error);
         });
         return delay.promise;
     };
 
+    /**
+     * 导出桩号清单接口
+     */
+    this.itemizedlistDownload = function (itemizedId) {
+        var delay = $q.defer();
+         var url_join = url + 'itemizedlist/' + itemizedId + '/download';
+       $http.get(url_join).then(function (data) {
+            delay.resolve(data);
+        }, function (error) {
+            delay.reject(error);
+        });
+        return delay.promise;
+
+    };
 
     /**
      * 清空合同清单接口
      */
     this.ContractlistClear = function (contractId) {
         var delay = $q.defer();
-        $.ajax({
-            type: "GET",
-            url: url + 'contractlist/' + contractId + '/clear',
-            contentType: 'application/json',
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
+        var url_join = url + 'contractlist/' + contractId + '/clear';
+       $http.get(url_join).then(function (data) {
+            delay.resolve(data);
+        }, function (error) {
+            delay.reject(error);
         });
         return delay.promise;
     };
@@ -577,82 +586,17 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.ItemizedlistClear = function (itemizedId) {
         var delay = $q.defer();
-        $.ajax({
-            type: "GET",
-            url: url + 'itemizedlist/' + itemizedId + '/clear',
-            contentType: 'application/json',
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
+        var url_join = url + 'itemizedlist/' + itemizedId + '/clear';
+       $http.get(url_join).then(function (data) {
+            delay.resolve(data);
+        }, function (error) {
+            delay.reject(error);
         });
         return delay.promise;
     };
 
-    /**
-     * 导出桩号清单接口
-     */
-    this.itemizedlistDownload = function (itemizedId) {
-        var delay = $q.defer();
-        $.ajax({
-            type: "GET",
-            url: url + 'itemizedlist/' + itemizedId + '/download',
-            contentType: 'application/json',
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
-        });
-        return delay.promise;
-    };
+    
 
-
-
-    /**
-     * 章节分页查询桩号清单列表
-     */
-     this.getItemizedlist = function(itemizedId,chapterId,pageParam){
-        pageParam = JSON.stringify(pageParam);
-        var delay = $q.defer();
-        $.ajax({
-            type: "POST",
-            url: url + 'contractlist/'+ itemizedId +'/'+ chapterId,// contractlist //换一下没数据itemizedlist
-            contentType: 'application/json;',
-            data: pageParam,
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
-        });
-        return delay.promise;
-    };
-
-    /**
-     * 章节分页查询桩号清单列表
-     */
-    this.getItemizedlist = function (itemizedId, chapterId, pageParam) {
-        pageParam = JSON.stringify(pageParam);
-        var delay = $q.defer();
-        $.ajax({
-            type: "POST",
-            url: url + 'contractlist/' + itemizedId + '/' + chapterId,// contractlist //换一下没数据itemizedlist
-            contentType: 'application/json;',
-            data: pageParam,
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
-        });
-        return delay.promise;
-    };
     /*
      * 查询合同清单中的章
      */
@@ -661,17 +605,30 @@ angular.module('core').service('commonService', function ($http, $q) {
         if(contractId == null) {
             return delay.promise;
         }
-        
-        $.ajax({
-            type: "GET",
-            url: url + 'contractlist/' + contractId + '/chapters',
-            contentType: 'application/json',
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
+       var url_join = url + 'contractlist/' + contractId + '/chapters';
+       $http.get(url_join).then(function (data) {
+            delay.resolve(data);
+        }, function (error) {
+            delay.reject(error);
+        });
+        return delay.promise;
+    };
+
+
+    /*
+     * 查询清单桩号中的章
+     */
+    this.itemizedIdlistChapters = function (itemizedId) {
+        var delay = $q.defer();
+        if(itemizedId == null) {
+            return delay.promise;
+        }
+
+        var url_join = url + 'itemizedlist/' + itemizedId + '/chapters';
+        $http.get(url_join).then(function (data) {
+            delay.resolve(data);
+        }, function (error) {
+            delay.reject(error);
         });
         return delay.promise;
     };
@@ -683,17 +640,11 @@ angular.module('core').service('commonService', function ($http, $q) {
     this.saveItemizedlist = function (itemizedId, pageParam) {
         pageParam = JSON.stringify(pageParam);
         var delay = $q.defer();
-        $.ajax({
-            type: "POST",
-            url: url + 'itemizedlist/' + itemizedId,
-            contentType: 'application/json;',
-            data: pageParam,
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
+        var url_join = url + 'itemizedlist/' + itemizedId;
+        $http.post(url_join, pageParam, {transformRequest: angular.identity}).then(function (data) {
+            delay.resolve(data.data);
+        }, function (error) {
+            delay.reject(error);
         });
         return delay.promise;
     };
@@ -702,19 +653,14 @@ angular.module('core').service('commonService', function ($http, $q) {
     /**
      * 提交桩号清单
      */
+
     this.submitItemizedlist = function (itemizedId) {
         var delay = $q.defer();
-        $.ajax({
-            type: "POST",
-            url: url + 'itemizedlist/' + itemizedId + '/submit',
-            contentType: 'application/json;',
-            data: pageParam,
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
+        var url_join = url + 'itemizedlist/' + itemizedId + '/submit';
+        $http.post(url_join, {transformRequest: angular.identity}).then(function (data) {
+            delay.resolve(data.data);
+        }, function (error) {
+            delay.reject(error);
         });
         return delay.promise;
     };
@@ -724,20 +670,35 @@ angular.module('core').service('commonService', function ($http, $q) {
      */
     this.submitContractlist = function (contractId) {
         var delay = $q.defer();
-        $.ajax({
-            type: "POST",
-            url: url + 'contractlist/' + contractId + '/submit',
-            contentType: 'application/json;',
-            data: pageParam,
-            success: function (data) {
-                delay.resolve(data);
-            },
-            error: function (error) {
-                delay.reject(JSON.parse(error.responseText));
-            }
+        var url_join = url + 'contractlist/' + contractId + '/submit';
+        $http.post(url_join, {transformRequest: angular.identity}).then(function (data) {
+            delay.resolve(data.data);
+        }, function (error) {
+            delay.reject(error);
         });
+
         return delay.promise;
     };
+
+    //导出清单
+    this.downloadItemizedlist = function (itemizedId) {
+        var delay = $q.defer();
+        //pageParam = JSON.stringify(pageParam);
+        var url_join = url + 'itemizedlist/'+ itemizedId +'/download';
+        $http.get(url_join , {
+          parameter:""
+        },{
+            responseparameterType: 'arraybuffer'
+        }).then(function (res) {
+            var blob = new Blob([res.data], {type: 'application/vnd.ms-excel'});
+            var fileName = 'Download itemizedList.xls';
+            downFile(blob, fileName);
+        });
+
+        return delay.promise;
+    };
+
+
 
     /**
      * [获取单位工程、分部工程、分项工程默认名称]
@@ -765,7 +726,7 @@ angular.module('core').service('commonService', function ($http, $q) {
     this.getCurrentRouterNum = function (currentRouterName) {
         var firstCategory = ['ld.contractManage']
         var secondCategory = ['ld.projectDivisionContract', 'ld.projectDivisionStake', 'ld.listManageContract'];
-        var thirdCategory = ['ld.projectChange'];
+        var thirdCategory = ['ld.projectChange','ld.projectChangeStake'];
         var fourCategory = [''];
         if (firstCategory.indexOf(currentRouterName) !== -1) {
             return 1;
@@ -777,5 +738,112 @@ angular.module('core').service('commonService', function ($http, $q) {
             return 4;
         }
     }
+
+    //心跳机制
+    function getheartBeat() {
+        var delay = $q.defer();
+        var url_join= url+"heartBeat";
+        $http.get(url_join)
+            .success(function (data) {
+                delay.resolve(data);
+            }).error(function (data, status) {
+            delay.reject(data);
+        });
+        return delay.promise;
+    };
+
+    function refreshState() {
+        getheartBeat().then(function(){});
+    }
+
+    //设置间隔获取状态
+    this.heartBeat = function () {
+        ApplicationConfiguration.refreshID = setInterval(refreshState, 20*60*1000);
+        // ApplicationConfiguration.refreshID = setInterval(refreshState, 10*1000);
+    }
+
+    // 树节点展开或关闭  e={type:"",operObj:"",level: 1}
+    // 展开e.type="expand"  收起e.type="collapse"		e.operObj对应树节点信息ul的id
+    // e.level:当前展开到第几层
+    this.openOrClose = function (e){
+        var level = e.level;	// 当前展开到第几层
+        var type = e.type;	// 展开e.type="expand"  收起e.type="collapse"
+        var operObj = e.operObj;	// e.operObj对应树节点信息ul的id
+
+        var zTree = $.fn.zTree.getZTreeObj(operObj);
+        var treeNodes = zTree.transformToArray(zTree.getNodes());
+        var flag=true;
+        var maxLevel=-1;	// 该树的最大层数
+        //点击展开、折叠的时候需要判断一下当前level的节点是不是都为折叠、展开状态
+        for (var i = 0;i < treeNodes.length; i++) {
+            if(treeNodes[i].level >= maxLevel){	// 获取状态树的深度
+                maxLevel = treeNodes[i].level;
+            }
+            if(treeNodes[i].level == level && treeNodes[i].isParent){
+                if (type == "expand" && !treeNodes[i].open) {
+                    flag=false;
+                    break;
+                } else if (type == "collapse" && treeNodes[i].open) {
+                    flag=false;
+                    break;
+                }
+            }
+        }
+        if(flag){
+            //说明当前level的节点都为折叠或者展开状态
+            if(type == "expand"){
+                if(level < maxLevel-1){
+                    level++;
+                }
+            }else if(type == "collapse"){
+                if(level == 0){
+                    return level;
+                }
+                level--;
+            }
+        }
+        for (var i = 0;i < treeNodes.length; i++) {
+            if(treeNodes[i].level == level && treeNodes[i].isParent){
+                if (type == "expand" && !treeNodes[i].open) {
+                    zTree.expandNode(treeNodes[i], true, false, null, true);
+                } else if (type == "collapse" && treeNodes[i].open) {
+                    zTree.expandNode(treeNodes[i], false, false, null, true);
+                }
+            }
+        }
+        return level;
+    }
+
+    // 展开全部节点，并返回当前展开层数 即最大层数
+    this.expandAll = function(treeId) {
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+        //全部打开
+        treeObj.expandAll(true);
+        // 设置当前打开的层数
+        var treeNodes = treeObj.transformToArray(treeObj.getNodes());
+        for(var i = 0 ; i<treeNodes.length;i++){
+            if(treeNodes[i].level >= maxLevel){
+                maxLevel = treeNodes[i].level;
+            }
+        }
+        return maxLevel;
+    }
+
+    /**
+     * 创建子分项工程
+     * /childItemizedService/createChildItemized
+     */
+    this.createChildItemized = function (param) {
+        var delay = $q.defer();
+        param = JSON.stringify(param);
+        var url_join = url + 'childItemizedService/createChildItemized';
+        $http.post(url_join, param, {transformRequest: angular.identity}).then(function (data) {
+            delay.resolve(data.data);
+        }, function (error) {
+            delay.reject(error);
+        });
+        return delay.promise;
+    };
+
 
 });

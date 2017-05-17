@@ -23,8 +23,8 @@
                         <a class="wrapper-pdf" ng-repeat="item in uploader.queue" ng-show="uploader.isHTML5&& item.file.name.split('.')[item.file.name.split('.').length-1] == 'pdf' || uploader.isHTML5 && item.file.type.substr(0,5) === 'image'" >
                             <i class="ico-pdf"></i>
                             <span class="txt-pdf">{{item.file.name}}</span>
-                            <div class="inner-mask" >
-                                <i class="delete-attachment" ng-click="deleteAttachmentModal()"></i>
+                            <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target)">
+                                <i class="delete-attachment" ng-click="deleteAttachmentModal(1)"></i>
                             </div>
                         </a>
                     </div>
@@ -399,7 +399,7 @@
                         <div class="col-xs-3">
                             <input type="text" class="associated_engineer" id="ppid"
                                    name="associatedEngineer" required
-                                   ng-maxlength="100" ng-model="as_engineer" ng-value="">
+                                   ng-maxlength="100" ng-model="as_engineer" ng-value="constructConstractInfos.ppid">
                             <a class="btn-associate" ng-click="editCompGroup()">
                                 <span class="ico-associate"></span>
                             </a>
@@ -422,9 +422,79 @@
         </div>
     </div>
 </div>
-<!--<ul>-->
-<!--<li ng-repeat="item in items">-->
-<!--<a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>-->
-<!--</li>-->
-<!--</ul>-->
-<!--Selected: <b>{{selected.item}}</b>-->
+<div class="select-project modal-comp-group " edit-comp-group style="display: none">
+    <div class="modal-header">
+        <h3 class="modal-title">
+            <p>选择工程</p>
+            <a class="btn-close" id="closeProject">
+                <i class="ico-close"></i>
+            </a>
+        </h3>
+    </div>
+    <div class="link-project-body modal-body">
+        <div class="row" style="margin-bottom:15px;">
+            <div class="form-inline">
+                <div class="form-group col-xs-3" show-select>
+                    <select class="form-control selectpicker" ng-change="treeSearch(1,1)" ng-model="projtype">
+                        <option value="0">全部专业</option>
+                        <option value="1">土建预算</option>
+                        <option value="2">钢筋预算</option>
+                        <option value="3">安装预算</option>
+                        <option value="4">Revit</option>
+                        <option value="5">Tekla</option>
+                        <!-- <option value="6">PDF</option> -->
+                    </select>
+                </div>
+                <div class="form-group col-xs-3" style="padding-left:0" show-select>
+                    <select class="form-control selectpicker" ng-change="treeSearch(2,1)" ng-model="functionOption">
+                        <option value="0">全部功能</option>
+                        <option value="1">iBan照片</option>
+                        <option value="2">LE模型</option>
+                        <option value="3">资料</option>
+                        <option value="4">任务提醒</option>
+                        <option value="5">PDF图纸检查点</option>
+                        <option value="6">钢筋节点</option>
+                        <option value="7">保存视口</option>
+                        <option value="8">摄像监控</option>
+                        <option value="9">协作</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-4 link-inputSear" style="padding-left:0;">
+                    <input type="text" class="form-control " placeholder="请输入工程名称搜索" ng-model="formText"
+                           ng-change="delayTreeSearch(3,1)">
+                    <div class="link-search">
+                        <span></span>
+                    </div>
+                </div>
+                <button type="button" class="openOrCloseTree" ng-click="expand(1,1)">
+                    <span>+</span>
+                </button>
+                <button type="button" class="openOrCloseTree" style="margin-left: 15px;" ng-click="collapse(1,1)">
+                    <span>-</span>
+                </button>
+                <!-- <div ng-click="expand(1,1)" class="openOrCloseTree">
+                    <span>+</span>
+                </div>
+                <div ng-click="collapse(1,1)" class="openOrCloseTree" style="margin-left: 15px;">
+                    <span>-</span>
+                </div> -->
+            </div>
+        </div>
+        <div class="row link-pro">
+            <div class="ztree-scroll" id="content-a11">
+                <ul id="tree" class="ztree"></ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="window-bottom" style="margin: 20px 0 25px;">
+        <div style="text-align: right">
+            <button class="btn fiveLetter ok" id="submitCompGroup" type="button" ng-click="ensure()"
+                    ng-disabled="flagok">确定
+            </button>
+        </div>
+        <div style="text-align: left">
+            <button class="btn fiveLetter cancel" id="closeModalCompGroup" type="button">取消</button>
+        </div>
+    </div>
+</div>

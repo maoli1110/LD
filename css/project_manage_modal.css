@@ -232,12 +232,16 @@
 .model-content .modal-body .bottom-content .table-construct div .associated_engineer {
   width: 80%;
   height: 32px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .model-content .modal-body .bottom-content .table-construct div .btn-associate {
   display: inline-block;
   vertical-align: top;
   height: 34px;
   padding: 6px 10px 0 10px;
+  cursor: pointer;
 }
 .model-content .modal-body .bottom-content .table-construct div .btn-associate .ico-associate {
   width: 20px;
@@ -263,9 +267,129 @@
   top: 130px;
   z-index: 111;
   background-color: #fff;
-  width: 100%;
+  left: 5%;
+  width: 90%;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0,0,0,.5);
 }
 /*opacity: 0.1;*/
+
+
+.link-project-body {
+  height: 505px !important;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+}
+
+.select-project .form-inline .form-control {
+  width: 100%;
+  border-radius: 0 !important;
+  margin-top: -1px;
+}
+
+.modal-body .dropdown-toggle {
+  border-radius: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+/*.modal-body .dropdown-toggle:focus {*/
+/*border: 1px solid #5d87d1;*/
+/*box-shadow: inset 1px 1px 1px rgba(93, 135, 209, 0.6), 1px 1px 1px rgba(93, 135, 209, 0.6);*/
+/*}*/
+
+.form-inline div span {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  border-radius: 0 !important;
+}
+
+.dropdown-menu {
+  padding: 0;
+  margin: 0;
+}
+
+.modal-body .btn-group.open .dropdown-toggle, .create .btn-group.open .dropdown-toggle {
+  -webkit-box-shadow: inset 0 0 0 #fff;
+  box-shadow: inset 0 0 0 #fff;
+}
+
+.dropdown-menu > li > a {
+  padding: 0px 20px;
+  height: 33px;
+  line-height: 33px;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li a {
+  outline: 0 none;
+}
+
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+  background-color: #DDE4F0;
+}
+
+.modal-body .bootstrap-select .dropdown-toggle:focus {
+  outline: none !important;
+  border: 1px solid #66afe9;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+/*.modal-body .dropdown-toggle:focus {*/
+/*border: 1px solid #66afe9;*/
+/*box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);*/
+/*}*/
+.ng-empty {
+  background: #fff !important;
+}
+
+.openOrCloseTree {
+  border: 1px solid #dddddd;
+  background-color: #fff;
+  height: 20px;
+  width: 20px;
+  padding: 0 !important;
+  cursor: pointer;
+  text-align: center;
+  background-color: #fff;
+  line-height: 18px;
+  margin-top: 5px;
+}
+
+.link-inputSear {
+  position: relative;
+}
+
+.link-inputSear .link-search {
+  width: 30px;
+  height: 34px;
+  padding: 7px 7px;
+  position: absolute;
+  right: 16px;
+  top: 0px;
+}
+
+.link-search span {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url(../imgs/icon-button.png) -36px -9px no-repeat;
+}
+
+.link-pro {
+  height: 427px !important;
+  padding: 0 15px;
+}
+.link-pro  .ztree-scroll {
+  height: 427px !important;
+  overflow: auto;
+  border: 1px solid #ddd;
+}
+
+.ztree li a.curSelectedNode {
+  background-color: #eceef0;
+  border: 1px #eceef0 solid;
+}
+

@@ -1,0 +1,85 @@
+
+<div class="modal-content">
+    <div class="model-content ng-scope">
+        <div class="window-title">
+            <span>发起工程变更</span>
+            <div ng-click="cancel()" class="window-close">
+                <div class="window-close-left"></div>
+                <div class="window-close-right"></div>
+            </div>
+        </div>
+        <div class="modal-body" id="modal-body">
+        <link rel="stylesheet" href="css/bounced.css" class="ng-scope" >
+        <link rel="stylesheet" href="css/project_change.css" class="ng-scope" >
+        <div class="bottom-content">
+        <div class="table-construct">
+                <form class="form-horizontal clearfix" name="formChange" ng-submit="submitForm(formChange.$valid)" novalidate  >
+                    <div class="form-group col-sm-7" ng-class="{ 'has-error' : formChange.changeName.$invalid && !formChange.changeName.$pristine }">
+                        <label class="col-sm-4 control-label boinced-control-label">变更工程名称：</label>
+                        <div class="col-sm-8">
+                            <input id="ChangeEngineeringName" type="text" class="form-control"  placeholder="" name="changeName" ng-maxlength="60" required ng-model="changeName">
+                            <p class="help-block">
+                                <a ng-show="formChange.changeName.$error.required">该项为必填项</a>
+                                <span ng-show="formChange.changeName.$error.maxlength">该项不能超过60个字符</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5" ng-class="{ 'has-error' : formChange.changeNumber.$invalid && !formChange.changeNumber.$pristine }">
+                        <label class="col-sm-5 control-label boinced-control-label">变更申请编号：</label>
+                        <div class="col-sm-7">
+                            <input id="ChangeOfNumber" type="text" class="form-control"  placeholder="" name="changeNumber" ng-maxlength="20" required ng-model="changeNumber">
+                            <p class="help-block">
+                                <a ng-show="formChange.changeNumber.$error.required">该项为必填项</a>
+                                <span ng-show="formChange.changeNumber.$error.maxlength">该项不能超过20个字符</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-7" ng-class="{ 'has-error' : formChange.changesNumber.$invalid && !formChange.changesNumber.$pristine || formChange.changesNumber1.$invalid && !formChange.changesNumber1.$pristine || formChange.changesNumber2.$invalid && !formChange.changesNumber2.$pristine ||formChange.changesNumber3.$invalid && !formChange.changesNumber3.$pristine }">
+                        <label class="col-sm-4 control-label boinced-control-label">桩号：</label>
+                        <div class="col-sm-8 boinced-input">
+                          <input type="text" id="changestake1" class="form-control"  placeholder="" name="changesNumber" ng-maxlength="10" required ng-model="changesNumber" style="float: left;width:50px;"><i class="glyphicon glyphicon-plus boincedIcont" ></i>
+                          <input type="text" id="changestake2" class="form-control"  placeholder="" name="changesNumber1" ng-maxlength="10" required ng-model="changesNumber1" style="float: left;width:57px;"><i class="boincedIcont"><img src="imgs/~img.png" ></i>
+                          <input type="text" id="changestake3" class="form-control"  placeholder="" name="changesNumber2" ng-maxlength="10" required ng-model="changesNumber2" style="float: left;width:55px;"><i class="glyphicon glyphicon-plus boincedIcont" ></i>
+                          <input type="text" id="changestake4" class="form-control"  placeholder="" name="changesNumber3" ng-maxlength="10" required style="float: left;width:52px;" ng-model="changesNumber3">
+                          <p class="help-block">
+                                <a ng-show="formChange.changesNumber.$error.required || formChange.changesNumber1.$error.required || formChange.changesNumber2.$error.required ||formChange.changesNumber3.$error.required">该项为必填项</a>
+                                <span ng-show="formChange.changesNumber.$error.maxlength || formChange.changesNumber1.$error.maxlength ||formChange.changesNumber2.$error.maxlength || formChange.changesNumber3.$error.maxlength">各项不能超过10个字符</span>
+                          </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label class="col-sm-5 control-label boinced-control-label">关联：</label>
+                        <div class="col-sm-7">
+                          <button style="height:32px;width:120px;">选择构建</button>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-7" ng-class="{ 'has-error' : formChange.changeMark.$invalid && !formChange.changeMark.$pristine }">
+                        <label class="col-sm-4 control-label boinced-control-label">变更说明：</label>
+                        <div class="col-sm-8 boinced-input">
+                          <textarea id="changeDescription" class="form-control" rows="3" name="changeMark" ng-maxlength="500" ng-model="changeMark"></textarea>
+                          <p class="help-block">
+                                <span ng-show="formChange.changeMark.$error.maxlength">该项不能超过500个字符</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label class="col-sm-5 control-label boinced-control-label"></label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="changeAssociated" placeholder="" ng-model="delBuildVlu">
+                        </div>
+                    </div>
+                    <i class="glyphicon glyphicon-trash boincedIcont" ng-click="delBuild(delBuildVlu)"></i>
+                </form>
+                </div>
+                </div>
+        </div>
+        <div class="window-bottom">
+            <div style="text-align: right">
+                <button class="btn ok fiveLetter" type="button" ng-click="ok()">发起</button>
+            </div>
+            <div style="text-align: left">
+                <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,6 @@
  */
 angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 'commonService', '$timeout', '$compile', '$state', 'FileUploader',
     function ($scope, $http, $uibModal, commonService, $timeout, $compile, $state, FileUploader) {
-        console.log($scope.firstLeftTree.contractId);
         //获取当前路由的routerNum,同时通知父级修改
         commonService.getCurrentRouterNum($state.$current.name);
         $scope.$emit('changeRouter', commonService.getCurrentRouterNum($state.$current.name));
@@ -13,54 +12,134 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
         $scope.flag = {
             contractListRepeat: false
         };
-        $scope.$on('to-ContractManage',function (event,contractId,currentContractType) {
-            var currentContractType = currentContractType;
-            $scope.firstLeftTree.contractId = contractId;
-            console.log($scope.firstLeftTree.contractId);
-            commonService.getConstructConstractInfos($scope.firstLeftTree.contractId,currentContractType).then(function (data) {
-                // $.each(data, function (i, v) {
-                //     if (null == v || undefined == v) {
-                //         data[i] = ' ';
-                //     }
-                // });
-                // ！！！！！！！！！！！！！！！文件假数据
-                // ！！！！！！！！！！！！！！！文件假数据
-                // data.contractFiles = [
-                //     {
-                //         fileMD5: 2222222,
-                //         fileName: "只是为了好玩：Linux之父林纳斯自传.pdf",
-                //         fileSize: 25269642,
-                //         fileUUID: 1,
-                //         id: 0
-                //     },
-                //     {
-                //         fileMD5: 2222222,
-                //         fileName: "Linux之父林纳斯自传.pdf",
-                //         fileSize: 25269642,
-                //         fileUUID: 1,
-                //         id: 0
-                //     }
-                // ];
-                $scope.constructConstractInfos = data;
+        var modalMap = {};
 
+        $scope.$on('to-ContractManage', function (event, contractId, currentContractType) {
+            var currentContractType = currentContractType;
+            $scope.id = contractId;
+            commonService.getConstructConstractInfos($scope.id, currentContractType).then(function (data) {
+                data.contractFiles = [
+                    {
+                        fileName: 1111,
+                        fileSize: 2222,
+                        fileMD5: 3333,
+                        fileUUID: 4444,
+                    },
+                    {
+                        fileName: 2,
+                        fileSize: 2,
+                        fileMD5: 'gfvdsvgdfsbgf',
+                        fileUUID: 555,
+                    }
+                ];
+                $scope.constructConstractInfos = data;
                 console.log(data);
             })
+
+            $('.dropdown-menu li').on('click', function () {
+                var buttonID = $(this).attr('buttonID');
+                var templateID = $(this).attr('templateID');
+                var attachmentID = $(this).attr('attachmentID');
+                var constractId = $(this).attr('constractId');
+                var btnNone = $(this).attr('btnNone');
+                onClick(buttonID, templateID, btnNone, constractId, attachmentID);
+                modalMap.buttonID = buttonID;
+            });
         })
 
-        // //获取项目部
-        // commonService.getDept().then(function (data) {
-        //     $scope.deptList = data;
-        // })
-        //
-        // // 获取左侧的项目部id
-        // $scope.getContractId = function (deptId) {
-        //     $scope.deptId = deptId;
-        // };
+        // 页面下拉菜单控制
+        function onClick(buttonID, templateID, btnNone, constractId, attachmentID) {
+            $('#' + buttonID).css('display', 'inline-block');
+            var btnNone = btnNone.split(',');
+            btnNone.forEach(function (i, v) {
+                $('#' + i).css('display', 'none');
+            });
+            $('#' + templateID).css('display', 'inline-block').siblings().css('display', 'none');
+            $('#' + attachmentID).css('display', 'block').siblings('.attachment').css('display', 'none');
+            $('#' + constractId).css('display', 'block').siblings().css('display', 'none');
+        }
 
-        /*
-         * 初始化模态框
-         * 初始化参数配置
-         * */
+        //编辑合同点击合同段号
+        $('.edit-contract').on('click', function (e) {
+            // var $select = $(".selectProject");
+            //
+            // if ($select.length == 0) {
+            //     alert('请选择一个合同');
+            //     return;
+            // }
+            switch (modalMap.buttonID) {
+                case "createConstructModal":
+                    $(this).attr('ng-click', $scope.editConstructModal());
+                    break;
+                case "createSuperviseModal":
+                    $(this).attr('ng-click', $scope.editSuperviseModal());
+                    break;
+                case "createLabModal":
+                    $(this).attr('ng-click', $scope.editLabModal());
+                    break;
+                default:
+                    $(this).attr('ng-click', $scope.editConstructModal());
+                    break;
+            }
+        });
+        //删除合同点击合同段号
+        $('#delete-contract').on('click', function () {
+            // var $select = $(".selectProject");
+            // if ($select.length == 0) {
+            //     alert('请选择一个合同');
+            //     return;
+            // }
+
+            switch (modalMap.buttonID) {
+                case "createConstructModal":
+                    $(this).attr('ng-click', $scope.deleteConstractModal());
+                    break;
+                case "createSuperviseModal":
+                    $(this).attr('ng-click', $scope.deleteSupervisionModal());
+                    break;
+                case "createLabModal":
+                    $(this).attr('ng-click', $scope.deleteSupervisionLabModal());
+                    break;
+                default:
+                    $(this).attr('ng-click', $scope.deleteConstractModal());
+                    break;
+            }
+
+        });
+        //新建合同选择项目
+        $('.btn-create').on('click', function () {
+            // var $select = $(".select");
+            // if ($select.length == 0) {
+            //     alert('请选择一个项目');
+            //     return;
+            // }
+            switch (modalMap.buttonID) {
+                case "createConstructModal":
+                    $(this).attr('ng-click', $scope.createConstructModal());
+                    break;
+                case "createSuperviseModal":
+                    $(this).attr('ng-click', $scope.createSuperviseModal());
+                    break;
+                case "createLabModal":
+                    $(this).attr('ng-click', $scope.createLabModal());
+                    break;
+                default:
+                    $(this).attr('ng-click', $scope.createConstructModal());
+                    break;
+            }
+
+        });
+
+        // function select(ele) {
+        //     $(".select").removeClass("select");
+        //     $(ele).addClass("select");
+        // }
+
+        // function selectProject(ele) {
+        //     $(".select").removeClass("select");
+        //     $(ele).addClass("select");
+        // }
+
         $scope.animationsEnabled = true;
         // 新建施工合同
         $scope.createConstructModal = function () {
@@ -71,7 +150,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 controller: 'CreateConstractModalCtrl',
                 resolve: {
                     items: function () {
-                        return $scope.deptId;
+                        return $scope.firstLeftTree.deptId;
                     }
                 }
             });
@@ -89,7 +168,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 controller: 'CreateSupervisionModalCtrl',
                 resolve: {
                     items: function () {
-                        return $scope.deptId;
+                        return $scope.firstLeftTree.deptId;
                     }
                 }
             });
@@ -106,7 +185,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 controller: 'CreateSupervisionLabModalCtrl',
                 resolve: {
                     items: function () {
-                        return $scope.deptId;
+                        return $scope.firstLeftTree.deptId;
                     }
                 }
             });
@@ -124,7 +203,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                     items: function () {
                         return {
                             id: $scope.id,
-                            deptId: $scope.deptId,
+                            deptId: $scope.firstLeftTree.deptId,
                             constructConstractInfos: $scope.constructConstractInfos
                         };
                     }
@@ -146,8 +225,8 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                     items: function () {
                         return {
                             id: $scope.id,
-                            deptId: $scope.deptId,
-                            supervisionConstractInfos: $scope.supervisionConstractInfos
+                            deptId: $scope.firstLeftTree.deptId,
+                            supervisionConstractInfos: $scope.constructConstractInfos
                         };
                     }
                 }
@@ -166,8 +245,8 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                     items: function () {
                         return {
                             id: $scope.id,
-                            deptId: $scope.deptId,
-                            labConstractInfos: $scope.labConstractInfos
+                            deptId: $scope.firstLeftTree.deptId,
+                            labConstractInfos: $scope.constructConstractInfos
                         };
                     }
                 }
@@ -220,8 +299,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                     }
                 }
             });
-            modalInstance.result.then(function () {
-
+            modalInstance.result.then(function (id) {
             });
         };
         // 预览合同
@@ -233,20 +311,27 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 controller: 'PreviewConstractModalCtrl',
                 resolve: {
                     items: function () {
-                        return $scope.items;
+                        return $scope.constructConstractInfos.contractFiles;
                     }
                 }
             });
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-            }, function () {
-                //console.info('Modal dismissed at: ' + new Date());
+            modalInstance.result.then(function () {
+                $('#preview-body').slidePDF({
+                    pic: ".pdf-preview",//大图框架
+                    pnum: ".preview-menu",//小图框架
+                    // prev: ".pdf-left-arrow",//大图左箭头
+                    // next: ".pdf-right-arrow",//大图右箭头
+                    delayTime: 400,//切换一张图片时间
+                    order: 0,//当前显示的图片（从0开始）
+                    picdire: true,//大图滚动方向（true为水平方向滚动）
+                    mindire: true,//小图滚动方向（true为水平方向滚动）
+                    min_picnum: 5,//小图显示数量
+                })
             });
         };
         $scope.toggleAnimation = function () {
             $scope.animationsEnabled = !$scope.animationsEnabled;
         };
-
 
 
         //contractlist repeat finish end

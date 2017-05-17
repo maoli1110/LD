@@ -9,16 +9,12 @@
         </div>
         <div class="modal-body" id="modal-body">
         <link rel="stylesheet" href="css/bounced.css" class="ng-scope">
-                <form class="form-horizontal">
+                <form class="form-horizontal" name="partForm">
                     <div class="form-group">
                         <label class="col-sm-3 control-label boinced-control-label">分部工程：</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="data.nodeName">
-                                <option value="">选择分部工程</option>
-                                <option value="">路基工程</option>
-                                <option value="">路面工程</option>
-                                <option value="">桥梁工程</option>
-                                <option value="">隧道工程</option>
+                             <select class="form-control selectpicker" ng-model="data.nodeName">
+                                <option ng-repeat="item in unitNameArr" value="{{item}}">{{item}}</option>
                             </select>
                         </div>
                     </div>

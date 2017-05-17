@@ -1,0 +1,79 @@
+<!-- 工程管理-工程划分-合同页面展示css -->
+<!-- <link rel="stylesheet" href="css/index.css"> -->
+<link rel="stylesheet" href="css/project_division_contract.css">
+<link rel="stylesheet" href="css/project_change.css">
+ <!--固定导航-->
+<div class="top-navbar" tab-active>
+    <a href="javascript:;" class="active tab" ui-sref="ld.projectChange">
+        <span>工程变更</span>
+    </a>
+</div>
+<div class="main-content " style="height: calc(100% - 40px);">
+    <!-- 工程管理-工程划分-合同段数据展示页面 -->
+    <div class="content change-content-stake">
+        <div class=" change-content division-contract contract-content">
+            <div class="inner-wrapper " style="height: calc(100vh - 120px)">
+            <div class="contract-name">合同1  |  GK3+12.35~Gk2+145.20</div>
+            <div class="contract-operate" drop-down="">
+                <button class="active" ng-click="createChangeModalAddform()">添加表单</button>
+                <button class="active" ng-click="createChangeModalOrder();">签发变更令</button>
+                <div style="height:44px;overflow:hidden;float:right;">
+                <!-- 搜索框 -->
+                <div class="contract-search" input-search-child-items>
+                    <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请根据构件查询" style="width:44%;">
+                    <a id="clearSearchKey" class="clear" style="position: absolute;margin: 6px 0 0 -46px;display: none;" ng-click="clearSearchKey()">
+                        <i class="btn-close"></i>
+                    </a>
+                    <a class="btn-wrap" style="position: absolute;margin: 6px 0 0 -20px;" ng-click="searchChildItems()">
+                        <i class="btn-search"></i>
+                    </a>
+                    <div class="contract-operate" drop-down="" style="display:inline-block;margin-left:10px">
+                        <button class="active" id="createChangeModal" ng-click="createChangeModal1()">查看构建</button>
+                        <button class="active" id="createChangeModal" ng-click="createChangeModal1()">更改构建</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            
+            
+            <div class="division_content">
+                <div class="ttitle">开工报告
+                    <div class="ttitleleft">已通过：<span>20</span>张</div>
+                    <div class="ttitleleft">审批中<span>20</span>张</div>
+                    <div class="ttitleleft">待操作：<span>15</span>张</div>
+                    <div class="ttitleleft">共计<span>55</span>张</div>
+                </div>
+                <div style="height: 40px;">
+                    <div class="thead" style="width: 10%;padding-left: 10px;">序号</div>
+                    <div class="thead" style="width: 26%;padding-left: 10px;">表单名称</div>
+                    <div class="thead" style="width: 10%;padding-left: 10px;">状态</div>
+                    <div class="thead" style="width: 14%;padding-left: 10px;">发起时间</div>
+                    <div class="thead" style="width: 14%;padding-left: 10px;">发起时间</div>
+                    <div class="thead" style="width: 26%;text-align:center;">操作</div>
+                </div>
+                <div class="aline" ng-repeat="item in childItemizedInfos.content">
+                    <div class="tbody" style="width: 10%">{{$index+1}}</div>
+                    <div class="tbody" style="width: 26%" title="{{item.aa}}"><a href="javascript:;" ng-click="createChangeModalPreview()">{{item.id}}</a></div>
+                    <div class="tbody" style="width: 10%" title="{{item.bb}}"><a href="javascript:;" ng-style="selectColor(item.aa);" ng-click="createChangeStatusModalPreview()">{{item.aa}}</a></div>
+                    <div class="tbody" style="width: 14%" title="{{item.cc | date:'yyyy-MM-dd'}}">{{item.bb | date:'yyyy-MM-dd'}}</div>
+                    <div class="tbody" style="width: 14%" title="{{item.dd | date:'yyyy-MM-dd'}}">{{item.cc | date:'yyyy-MM-dd'}}</div>
+                    <div class="tbody" style="width: 26%;text-align:center;">
+                        <i ng-style="selectBackground(1);" class="glyphicon glyphicon-pencil doit-icon" ng-click="createChangeSubmitModalPreview()"></i>
+                        <i ng-style="selectBackground(2);" class="glyphicon glyphicon-ok doit-icon" ng-click="createChangeAuditModalPreview()"></i>
+                        <i ng-style="selectBackground(1);" class="glyphicon glyphicon-trash doit-icon" ng-click="createChangeDeleteModalPreview()"></i>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;margin-top: 10px;font-size: 14px;">
+                <span style="margin-right: 40px;">共{{childItemizedInfos.totalElements}}条</span>
+                <i class="first page" ng-click="firstPage()"></i>
+                <i class="previous page" ng-click="prevPage()"></i>
+                <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number}}"/>
+                / <span>{{childItemizedInfos.totalPages}}</span>
+                <i class="next page" ng-click="nextPage()"></i>
+                <i class="last page" ng-click="lastPage()"></i>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

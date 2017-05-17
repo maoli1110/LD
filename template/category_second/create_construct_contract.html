@@ -28,7 +28,7 @@
         <!-- 搜索框  -->
          <div class="contract-search clearfix" style="float: left; width:50%" input-search-child-items>
             <span class="titleText">关键词：</span>
-            <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 70%;">
+            <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 70%; padding-right:40px;">
             <a id="clearSearchKey" class="clear" style="right: 56px;position: relative;top: 5px;" ng-click="clearSearchKey()">
                 <i class="btn-close"></i>
             </a>
@@ -84,7 +84,7 @@
             <span style="margin-right: 40px;">共{{childItemizedInfos.totalElements}}条</span>
             <i class="first page" ng-click="firstPage()"></i>
             <i class="previous page" ng-click="prevPage()"></i>
-            <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number+1}}"/>
+            <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number}}"/>
             / <span>{{childItemizedInfos.totalPages}}</span>
             <i class="next page" ng-click="nextPage()"></i>
             <i class="last page" ng-click="lastPage()"></i>

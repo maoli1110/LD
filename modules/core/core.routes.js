@@ -57,11 +57,18 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 				displayName:"listManageItemized"
 			}
 		}).state('ld.projectChange',{
-			url:'/projectChange',//第三类-工程变更
+			url:'/projectChange',//第三类-工程变更-合同
 			controller:'projectChangeCtrl',
 			templateUrl:'template/category_third/project_change.html',
 			displayName:{
 				displayName:"projectChange"
+			}
+		}).state('ld.projectChangeStake',{
+			url:'/projectChangeStake/?:changeFarterId',//第三类-工程变更-桩号
+			controller:'projectChangeStakeCtrl',
+			templateUrl:'template/category_third/project_change_stake.html',
+			displayName:{
+				displayName:"projectChangeStake"
 			}
 		})
 	}

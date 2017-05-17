@@ -9,29 +9,23 @@
         </div>
         <div class="modal-body" id="modal-body">
         <link rel="stylesheet" href="css/bounced.css" class="ng-scope">
-                <form class="form-horizontal clearfix">
+                <form class="form-horizontal clearfix" name="subItemForm">
                     <div class="form-group col-sm-8">
                         <label class="col-sm-3 control-label boinced-control-label">分部工程：</label>
                         <div class="col-sm-9">
-                            <select class="form-control">
-                                <option value="">选择分部工程</option>
-                                <option value="">路基工程</option>
-                                <option value="">路面工程</option>
-                                <option value="">桥梁工程</option>
-                                <option value="">隧道工程</option>
-                            </select>
+                             <li class="nodeName">{{currentNodeName}}<span class="triangle_border_down"></span></li>
                         </div>
                     </div>
                     <div class="form-group col-sm-4">
                         <label class="col-sm-5 control-label boinced-control-label">合同图号：</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control"  placeholder="">
+                          <input type="text" class="form-control"  placeholder="" ng-model="createChildItemizedInfo.contractPictureNum" required>
                         </div>
                     </div>
                     <div class="form-group col-sm-8">
                         <label class="col-sm-3 control-label boinced-control-label">子分部工程：</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control"  placeholder="输入子分项工程名称，如桩号+工程部位">
+                          <input type="text" class="form-control"  placeholder="输入子分项工程名称，如桩号+工程部位" ng-model="createChildItemizedInfo.childItemizedName" required>
                         </div>
                     </div>
                     <div class="form-group col-sm-4">
@@ -43,30 +37,30 @@
                     <div class="form-group col-sm-8">
                         <label class="col-sm-3 control-label boinced-control-label">桩号：</label>
                         <div class="col-sm-9 boinced-input">
-                          <input type="text" class="form-control"  placeholder="" style="float: left;width:70px;"><i class="glyphicon glyphicon-plus boincedIcont" ></i>
-                          <input type="text" class="form-control"  placeholder="" style="float: left;width:85px;"><i class="boincedIcont"><img src="imgs/~img.png"></i>
-                          <input type="text" class="form-control"  placeholder="" style="float: left;width:70px;"><i class="glyphicon glyphicon-plus boincedIcont" ></i>
-                          <input type="text" class="form-control"  placeholder="" style="float: left;width:83px;">
+                          <input type="text" class="form-control"  placeholder="" style="float: left;width:70px;" ng-model="tempData.sec1" required><i class="glyphicon glyphicon-plus boincedIcont" ></i>
+                          <input type="text" class="form-control"  placeholder="" style="float: left;width:85px;" ng-model="tempData.sec2" required><i class="boincedIcont"><img src="imgs/~img.png"></i>
+                          <input type="text" class="form-control"  placeholder="" style="float: left;width:70px;" ng-model="tempData.sec3" required><i class="glyphicon glyphicon-plus boincedIcont" ></i>
+                          <input type="text" class="form-control"  placeholder="" style="float: left;width:83px;" ng-model="tempData.sec4" required>
                         </div>
                     </div>
                     <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label boinced-control-label"></label>
+                        <label class="col-sm-5 control-label boinced-control-label" title="选择构建组"></label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control" placeholder="">
+                          <input type="text" class="form-control" placeholder="" ng-model="createChildItemizedInfo.compGroupId" required>
                         </div>
                     </div>
                     <i class="glyphicon glyphicon-trash boincedIcont" ></i>
                     <div class="form-group col-sm-8">
                         <label  class="col-sm-3 control-label boinced-control-label">编号：</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control"  placeholder="子分项工程编号，若无子分项，则为分项工程编号">
+                          <input type="text" class="form-control"  placeholder="子分项工程编号，若无子分项，则为分项工程编号" ng-model="createChildItemizedInfo.childItemizedNum" required>
                         </div>
                     </div>
                 </form>
         </div>
         <div class="window-bottom">
             <div style="text-align: right">
-                <button class="btn ok fiveLetter" type="button" ng-click="ok()">确定</button>
+                <button class="btn ok fiveLetter" type="button" ng-click="ok()" ng-disabled="subItemForm.$invalid">确定</button>
             </div>
             <div style="text-align: left">
                 <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>

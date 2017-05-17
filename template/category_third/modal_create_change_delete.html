@@ -1,0 +1,29 @@
+
+<div class="modal-content">
+    <div class="model-content ng-scope">
+        <div class="window-title">
+            <span>删除表单</span>
+            <div ng-click="cancel()" class="window-close">
+                <div class="window-close-left"></div>
+                <div class="window-close-right"></div>
+            </div>
+        </div>
+        <div class="modal-body" id="modal-body">
+        <link rel="stylesheet" href="css/bounced.css" class="ng-scope" >
+        <link rel="stylesheet" href="css/project_change.css" class="ng-scope" >
+            <div class="bottom-content">
+                <div class="table-construct">
+                    <div style="text-align:center;line-height:24px">是否删除表单？<br>删除后表单已通过的审批将消失！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="window-bottom">
+        <div style="text-align: right">
+            <button class="btn ok fiveLetter" type="button" ng-click="ok()">确定</button>
+        </div>
+        <div style="text-align: left">
+            <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</div>

@@ -131,7 +131,7 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
                     }
                     if($scope.currentRouterNum == 1) {
                         if ($state.$current.name == 'ld.contractManage'){
-                             $scope.getContractInfo1(contractId);
+                             $scope.getContractInfo1(deptId,contractId);
                         }
                     } else if($scope.currentRouterNum == 2) {
                         if ($state.$current.name == 'ld.projectDivisionContract') {
@@ -205,12 +205,16 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
             });
             
         }
-
+        function selectProject() {
+            $(this).removeClass("selectProject");
+            $(this).addClass("selectProject");
+        }
         //点击项目部下合同段
         $scope.getContractInfo1 = function(id){
             currentContractId = id;
             $scope.firstLeftTree.contractId = id;
-            $scope.$broadcast('to-ContractManage', $scope.firstLeftTree.contractId,currentContractType);//传当前合同段的id
+            selectProject()
+            $scope.$broadcast('to-ContractManage',$scope.firstLeftTree.deptId, $scope.firstLeftTree.contractId,currentContractType);//传当前合同段的id
             $state.go('ld.contractManage');
         };
 
@@ -220,8 +224,12 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
             $scope.secondLeftTree.contractId = id;
             // 当前页面的路由地址
             var routeUrl = $state.$current.name;
-            $scope.$broadcast('to-'+routeUrl, $scope.secondLeftTree.contractId);//传当前合同段的id
-            //$state.go(routeUrl);
+			if(routeUrl == "ld.projectDivisionStake") {
+                // 当前页面是工程划分-桩号页面 点击左侧树的合同段 跳转到工程划分-合同段页面
+                $state.go('ld.projectDivisionContract');
+            } else {
+                $scope.$broadcast('to-'+routeUrl, $scope.secondLeftTree.contractId);
+            }
         };
 
 
@@ -245,9 +253,10 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
             data[6] = {"id":6,"nodeNum":"num子分项工程","nodeName":"子分项工程2","nodeType":5,"parentId":4,"isParent":false};
             zTree = $.fn.zTree.init($("#ztree-"+deptId+"-"+id), setting, data);*/
         };
-
+        var currentCreateNodeType;
         //新建单位/子单位/分部/子分部/分项/子分项工程弹框
         $scope.createNodeModal = function (iurl,ctrl,createNodeType,size) {
+            currentCreateNodeType = createNodeType;
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 size:size,
@@ -259,30 +268,63 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
                         item.id = selectedNodes.id; //当前选中节点的id
                         item.parentId = selectedNodes.parentId; //当前选中节点的父ID
                         item.nodeType = selectedNodes.nodeType; //当前选中节点的nodeType
-                        item.createNodeType = createNodeType;
-                        item.currentContractId = currentContractId;
+                        item.createNodeType = createNodeType; //当前需要创建的节点类型
+                        item.currentContractId = currentContractId; //当前合同段ID
+                        item.currentNodeName = selectedNodes.nodeName; //当前选中节点的名称
                         return item;
                     }
                 }
             });
-            modalInstance.result.then(function (createDataInfo) {
+            modalInstance.result.then(function (createNodeInfo,test) {
                 //获取子节点参数拼接
                 var getNodeInfo = {
-                    id: createDataInfo.parentId,
+                    id: createNodeInfo.parentId,
                     nodeType: selectedNodes.nodeType
                 };
-                //创建树节点
-                commonService.createTreeNode(createDataInfo).then(function(data){
+                if(currentCreateNodeType == 5){
                     /**
-                     * 获取子节点(获取当前节点下所有的数据)
-                     * 若当前只有单位工程，id:当前合同段 nodetype:-1
-                     * 若当前节点不止单位工程，id:当前选中节点的id nodetype不传
+                     * 创建子分项工程分两种情况
+                     * 1.右键选中的是分项工程2.右键选中的是子分项工程
                      */
-                    commonService.getTreeNode(getNodeInfo).then(function(data){
-                        addTreeNode(data.data);
-                    });
+                    if(currentCreateNodeType != selectedNodes.nodeType){
+                        var tempdata = [];
+                        tempdata[0] = selectedNodes.nodeName;
+                        getNodeInfo.id =  selectedNodes.id;//创建类型不同情况下id为当前选中节点的id
+                    } else {
+                        var tempdata = [];
+                        getNodeInfo.id =  selectedNodes.parentId; //创建类型相同的情况下id为当前选中节点的父id
+                    }
+                    var parentNodesName = getParentNodesName(selectedNodes,tempdata);
+                    createNodeInfo.unitProjectName = parentNodesName[1];
+                    createNodeInfo.deptProjectName = parentNodesName[0];
+                    createNodeInfo.sectionContractId = $scope.secondLeftTree.contractId;
+                    // console.log(parentNodesName,'getParentNodesName')
+                    //创建子分项工程
+                        commonService.createChildItemized(createNodeInfo).then(function(data){
+                            /**
+                             * 获取子节点(获取当前节点下所有的数据)
+                             * 若当前只有单位工程，id:当前合同段 nodetype:-1
+                             * 若当前节点不止单位工程，id:当前选中节点的id nodetype不传
+                             */
+                            commonService.getTreeNode(getNodeInfo).then(function(data){
+                                addTreeNode(data.data);
+                            });
+                        })
+                } else {
+                    //创建树节点
+                    commonService.createTreeNode(createNodeInfo).then(function(data){
+                        /**
+                         * 获取子节点(获取当前节点下所有的数据)
+                         * 若当前只有单位工程，id:当前合同段 nodetype:-1
+                         * 若当前节点不止单位工程，id:当前选中节点的id nodetype不传
+                         */
+                        commonService.getTreeNode(getNodeInfo).then(function(data){
+                            addTreeNode(data.data);
+                        });
+                    })
+                }
 
-                })
+
                 
             }, function () {
             });
@@ -307,7 +349,7 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
                 }
             },
             callback: {
-                //beforeExpand: beforeExpand,
+                beforeExpand: beforeExpand,
                 onClick:ztreeOnclick,
                 onRightClick: OnRightClick
             }
@@ -405,6 +447,7 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
 
         //右键功能
         function OnRightClick(event, treeId, treeNode) {
+
             var mX = event.clientX-30,
                 mY = event.clientY+10;
             if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
@@ -415,6 +458,18 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
                 selectedNodes = zTree.getSelectedNodes()[0];
                 showRMenu("node", mX, mY);
             }
+        }
+        //递归获取传入节点的单位工程和分项工程名称
+        function getParentNodesName(treeObj,parentNodesNameArr){
+            if(treeObj==null)return "";
+            var pNode = treeObj.getParentNode();
+            if(pNode!=null && (pNode.nodeType === 4 || pNode.nodeType === 0)){
+                parentNodesNameArr.push(pNode.nodeName);
+            }
+            if(pNode!=null){
+                getParentNodesName(pNode,parentNodesNameArr);
+            }
+            return parentNodesNameArr;
         }
 
         //显示右键菜单
@@ -659,7 +714,6 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
             });
         });
 
-
         //单位工程名称
         commonService.getDefaultNodeName(1).then(function(data){
             staticData.defaultNodeName.unitNameArr = data.data;
@@ -672,7 +726,6 @@ angular.module('core').controller('ldCtrl', ['$scope', '$http','$uibModal','comm
         commonService.getDefaultNodeName(3).then(function(data){
             staticData.defaultNodeName.itemNameArr = data.data;
         });
-
 
         //=====我是合同管理分割线
         

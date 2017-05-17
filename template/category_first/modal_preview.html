@@ -12,34 +12,19 @@
     <div class="preview-body" id="preview-body" style="height: calc(100vh - 100px)" btn-wrapper pdf-slide>
         <aside class="preview-menu" style="height: calc(100vh - 100px)">
             <div class="file-wrapper">
-                <a class="file-item">
-                    <img src="imgs/pic.png" alt="" class="file-sm-pic">
-                    <p class="file-name" title="cdvq啊啊啊鹅鹅鹅鹅啊casdcdvfvf.png">cdvq啊啊啊鹅鹅鹅鹅啊casdcdvfvf.png</p>
+                <a class="file-item" ng-repeat="item in contractFiles track by $index">
+                <!--<a class="file-item">-->
+                    <img ng-src="imgs/pic.png" alt="" class="file-sm-pic" title="{{item.fileName}}">
+                    <p class="file-name" title="{{item.fileName}}">{{item.fileName}}</p>
+                    <!--<img src="imgs/pic.png" alt="" class="file-sm-pic">-->
+                    <!--<p class="file-name" title="">4234234</p>-->
                 </a>
-                <a class="file-item">
-                    <img src="" alt="" class="file-sm-pic">
-                    <p class="file-name"></p>
-                </a>
-                <a class="file-item">
-                    <img src="imgs/pic.png" alt="" class="file-sm-pic">
-                    <p class="file-name">cdvq啊啊啊鹅鹅鹅鹅啊casdcdvfvf.png</p>
-                </a>
-                <a class="file-item">
-                    <img src="imgs/pic.png" alt="" class="file-sm-pic">
-                    <p class="file-name">cdvq啊啊啊鹅鹅鹅鹅啊casdcdvfvf.png</p>
-                </a>
-                <a class="file-item">
-                    <img src="imgs/pic.png" alt="" class="file-sm-pic">
-                    <p class="file-name">cdvq啊啊啊鹅鹅鹅鹅啊casdcdvfvf.png</p>
-                </a>
-                <a class="file-item">
-                    <img src="imgs/pic.png" alt="" class="file-sm-pic">
-                    <p class="file-name">cdvq啊啊啊鹅鹅鹅鹅啊casdcdvfvf.png</p>
-                </a>
-                <a class="file-item">
-                    <img src="" alt="" class="file-sm-pic">
-                    <p class="file-name"></p>
-                </a>
+                <!--<a class="file-item">-->
+                    <!--&lt;!&ndash;<img ng-src="imgs/pic.png" alt="" class="file-sm-pic" title="{{item.fileName}}">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<p class="file-name" title="{{item.fileName}}">{{item.fileName}}</p>&ndash;&gt;-->
+                    <!--<img src="imgs/pic.png" alt="" class="file-sm-pic">-->
+                    <!--<p class="file-name" title="">4234234</p>-->
+                <!--</a>-->
             </div>
             <div class="button-wrapper">
                 <span class="btn-left"></span>
@@ -48,17 +33,18 @@
         </aside>
         <section class="preview-wrapper">
             <div class="top-nav">
-                <div class="ico-wrapper" delete-attachment>
-                    <a class="btn-upload" id="btn-upload">
+                <div class="ico-wrapper" delete-attachment upload-files>
+                    <element ng-if="uploader">
+                        <input class="upload-docs" type="file" nv-file-select="" uploader="uploader"
+                               style="display: none;"/>
+                    </element>
+                    <a class="btn-upload upload-docs" id="btn-upload" title="上传附件" ng-click="docsUpload()">
                         <i class="ico-upload"></i>
                     </a>
-                    <a class="btn-delete" id="btn-delete">
+                    <a class="btn-delete" id="btn-delete" title="删除附件" ng-click="deleteAttachmentModal(2)">
                         <i class="ico-delete"></i>
                     </a>
-                    <a class="btn-print" id="btn-print">
-                        <i class="ico-print"></i>
-                    </a>
-                    <a class="btn-download" id="btn-download">
+                    <a class="btn-download" id="btn-download" title="下载附件">
                         <i class="ico-download"></i>
                     </a>
                 </div>
@@ -66,26 +52,15 @@
             <div class="pdf-preview" style="height: calc(100vh - 145px)">
                 <div class="pdf-left-arrow"></div>
                 <div class="pdf-wrapper">
-                    <div>
-                        <a>
-                            <img src="imgs/b1.jpg" alt="">
-                        </a>
-                        <a>
-                            <img src="imgs/b2.jpg" alt="">
-                        </a>
-                        <a>
-                            <img src="imgs/b3.jpg" alt="">
-                        </a>
-                        <a>
-                            <img src="imgs/b4.jpg" alt="">
-                        </a>
-                        <a>
-                            <img src="imgs/b5.jpg" alt="">
-                        </a>
-                        <a>
-                            <img src="imgs/b1.jpg" alt="">
-                        </a>
-                    </div>
+                    <a ng-repeat="item in contractFiles track by $index">
+                    <!--<a >-->
+                        <img ng-src="imgs/b1.jpg" alt="">
+                        <!--<img src="imgs/b1.jpg" alt="">-->
+                    </a>
+                    <!--<a >-->
+                        <!--&lt;!&ndash;<img ng-src="imgs/b1.jpg" alt="">&ndash;&gt;-->
+                        <!--<img src="imgs/b1.jpg" alt="">-->
+                    <!--</a>-->
                 </div>
                 <div class="pdf-right-arrow"></div>
             </div>

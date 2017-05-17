@@ -1,0 +1,68 @@
+
+<div class="modal-content">
+    <div class="model-content ng-scope">
+        <div class="window-title">
+            <span>添加表单</span>
+            <div ng-click="cancel()" class="window-close">
+                <div class="window-close-left"></div>
+                <div class="window-close-right"></div>
+            </div>
+        </div>
+        <div class="modal-body change-content-stake" id="modal-body">
+            <link rel="stylesheet" href="css/bounced.css" class="ng-scope" >
+            <link rel="stylesheet" href="css/project_change.css" class="ng-scope" >
+            <div class="bottom-content">
+                <div class="table-construct">
+                    <div class="change-form">
+                    <!-- 搜索框 -->
+                        <div class="contract-search" style="margin-bottom: 20px;" input-search-child-items>
+                            <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称或桩号等关键词" style="width:90%">
+                            <a id="clearSearchKey" class="clear" style="position: absolute;margin: 6px 0 0 -46px;display: none;" ng-click="clearSearchKey()">
+                                <i class="btn-close"></i>
+                            </a>
+                            <a class="btn-wrap" style="position: absolute;margin: 6px 0 0 -20px;" ng-click="searchChildItems()">
+                                <i class="btn-search"></i>
+                            </a>
+                        </div>
+                        <div class="table-list" style="height:347px;overflow-y: scroll;border:1px solid #f1f1f1">
+                            <div id="table-construct" class="table-construct">
+                            <table class="table">
+                                <tbody>
+                                    <tr ng-repeat="item in listName.content" ng-dblclick="dbCheck(item.id)">
+                                        <td>{{item.id}}</td>
+                                    </tr>
+                                </tbody>    
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="change-forminner"></div>
+                    <div class="change-form">
+                        <div class="change-form-title">已选择表单： <span id="checkNum">0</span></div>
+                        <div class="table-list" style="height:347px;overflow-y: scroll;border:1px solid #f1f1f1">
+                            <table class="table">
+                                <tbody id="#checkIdBox">
+                                    <tr ng-repeat="item in checkId">
+                                        <td>{{item}}</td>
+                                        <td style="width:20px;"><i class="glyphicon glyphicon-th-list"></i></td>
+                                        <td style="width:20px;" ng-click="delCheckId(item)"><i class="glyphicon glyphicon-remove" style="color:red"></i></td>
+                                    </tr>
+                                </tbody>    
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="window-bottom">
+            <div style="text-align: right">
+                <button class="btn ok fiveLetter" type="button" ng-click="ok()">确定</button>
+            </div>
+            <div style="text-align: left">
+                <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -42,14 +42,14 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.preview-body .preview-menu .btn-wrapper {
+.preview-body .preview-menu .button-wrapper {
   width: 20px;
   height: 70px;
   position: absolute;
   top: 50%;
   right: 0;
 }
-.preview-body .preview-menu .btn-wrapper .btn-slide {
+.preview-body .preview-menu .button-wrapper .btn-left {
   width: 6px;
   height: 79px;
   z-index: 100;
@@ -61,7 +61,7 @@
   border-radius: 5px 0 0 5px;
   background-color: #DADBDE;
 }
-.preview-body .preview-menu .btn-wrapper .btn-arrow {
+.preview-body .preview-menu .button-wrapper .btn-right {
   position: absolute;
   z-index: 101;
   width: 6px;
@@ -142,7 +142,7 @@
   transform: translateY(-50%);
   width: 28px;
   height: 65px;
-  background: url("../imgs/icon-button.png") no-repeat;
+  /*background: url("../imgs/icon-button.png") no-repeat;*/
   cursor: pointer;
 }
 .preview-body .preview-wrapper .pdf-preview .pdf-left-arrow {

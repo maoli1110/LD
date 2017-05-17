@@ -1,0 +1,76 @@
+   
+<div class="modal-content">
+    <div class="model-content ng-scope">
+        <div class="window-title">
+            <span>选择清单</span>
+            <div class="fiveLetter cancel window-close" ng-click="undo1()">
+                <div class="window-close-left"></div>
+                <div class="window-close-right"></div>
+            </div>
+        </div>
+        <div class="modal-body" id="modal-body">
+        <link rel="stylesheet" href="css/bounced.css" class="ng-scope" >
+        <link rel="stylesheet" href="css/project_change.css" class="ng-scope" >
+            <div class="bottom-content">
+                <div class="table-construct project-change">
+                    <div class="change-select">
+                        <span>章节号：</span>
+                        <select class="input-select input-border ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="changeFn()" ng-model="myValue">
+                            <option value="">全部章节</option>
+                        </select>
+                    </div>
+                    <div class="contract-operate" drop-down="" style="float:left;width:340px;">
+                        <div class="contract-search" input-search-child-items>
+                            <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请根据构件查询" style="width:80%;">
+                            <a id="clearSearchKey" class="clear" style="position: absolute;margin: 6px 0 0 -46px;display: none;" ng-click="clearSearchKey()">
+                                <i class="btn-close"></i>
+                            </a>
+                            <a class="btn-wrap" style="position: absolute;margin: 6px 0 0 -20px;" ng-click="searchChildItems()">
+                                <i class="btn-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="division_content" style="clear: both;">
+                        <div class="clearfix">
+                            <div class="thead" style="width: 10%"><span>选择</span>
+                            </div>
+                            <div class="thead" style="width: 15%"><span>子目号</span>
+                            </div>
+                            <div class="thead" style="width: 20%"><span>子名称</span>
+                            </div>
+                            <div class="thead" style="width: 10%"><span>计量单位</span>
+                            </div>
+                            <div class="thead" style="width: 15%"><span>合同单价（元）</span>
+                            </div>
+                            <div class="thead" style="width: 15%"><span>合同数量</span>
+                            </div>
+                            <div class="thead" style="width: 15%"><span>发起工程量</span>
+                            </div>
+                        </div>
+                        <div class="table-list" style=" height:300px; overflow-y: scroll">
+                            <!-- ngRepeat: item in childItemizedInfos.content -->
+                        </div>
+                    </div>
+                    <div style="text-align: center;margin-top: 10px;font-size: 14px;">
+                        <span style="margin-right: 40px;" class="ng-binding">共0条</span>
+                        <i class="first page" ng-click="firstPage()"></i>
+                        <i class="previous page" ng-click="prevPage()"></i>
+                        <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="1">
+                        / <span class="ng-binding">0</span>
+                        <i class="next page" ng-click="nextPage()"></i>
+                        <i class="last page" ng-click="lastPage()"></i>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="window-bottom">
+            <div style="text-align: right">
+                <button class="btn ok fiveLetter" type="button" ng-click="oknew()">发起</button>
+            </div>
+            <div style="text-align: left">
+                <button class="btn fiveLetter cancel" id="closeModalCompGroup" type="button" ng-click="undo1()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

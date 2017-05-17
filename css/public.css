@@ -427,7 +427,6 @@ input:focus {
     border-width:5px 5px 0;
     border-style:solid;
     border-color:#99a1af transparent transparent;/*灰 透明 透明 */
-    margin:40px auto;
     right: 12px;
     margin-top: 7px;
 }
@@ -435,7 +434,7 @@ input:focus {
 /*向左*/
 .triangle_border_left{
     display:inline-block;
-    width:0;
+    width:0;        
     height:0;
     border-width:5px 5px 5px 0;
     border-style:solid;

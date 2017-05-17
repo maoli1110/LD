@@ -23,9 +23,9 @@
                         <a class="wrapper-pdf" ng-repeat="item in uploader.queue" ng-show="uploader.isHTML5&& item.file.name.split('.')[item.file.name.split('.').length-1] == 'pdf' || uploader.isHTML5 && item.file.type.substr(0,5) === 'image'" >
                             <i class="ico-pdf"></i>
                             <span class="txt-pdf">{{item.file.name}}</span>
-                        <div class="inner-mask" >
-                            <i class="delete-attachment" ng-click="deleteAttachmentModal()"></i>
-                        </div>
+                            <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target)">
+                                <i class="delete-attachment" ng-click="deleteAttachmentModal(1)"></i>
+                            </div>
                     </a>
                 </div>
             </div>
