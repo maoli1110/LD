@@ -1,7 +1,7 @@
 /*ZHL*/
-.form-horizontal .form-group .boinced-control-label{font-weight:bold;line-height:22px;text-align:left;}
-.boincedIcont{float: left;line-height:32px;margin:0 5px}
-.form-horizontal .form-group{margin-bottom: 0px}
+.modal-content .form-horizontal .form-group .boinced-control-label{font-weight:bold;line-height:22px;text-align:left;}
+.modal-content .boincedIcont{float: left;line-height:32px;margin:0 5px}
+.modal-content .form-horizontal .form-group{margin-bottom: 20px}
 /*kylee*/
 .modal-content .btn-primary {
     color: #000;
@@ -22,7 +22,7 @@
     background-color: #fff;
     border-color: #ccc;
 }
-.modal-content .sub-unit li.nodeName{
+.modal-content .modal-common li.nodeName{
     padding: 0 11px;
     height: 32px;
     line-height: 32px;
@@ -30,7 +30,7 @@
     border-radius: 5px;
     vertical-align: middle;
 }
-.modal-content .sub-unit .nodeName .triangle_border_down {
+.modal-content .modal-common .nodeName .triangle_border_down {
     position: absolute;
     right: 27px;
     top: 7px;

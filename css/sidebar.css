@@ -126,6 +126,7 @@
 
 .LubanLD-container .menu-nav .contract-manage .left-list {
   height: 100%;
+  overflow-y: auto;
 }
 
 .LubanLD-container .menu-nav .contract-manage .left-list li {
@@ -260,25 +261,52 @@
     border-bottom: 1px solid #DADBDD;
     border-left: 2px solid #FED928;
 }
+/*第二种树下拉按钮样式开始*/
 .LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon {
-    position: absolute;
-    margin-top: 15px;
-    right: 20px;
-    width: 18px;
-    height: 18px;
-    background: url(../imgs/icon-button.png) no-repeat;
+  float: right;
+  width: 16px;
+  height: 16px;
+  margin: 15px 20px 0 0;
+  border: 1px solid #9aa2b0;
+  border-radius: 3px;
+  cursor: pointer;
 }
-.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .state-down {
-    background-position: 0px -129px;
+.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-down {
+  background-color: transparent;
 }
-.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .state-up {
-    background-position: -18px -112px;
+.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-child{
+  height: 1px;
+  width: 7px;
 }
+.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-up,.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-x-down,.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-y-down{
+  background-color: #9aa2b0;
+}
+.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-x-down,.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-x-up {
+  margin: 6px 0 0 1px;
+}
+.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-x-down,.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-y-up {
+  -webkit-transform: rotate(45deg);
+}
+.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-y-down,.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-y-up{
+  float: left;
+  margin: -1px 0 0 6px;
+}
+.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-y-down,.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-x-up {
+  -webkit-transform: rotate(-45deg);
+}
+.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-x-up,.LubanLD-container .menu-nav .contract-manage .left-list .contract-name .icon-y-up {
+  background-color: #fff;
+}
+/*第二种树下拉按钮样式结束*/
 
 /*ztree-chagne*/
 .menu-nav .ztree {
     padding: 17px;
     background: #fff;
+    overflow: auto;
+}
+.menu-nav .ztree li a {
+  width: 160px;
 }
 #rMenu > ul >li{
   padding:0 5px;
@@ -316,4 +344,12 @@
   left: 100px;
   min-width: 100px;
   background: #d3d8e4;
+}
+.ztree li a.curSelectedNode_Edit {
+    padding-top: 0px;
+    background-color: #FFE6B0;
+    color: black;
+    height: 28px;
+    border: 1px #FFB951 solid;
+    opacity: 0.8;
 }

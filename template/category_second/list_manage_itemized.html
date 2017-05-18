@@ -13,9 +13,9 @@
 <!-- 工程管理-清单管理-合同段数据展示页面 -->
 <div class="main-content" >
 
-<div class="content list-manage-contract">
+<div class="content list-manage-contract" >
 
-<div class="inner-wrapper" style="height: calc(100% - 40px);">
+<div class="inner-wrapper" style="height:calc(100vh - 120px);">
     <div class="contract-name">
      {{stakeInfo.contractName}}>{{stakeInfo.unitProjectName}}>{{stakeInfo.deptProjectName}}>{{stakeInfo.childItemizedName}}|{{stakeInfo.itemizedNameNum}}
     </div>
@@ -43,13 +43,13 @@
     <div class="division_content" style="clear: both;">
         <div class="ttitle" style="padding: 0px 10px;">
             <span>清单管理:</span>
-            <span style="float: right;">合计：xxx,x元</span>
+            <span style="float: right;">合计：{{childItemizedInfos.xxx | number}} 元</span>
         </div>
 
         <div class="clearfix">
             <div class="thead" style="width: 10%"><span>清单编号</span>
             </div>
-            <div class="thead" style="width: 19%"><span>清单名称</span>
+            <div class="thead" style="width: 19%"><span>项目名称</span>
             </div>
             <div class="thead" style="width: 19%"><span>计量单位</span>
             </div>
@@ -57,7 +57,7 @@
             </div>
             <div class="thead" style="width: 19%"><span>合同数量</span>
             </div>
-            <div class="thead" style="width: 14%"><span>合同金额（元）</span>
+            <div class="thead" style="width: 14%"><span>图纸数量</span>
             </div>
         </div>
         <div class="table-list" style="height: calc(100vh - 430px);overflow-y: scroll">
@@ -65,9 +65,9 @@
                 <div class="tbody" style="width: 10%">{{item.listNum}}</div>
                 <div class="tbody" style="width: 19%">{{item.itemName}}</div>
                 <div class="tbody" style="width: 19%">{{item.measurementUnit}}</div>
-                <div class="tbody" style="width: 19%">{{item.contractPrice}}</div>
-                <div class="tbody" style="width: 19%">{{item.contractQuantity}}</div>
-                <div class="tbody" style="width: 14%">{{item.contractAmount}}</div>
+                <div class="tbody" style="width: 19%">{{item.contractPrice | number}}</div>
+                <div class="tbody" style="width: 19%">{{item.contractQuantity | number}}</div>
+                <div class="tbody" style="width: 14%">{{item.paperQuantity | number}}</div>
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@
         <span style="margin-right: 40px;">共{{childItemizedInfos.totalElements}}条</span>
         <i class="first page" ng-click="firstPage()"></i>
         <i class="previous page" ng-click="prevPage()"></i>
-        <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number}}"/>
+        <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" ng-model="childItemizedInfos.number"/>
         / <span>{{childItemizedInfos.totalPages}}</span>
         <i class="next page" ng-click="nextPage()"></i>
         <i class="last page" ng-click="lastPage()"></i>

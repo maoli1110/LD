@@ -1,5 +1,5 @@
 ﻿<link rel="stylesheet" href="css/list_manage_contract.css">
-<div class="warmMsg  list-manage-contract" ng-if="isError">数据有误！</div>
+
 <div class="model-content">
     <div class="window-title">
         <span>新增/编辑施工合同</span>
@@ -14,7 +14,7 @@
             
             <div style="margin:20px 0;">
 			 <span>选择所需清单：</span>
-             <button class="button btn-associate" ng-click="editCompGroup()">选择清单</button>
+             <button class="button btn-associate" ng-click="selectItemizedModal()">选择清单</button>
             </div>
 
 
@@ -38,15 +38,15 @@
                     <div class="thead" style="width: 5%"><span>删除</span>
                     </div>
                 </div>
-                <div class="table-list" style=" height:400px; overflow-y: scroll">
-                    <div class="aline contractList" listid={{item.id}} ng-repeat="item in selectList">
+                <div class="table-list mytable" style=" height:400px; overflow-y: scroll">
+                    <div class="aline contractList" listid={{item.id}} ng-repeat="item in newList">
                         <div class="tbody textLeft" style="width: 10%">{{item.listNum}}</div>
                         <div class="tbody" style="width: 15%">{{item.itemName}}</div>
                         <div class="tbody" style="width: 10%">{{item.measurementUnit}}</div>
                         <div class="tbody" style="width: 15%">{{item.contractPrice}}</div>
                         <div class="tbody" style="width: 15%">{{item.contractQuantity}}</div>
-                        <div class="tbody" style="width: 15%">{{item.contractAmount}}</div>
-                        <div class="tbody" style="width: 15%"><input type="text" class="input-border {{validate($index)}}" ng-maxlength="20" ng-pattern="/^\d{1,20}(\.{1}\d{1})?$/" ng-model="myText" ng-blur="check($index)"></div>
+                        <div class="tbody" style="width: 15%">{{item.launchQuantity}}</div>
+                        <div class="tbody" style="width: 15%"><input type="text" class="input-border {{validate($index)}}" ng-maxlength="20" ng-pattern="/^\d{1,20}(\.{1}\d{1})?$/" ng-model="myText" ng-blur="check($index)" value="{{item.paperQuantity}}"></div>
                         <div class="tbody" style="width: 5%" ng-click="delList($index)"><i class="del_icon"></i></div>
                     </div>
                 </div>
@@ -69,99 +69,6 @@
 </div>
 
 
-<!--清单查询-->
-
-<div class="list-manage-contract modal-comp-group" edit-comp-group  style="display: none;">
-    <div class="window-title">
-        <span>选择清单</span>
-        <div class="window-close" id="closeModalCompGroup">
-            <div class="window-close-left"></div>
-            <div class="window-close-right"></div>
-        </div>
-    </div>
-    <div class="window-content">
-        
-       
-       <div class="listManageContractModal">
-
-       <div class="clearfix">
-        <!-- 下拉框 -->
-        <div class="contract-section">
-            <span class="titleText">章节号： </span>
-            <select class="input-search input-border" ng-change="changeFn()" ng-model="myValue">
-                <option value="list">全部章节</option>
-                <option ng-repeat="item in chapters" value="{{item.key}}">{{item.value}}</option>
-            </select>
-        </div>
-
-
-        <!-- 搜索框  -->
-         <div class="contract-search" style="margin-bottom: 20px;" input-search-child-items="">
-            <span class="titleText">关键词：</span>
-            <input id="searchChildItemsValue" type="text" class="input-search input-border" placeholder="请输入工程名称、桩号等关键词" style="width: 30%;padding-right:44px;">
-            <a id="clearSearchKey" class="clear" style="position: absolute; margin: 6px 0px 0px -46px; display: inline-block; " ng-click="clearSearchKey()">
-                <i class="btn-close"></i>
-            </a>
-            <a class="btn-wrap" style="position: absolute;margin: 6px 0 0 -20px;" ng-click="searchChildItems()">
-                <i class="btn-search"></i>
-            </a>
-        </div>
-
-    </div>
-
-
-
-        <span>勾选所需清单子目</span>
-       <div class="division_content" style="clear: both; margin-top:20px;">
-            <div class="clearfix">
-                <div class="thead" style="width: 10%"><span>选择</span>
-                </div>
-                <div class="thead" style="width: 15%"><span>子目号</span>
-                </div>
-                <div class="thead" style="width: 20%"><span>子名称</span>
-                </div>
-                <div class="thead" style="width: 10%"><span>计量单位</span>
-                </div>
-                <div class="thead" style="width: 15%"><span>合同单价（元）</span>
-                </div>
-                <div class="thead" style="width: 15%"><span>合同数量</span>
-                </div>
-                <div class="thead" style="width: 15%"><span>发起工程量</span>
-                </div>
-            </div>
-            <div class="table-list" style=" height:300px; overflow-y: scroll">
-                <div class="aline contractList" listid={{item.id}} ng-repeat="item in childItemizedInfos" >
-                    <div class="tbody" style="width: 10%"><span ng-click="changeClass($event.target)" class="{{(idArr.join('')).indexOf(item.id)!='-1'?'active':''}}"></span></div>
-                    <div class="tbody textLeft" style="width: 15%">{{item.listNum}}</div>
-                    <div class="tbody" style="width: 20%">{{item.itemName}}</div>
-                    <div class="tbody" style="width: 10%">{{item.measurementUnit}}</div>
-                    <div class="tbody" style="width: 15%">{{item.contractPrice}}</div>
-                    <div class="tbody" style="width: 15%">{{item.contractQuantity}}</div>
-                    <div class="tbody" style="width: 15%">{{item.contractAmount}}</div>
-                </div>
-            </div>
-        </div>
-
-        <div style="text-align: center;margin-top: 10px;font-size: 14px;">
-            <span style="margin-right: 40px;">共{{childItemizedInfos.totalElements}}条</span>
-            <i class="first page" ng-click="firstPage()"></i>
-            <i class="previous page" ng-click="prevPage()"></i>
-            <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number}}"/>
-            / <span>{{childItemizedInfos.totalPages}}</span>
-            <i class="next page" ng-click="nextPage()"></i>
-            <i class="last page" ng-click="lastPage()"></i>
-        </div>
- </div>
-    </div>
-    <div class="window-bottom">
-        <div style="text-align: right">
-            <button class="btn ok fiveLetter" type="button" ng-click="selectOK()">确认</button>
-        </div>
-        <div style="text-align: left">
-            <button class="btn cancel fiveLetter" type="button" ng-click="selectCancel()">取消</button>
-        </div>
-    </div>
-</div>
 
 
 

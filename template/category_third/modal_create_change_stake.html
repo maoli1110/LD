@@ -17,7 +17,7 @@
                         <div class="form-group col-sm-7" ng-class="{ 'has-error' : formChangeStake.changeName.$invalid && !formChangeStake.changeName.$pristine }">
                             <label class="col-sm-4 control-label boinced-control-label">变更工程名称：</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  placeholder="" name="changeName" ng-maxlength="60" required ng-model="changeName">
+                                <input id="ChangeEngineeringName1" type="text" class="form-control" name="changeName" ng-maxlength="60" required ng-model="changeName">
                                 <p class="help-block">
                                     <a ng-show="formChangeStake.changeName.$error.required">该项为必填项</a>
                                     <span ng-show="formChangeStake.changeName.$error.maxlength">该项不能超过60个字符</span>
@@ -27,32 +27,32 @@
                         <div class="form-group col-sm-5" ng-class="{ 'has-error' : formChangeStake.changeNumber.$invalid && !formChangeStake.changeNumber.$pristine }">
                             <label class="col-sm-5 control-label boinced-control-label">变更申请编号：</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control"  placeholder="" name="changeNumber" ng-maxlength="20" required ng-model="changeNumber">
+                                <input id="ChangeOfNumber1" type="text" class="form-control"  placeholder="" name="changeNumber" ng-maxlength="20" required ng-model="changeNumber">
                                 <p class="help-block">
                                     <a ng-show="formChangeStake.changeNumber.$error.required">该项为必填项</a>
                                     <span ng-show="formChangeStake.changeNumber.$error.maxlength">该项不能超过20个字符</span>
                                 </p>
                             </div>
                         </div>
-                        <div class="form-group col-sm-7" ng-class="{ 'has-error' : formChangeStake.changesNumber.$invalid && !formChangeStake.changesNumber.$pristine }">
+                            <div class="form-group col-sm-7" ng-class="{ 'has-error' : formChangeStake.changesNumber.$invalid && !formChangeStake.changesNumber.$pristine || formChangeStake.changesNumber1.$invalid && !formChangeStake.changesNumber1.$pristine || formChangeStake.changesNumber2.$invalid && !formChangeStake.changesNumber2.$pristine ||formChangeStake.changesNumber3.$invalid && !formChangeStake.changesNumber3.$pristine }">
                             <label class="col-sm-4 control-label boinced-control-label">桩号：</label>
                             <div class="col-sm-8 boinced-input">
-                              <input type="text" class="form-control"  placeholder="" name="changesNumber" ng-maxlength="10" required style="float: left;width:50px;"><i class="glyphicon glyphicon-plus boincedIcont" ng-model="changesNumber"></i>
-                              <input type="text" class="form-control"  placeholder="" name="changesNumber" ng-maxlength="10" required style="float: left;width:57px;"><i class="boincedIcont"><img src="imgs/~img.png" ng-model="changesNumber"></i>
-                              <input type="text" class="form-control"  placeholder="" name="changesNumber" ng-maxlength="10" required style="float: left;width:55px;"><i class="glyphicon glyphicon-plus boincedIcont" ng-model="changesNumber"></i>
-                              <input type="text" class="form-control"  placeholder="" name="changesNumber" ng-maxlength="10" required style="float: left;width:52px;" ng-model="changesNumber">
+                              <input type="text" id="changestake5" class="form-control"  placeholder="" name="changesNumber" ng-maxlength="10" required ng-model="changesNumber" style="float: left;width:50px;"><i class="glyphicon glyphicon-plus boincedIcont" ></i>
+                              <input type="text" id="changestake6" class="form-control"  placeholder="" name="changesNumber1" ng-maxlength="10" required ng-model="changesNumber1" style="float: left;width:57px;"><i class="boincedIcont"><img src="imgs/~img.png" ></i>
+                              <input type="text" id="changestake7" class="form-control"  placeholder="" name="changesNumber2" ng-maxlength="10" required ng-model="changesNumber2" style="float: left;width:55px;"><i class="glyphicon glyphicon-plus boincedIcont" ></i>
+                              <input type="text" id="changestake8" class="form-control"  placeholder="" name="changesNumber3" ng-maxlength="10" required style="float: left;width:52px;" ng-model="changesNumber3">
                               <p class="help-block">
-                                    <a ng-show="formChangeStake.changesNumber.$error.required">该项为必填项</a>
-                                    <span ng-show="formChangeStake.changesNumber.$error.maxlength">各项不能超过10个字符</span>
-                                </p>
+                                    <a ng-show="formChangeStake.changesNumber.$error.required || formChangeStake.changesNumber1.$error.required || formChangeStake.changesNumber2.$error.required ||formChangeStake.changesNumber3.$error.required">该项为必填项</a>
+                                    <span ng-show="formChangeStake.changesNumber.$error.maxlength || formChangeStake.changesNumber1.$error.maxlength ||formChangeStake.changesNumber2.$error.maxlength || formChangeStake.changesNumber3.$error.maxlength">各项不能超过10个字符</span>
+                              </p>
                             </div>
                         </div>
                         <div class="form-group col-sm-5">
                             <label class="col-sm-5 control-label boinced-control-label">关联:<button style="float:right;">选择构件</button></label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control" placeholder="">
+                              <input type="text" class="form-control" id="changeAssociated" placeholder="" ng-model="delBuildVlu">
                             </div>
-                        </div><i class="glyphicon glyphicon-trash boincedIcont" ></i>
+                        </div><i class="glyphicon glyphicon-trash boincedIcont" ng-click="delBuild(delBuildVlu)"></i>
                         <div class="form-group col-sm-7" ng-class="{ 'has-error' : formChangeStake.changeMark.$invalid && !formChangeStake.changeMark.$pristine }">
                             
                         </div>
@@ -66,16 +66,26 @@
                     <span style="float:right;font-weight:bold;line-height:32px">合同中没有对应的清单？</span>
                 </div>
                 <div style="padding:10px 0;font-weight:bold;">填写工程变更量：</div>
-                <div style="height: 40px;">
+                <div style="height: 40px;" class="change-listcreat"> 
                     <div class="thead" style="width: 12%;padding-left: 10px;">子目号</div>
-                    <div class="thead" style="width: 26%;">子目名称</div>
+                    <div class="thead" style="width: 28%;">子目名称</div>
                     <div class="thead" style="width: 10%;">计量单位</div>
-                    <div class="thead" style="width: 14%;">合同单位(元)</div>
-                    <div class="thead" style="width: 14%;">合同数量</div>
-                    <div class="thead" style="width: 14%;">变更工程量</div>
-                    <div class="thead" style="width: 10%;text-align:center;">删除</div>
+                    <div class="thead" style="width: 15%;">合同单位(元)</div>
+                    <div class="thead" style="width: 15%;">合同数量</div>
+                    <div class="thead" style="width: 15%;">变更工程量</div>
+                    <div class="thead" style="width: 5%;text-align:center;">删除</div>
                 </div>
-                <div class="table-list" style=" height:360px; overflow-y: scroll"></div>
+                <div class="table-list" style=" height:360px; overflow-y: scroll">
+                    <div class="aline contractList change-listcreat" listid={{item.id}} ng-repeat="item in newList.content">
+                        <div class="tbody textLeft" style="width: 12%">{{item.listNum}}</div>
+                        <div class="tbody" style="width: 28%">{{item.itemName}}</div>
+                        <div class="tbody" style="width: 10%">{{item.measurementUnit}}</div>
+                        <div class="tbody" style="width: 15%">{{item.contractPrice}}</div>
+                        <div class="tbody" style="width: 15%">{{item.contractQuantity}}</div>
+                        <div class="tbody" style="width: 15%"><input type="text" style="height:32px;width:100%" class="input-border {{validate($index)}}" ng-maxlength="20" ng-pattern="/^\d{1,20}(\.{1}\d{1})?$/" ng-model="myText" ng-blur="check($index)"></div>
+                        <div class="tbody" style="width: 5%" ng-click="delList($index)"><i class="del_icon"></i></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="window-bottom">
@@ -88,9 +98,3 @@
         </div>
     </div>
 </div>
-
-<!-- 新建清单 -->
-<div class="modal-comp-group" id="modal-comp-group1" edit-comp-group style="display: none;" ng-include="'template/category_third/modal_creat_change_new.html'"></div>
-
-<!-- 选择清单 -->
-<div class="modal-comp-group" id="modal-comp-group2" edit-comp-group1 style="display: none;" ng-include="'template/category_third/modal_create_change_list.html'"></div>

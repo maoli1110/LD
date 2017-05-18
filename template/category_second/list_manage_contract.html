@@ -112,7 +112,7 @@
         <span style="margin-right: 40px;">共{{childItemizedInfos.totalElements}}条</span>
         <i class="first page" ng-click="firstPage()"></i>
         <i class="previous page" ng-click="prevPage()"></i>
-        <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" value="{{childItemizedInfos.number}}"/>
+        <input id="currentPage" type="text" class="input-border" style="width: 30px;height: 30px;line-height: 30px;" ng-model="childItemizedInfos.number"/>
         / <span>{{childItemizedInfos.totalPages}}</span>
         <i class="next page" ng-click="nextPage()"></i>
         <i class="last page" ng-click="lastPage()"></i>

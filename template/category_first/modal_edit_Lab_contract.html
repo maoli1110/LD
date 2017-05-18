@@ -16,193 +16,228 @@
             <div class="constract" delete-attachment>
                 <div class="constract" upload-files>
                     <element ng-if="uploader">
-                        <input class="upload-docs" type="file" nv-file-select="" uploader="uploader" style="display: none;"/>
+                        <input class="upload-docs" type="file" nv-file-select="" uploader="uploader"
+                               style="display: none;"/>
                     </element>
                     <button class="btn-upload upload-docs" ng-click="docsUpload()">上传附件</button>
-                    <div class="attachment-wrapper" >
+                    <div class="attachment-wrapper">
+                        <a class="wrapper-pdf" ng-repeat="item in constructConstractInfos.contractFiles track by $index"
+                           contract-files-repeat-finish >
+                            <i class="ico-pdf"></i>
+                            <span class="txt-pdf">{{item.fileName}}</span>
+                            <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target)">
+                                <i class="delete-attachment" ng-click="deleteAttachmentLayer(3,item)"></i>
+                            </div>
+                        </a>
                         <a class="wrapper-pdf" ng-repeat="item in uploader.queue" ng-show="uploader.isHTML5&& item.file.name.split('.')[item.file.name.split('.').length-1] == 'pdf' || uploader.isHTML5 && item.file.type.substr(0,5) === 'image'" >
                             <i class="ico-pdf"></i>
                             <span class="txt-pdf">{{item.file.name}}</span>
-                            <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target)">
-                                <i class="delete-attachment" ng-click="deleteAttachmentModal(1)"></i>
+                            <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target,item)">
+                                <i class="delete-attachment" ng-click="deleteAttachmentLayer(1,item)"></i>
                             </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="attachment-arrow-right">
-                <i class="ico-right"></i>
-            </div>
+                <div class="attachment-arrow-right">
+                    <i class="ico-right"></i>
+                </div>
 
-        </div>
-        <div class="bottom-content">
-            <form class="table-construct" style="height: 270px;" name="formConstract"
-                  ng-submit="submitForm(formConstract.$valid)" novalidate>
-                <!--新建施工合同、新建监理合同、新建试验室合同以及编辑合同界面公共部分-->
-                <div class="common-content" date-picker>
-                    <div class="form-group" ng-class="{ 'has-error' : formConstract.contractNumber.$invalid && !formConstract.contractNumber.$pristine }">
-                        <div class="col-xs-2" style="text-align: left">
-                            <label for="contractNum"  style="border: none">合同编号：</label>
-                        </div>
-                        <div class="col-xs-3">
-                            <input type="text" class="form-control"  ng-value="labConstractInfos.contractNum" ng-model="ct_num" id="contractNum" name="contractNumber" ng-maxlength="100" required>
-                            <p class="help-block">
-                                <a ng-show="formConstract.constructUnit.$error.required">该项为必填项</a>
-                                <span ng-show="formConstract.constructUnit.$error.maxlength">该项不能超过100个字符</span>
-                                <span ng-show="formConstract.contractNumber.$error.maxlength">该项为必填项</span>
-                            </p>
-                        </div>
-                        <div class="col-xs-2">
-                            <span></span>
-                        </div>
-                    </div>
-                    <div class="form-group" ng-class="{ 'has-error' : formConstract.signNumber.$invalid && !formConstract.signNumber.$pristine }">
-                        <div class="col-xs-2" style="text-align: left">
-                            <label for="sectionNum" class="form-control" style="border: none">标段号：</label>
-                        </div>
-                        <div class="col-xs-3">
-                            <input type="text" class="form-control" id="sectionNum"  ng-value="labConstractInfos.sectionNum" ng-model="sn_num" name="signNumber" ng-maxlength="100" required>
-                            <p class="help-block">
-                                <a ng-show="formConstract.signNumber.$error.required">该项为必填项</a>
-                                <span ng-show="formConstract.signNumber.$error.maxlength">该项不能超过100个字符</span>
-                            </p>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="form-group" ng-class="{ 'has-error' : formConstract.contractValue.$invalid && !formConstract.contractValue.$pristine }">
-                        <div class="col-xs-2" style="text-align: left">
-                            <label for="contractAmount" class="form-control" style="border: none">合同金额：</label>
-                        </div>
-                        <div class="col-xs-3">
-                            <input type="text" class="form-control" id="contractAmount"  ng-value="labConstractInfos.contractAmount " ng-model="ct_value" name="contractValue" ng-maxlength="100" value="{{items.contract_unit}}" required>
-                            <p class="help-block">
-                                <a ng-show="formConstract.contractValue.$error.required">该项为必填项</a>
-                                <span ng-show="formConstract.contractValue.$error.maxlength">该项不能超过100个字符</span>
-                            </p>
-                        </div>
-                        <div class="col-xs-2">
-                            <span class="unit">人民币（元）</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group" ng-class="{ 'has-error' : formConstract.projectName.$invalid && !formConstract.projectName.$pristine }">
-                        <div class="col-xs-2" style="text-align: left">
-                            <label for="projectName" class="form-control" style="border: none">项目名称：</label>
-                        </div>
-                        <div class="col-xs-3">
-                            <input type="text" class="form-control" id="projectName"  ng-value="labConstractInfos.projectName " ng-model="pt_name" name="projectName" ng-maxlength="100" required>
-                            <p class="help-block">
-                                <a ng-show="formConstract.projectName.$error.required">该项为必填项</a>
-                                <span ng-show="formConstract.projectName.$error.maxlength">该项不能超过100个字符</span>
-                            </p>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="form-group" ng-class="{ 'has-error' : formConstract.contractDate.$invalid && !formConstract.contractDate.$pristine }">
-                        <div class="col-xs-2" style="text-align: left">
-                            <label for="signedDate" class="form-control control-label" style="border: none">合同签订日期：</label>
-                        </div>
-                        <div class="col-xs-3">
-                            <div class="controls input-append date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="contract_sign" data-link-format="yyyy-mm-dd">
-                                <input size="16" type="text" class="form-control" id="signedDate"  ng-value="labConstractInfos.signedDate | date:'yyyy-MM-dd'" ng-model="ct_date" name="contractDate" ng-maxlength="100" required>
+            </div>
+            <div class="bottom-content">
+                <form class="table-construct" style="height: 270px;" name="formConstract">
+                    <!--新建施工合同、新建监理合同、新建试验室合同以及编辑合同界面公共部分-->
+                    <div class="common-content" date-picker>
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : formConstract.contractNumber.$invalid && !formConstract.contractNumber.$pristine }">
+                            <div class="col-xs-2" style="text-align: left">
+                                <label for="contractNum" style="border: none">合同编号：</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" ng-value="labConstractInfos.contractNum"
+                                       ng-model="ct_num" id="contractNum" name="contractNumber" ng-maxlength="100"
+                                       required>
                                 <p class="help-block">
-                                    <a ng-show="formConstract.contractDate.$error.required">该项为必填项</a>
-                                    <span ng-show="formConstract.contractDate.$error.maxlength">该项不能超过100个字符</span>
+                                    <a ng-show="formConstract.constructUnit.$error.required">该项为必填项</a>
+                                    <span ng-show="formConstract.constructUnit.$error.maxlength">该项不能超过100个字符</span>
+                                    <span ng-show="formConstract.contractNumber.$error.maxlength">该项为必填项</span>
                                 </p>
-                                <span class="add-on"><i class="icon-th"></i></span>
                             </div>
-                            <input type="hidden" id="contract_sign" value="" />
+                            <div class="col-xs-2">
+                                <span></span>
+                            </div>
                         </div>
-                        <div class="col-xs-2">
-                            <span></span>
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : formConstract.signNumber.$invalid && !formConstract.signNumber.$pristine }">
+                            <div class="col-xs-2" style="text-align: left">
+                                <label for="sectionNum" class="form-control" style="border: none">标段号：</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" id="sectionNum"
+                                       ng-value="labConstractInfos.sectionNum" ng-model="sn_num" name="signNumber"
+                                       ng-maxlength="100" required>
+                                <p class="help-block">
+                                    <a ng-show="formConstract.signNumber.$error.required">该项为必填项</a>
+                                    <span ng-show="formConstract.signNumber.$error.maxlength">该项不能超过100个字符</span>
+                                </p>
+                            </div>
+                            <br>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-2" style="text-align: left">
-                            <label for="contract_type" class="form-control" style="border: none">合同类型：</label>
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : formConstract.contractValue.$invalid && !formConstract.contractValue.$pristine }">
+                            <div class="col-xs-2" style="text-align: left">
+                                <label for="contractAmount" class="form-control" style="border: none">合同金额：</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" id="contractAmount"
+                                       ng-value="labConstractInfos.contractAmount " ng-model="ct_value"
+                                       name="contractValue" ng-maxlength="100" value="{{items.contract_unit}}" required>
+                                <p class="help-block">
+                                    <a ng-show="formConstract.contractValue.$error.required">该项为必填项</a>
+                                    <span ng-show="formConstract.contractValue.$error.maxlength">该项不能超过100个字符</span>
+                                </p>
+                            </div>
+                            <div class="col-xs-2">
+                                <span class="unit">人民币（元）</span>
+                            </div>
                         </div>
-                        <div class="col-xs-3">
-                            <input type="text" class="form-control" id="contract_type" placeholder="监理试验室合同" readonly>
-                            <p class="help-block">
-                            </p>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="form-group" ng-class="{ 'has-error' : formConstract.constructUnit.$invalid && !formConstract.constructUnit.$pristine }">
-                        <div class="col-xs-2" style="text-align: left">
-                            <label for="constructionUnit" class="form-control" style="border: none">建设单位：</label>
-                        </div>
-                        <div class="col-xs-3">
-                            <input type="text" class="form-control" id="constructionUnit"  ng-value="labConstractInfos.constructionUnit" ng-model="construct_unit" name="constructUnit" ng-maxlength="100" required>
-                            <p class="help-block">
-                                <a ng-show="formConstract.constructUnit.$error.required">该项为必填项</a>
-                                <span ng-show="formConstract.constructUnit.$error.maxlength">该项不能超过100个字符</span>
-                            </p>
-                        </div>
-                        <div class="col-xs-2">
-                            <span></span>
-                        </div>
-                    </div>
-                    <div class="form-group" ng-class="{ 'has-error' : formConstract.superviseUnit.$invalid && !formConstract.superviseUnit.$pristine }">
-                        <div class="col-xs-2" style="text-align: left">
-                            <label for="supervisionUnit" class="form-control" style="border: none">监理单位：</label>
-                        </div>
-                        <div class="col-xs-3">
-                            <input type="text" class="form-control" id="supervisionUnit"  ng-value="labConstractInfos.supervisionUnit" ng-model="supervise_unit" name="superviseUnit" ng-maxlength="100" required>
-                            <p class="help-block">
-                                <a ng-show="formConstract.superviseUnit.$error.required">该项为必填项</a>
-                                <span ng-show="formConstract.superviseUnit.$error.maxlength">该项不能超过100个字符</span>
-                            </p>
-                        </div>
-                        <br>
-                    </div>
 
-                </div>
-                <div>
-                    <div class="form-group"
-                         ng-class="{ 'has-error' : formConstract.csEngineer.$error.maxlength}">
-                        <div class="col-xs-2" style="text-align: left">
-                            <label for="supervisingEngineer" class="form-control"
-                                   style="border: none">总监理工程师：</label>
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : formConstract.projectName.$invalid && !formConstract.projectName.$pristine }">
+                            <div class="col-xs-2" style="text-align: left">
+                                <label for="projectName" class="form-control" style="border: none">项目名称：</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" id="projectName"
+                                       ng-value="labConstractInfos.projectName " ng-model="pt_name" name="projectName"
+                                       ng-maxlength="100" required>
+                                <p class="help-block">
+                                    <a ng-show="formConstract.projectName.$error.required">该项为必填项</a>
+                                    <span ng-show="formConstract.projectName.$error.maxlength">该项不能超过100个字符</span>
+                                </p>
+                            </div>
+                            <br>
                         </div>
-                        <div class="col-xs-3">
-                            <input type="text" class="form-control" id="supervisingEngineer" name="csEngineer"
-                                   required
-                                   ng-maxlength="100" ng-model="cs_engineer" ng-value="labConstractInfos.supervisingEngineer">
-                            <p class="help-block">
-                                <span ng-show="formConstract.csEngineer.$error.maxlength">该项不能超过100个字符</span>
-                            </p>
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : formConstract.contractDate.$invalid && !formConstract.contractDate.$pristine }">
+                            <div class="col-xs-2" style="text-align: left">
+                                <label for="signedDate" class="form-control control-label"
+                                       style="border: none">合同签订日期：</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="controls input-append date form_date" data-date=""
+                                     data-date-format="yyyy-mm-dd" data-link-field="contract_sign"
+                                     data-link-format="yyyy-mm-dd">
+                                    <input size="16" type="text" class="form-control" id="signedDate"
+                                           ng-value="labConstractInfos.signedDate | date:'yyyy-MM-dd'"
+                                           ng-model="ct_date" name="contractDate" ng-maxlength="100" required>
+                                    <p class="help-block">
+                                        <a ng-show="formConstract.contractDate.$error.required">该项为必填项</a>
+                                        <span ng-show="formConstract.contractDate.$error.maxlength">该项不能超过100个字符</span>
+                                    </p>
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                                <input type="hidden" id="contract_sign" value=""/>
+                            </div>
+                            <div class="col-xs-2">
+                                <span></span>
+                            </div>
                         </div>
-                        <div class="col-xs-2">
-                            <span></span>
+                        <div class="form-group">
+                            <div class="col-xs-2" style="text-align: left">
+                                <label for="contract_type" class="form-control" style="border: none">合同类型：</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" id="contract_type" placeholder="监理试验室合同"
+                                       readonly>
+                                <p class="help-block">
+                                </p>
+                            </div>
+                            <br>
                         </div>
-                    </div>
-                    <div class="form-group"
-                         ng-class="{ 'has-error' : formConstract.slUnits.$invalid && !formConstract.slUnits.$pristine }">
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : formConstract.constructUnit.$invalid && !formConstract.constructUnit.$pristine }">
+                            <div class="col-xs-2" style="text-align: left">
+                                <label for="constructionUnit" class="form-control" style="border: none">建设单位：</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" id="constructionUnit"
+                                       ng-value="labConstractInfos.constructionUnit" ng-model="construct_unit"
+                                       name="constructUnit" ng-maxlength="100" required>
+                                <p class="help-block">
+                                    <a ng-show="formConstract.constructUnit.$error.required">该项为必填项</a>
+                                    <span ng-show="formConstract.constructUnit.$error.maxlength">该项不能超过100个字符</span>
+                                </p>
+                            </div>
+                            <div class="col-xs-2">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : formConstract.superviseUnit.$invalid && !formConstract.superviseUnit.$pristine }">
+                            <div class="col-xs-2" style="text-align: left">
+                                <label for="supervisionUnit" class="form-control" style="border: none">监理单位：</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" id="supervisionUnit"
+                                       ng-value="labConstractInfos.supervisionUnit" ng-model="supervise_unit"
+                                       name="superviseUnit" ng-maxlength="100" required>
+                                <p class="help-block">
+                                    <a ng-show="formConstract.superviseUnit.$error.required">该项为必填项</a>
+                                    <span ng-show="formConstract.superviseUnit.$error.maxlength">该项不能超过100个字符</span>
+                                </p>
+                            </div>
+                            <br>
+                        </div>
 
-                        <div class="col-xs-2" style="text-align: left">
-                            <label for="supervisionLaboratoryUnit" class="form-control"
-                                   style="border: none">监理试验室单位：</label>
+                    </div>
+                    <div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : formConstract.csEngineer.$error.maxlength}">
+                            <div class="col-xs-2" style="text-align: left">
+                                <label for="supervisingEngineer" class="form-control"
+                                       style="border: none">总监理工程师：</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" id="supervisingEngineer" name="csEngineer"
+                                       required
+                                       ng-maxlength="100" ng-model="cs_engineer"
+                                       ng-value="labConstractInfos.supervisingEngineer">
+                                <p class="help-block">
+                                    <span ng-show="formConstract.csEngineer.$error.maxlength">该项不能超过100个字符</span>
+                                </p>
+                            </div>
+                            <div class="col-xs-2">
+                                <span></span>
+                            </div>
                         </div>
-                        <div class="col-xs-3">
-                            <input type="text" class="form-control" id="supervisionLaboratoryUnit" name="slUnits"
-                                   required
-                                   ng-maxlength="100" ng-model="sl_units" ng-value="labConstractInfos.supervisionLaboratoryUnit">
-                            <p class="help-block">
-                                <a ng-show="formConstract.slUnits.$error.required">该项为必填项</a>
-                                <span ng-show="formConstract.slUnits.$error.maxlength">该项不能超过100个字符</span>
-                            </p>
+                        <div class="form-group"
+                             ng-class="{ 'has-error' : formConstract.slUnits.$invalid && !formConstract.slUnits.$pristine }">
+
+                            <div class="col-xs-2" style="text-align: left">
+                                <label for="supervisionLaboratoryUnit" class="form-control"
+                                       style="border: none">监理试验室单位：</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" id="supervisionLaboratoryUnit" name="slUnits"
+                                       required
+                                       ng-maxlength="100" ng-model="sl_units"
+                                       ng-value="labConstractInfos.supervisionLaboratoryUnit">
+                                <p class="help-block">
+                                    <a ng-show="formConstract.slUnits.$error.required">该项为必填项</a>
+                                    <span ng-show="formConstract.slUnits.$error.maxlength">该项不能超过100个字符</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+        </div>
+        <div class="window-bottom">
+            <div style="text-align: right">
+                <button class="btn ok fiveLetter" type="button" ng-click="ok()">保存</button>
+            </div>
+            <div style="text-align: left">
+                <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
+            </div>
         </div>
     </div>
-    <div class="window-bottom">
-        <div style="text-align: right">
-            <button class="btn ok fiveLetter" type="button" ng-click="ok()">保存</button>
-        </div>
-        <div style="text-align: left">
-            <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
-        </div>
-    </div>
-</div>

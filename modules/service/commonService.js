@@ -107,18 +107,11 @@ angular.module('core').service('commonService', function ($http, $q) {
     };
     /**
      * 更新子工程名称
-     * @param {string} nodeNum  节点编码
+     * @param {string} id  节点id
      * @param {string} nodeName 节点名称
      * @param {string} nodeType 节点类型(0单位，1子单位，2分项，3子分项，4分部，5子分部)
-     * @param {string} parentId 父节点Id
      */
     this.updateChildProjectName = function (param) {
-        param = {
-            nodeNum: "TREE002",
-            nodeName: "子单位工程",
-            nodeType: -1,
-            parentId: 1
-        };
         param = JSON.stringify(param);
         var delay = $q.defer();
         $.ajax({
@@ -192,15 +185,15 @@ angular.module('core').service('commonService', function ($http, $q) {
         var url_join;
         switch (contractType) {
             //获取项目部下施工合同段
-            case 'constructContract' :
+            case 1 :
                 url_join = url + "contracts/construction?deptId=" + deptId;
                 break;
             //获取项目部下监理合同段
-            case 'superviseContract':
+            case 2:
                 url_join = url + "contracts/supervision?deptId=" + deptId;
                 break;
             //获取项目部下监理试验室合同段
-            case 'labContract':
+            case 3:
                 url_join = url + "contracts/supervisionLaboratory?deptId=" + deptId;
                 break;
         }
@@ -329,15 +322,15 @@ angular.module('core').service('commonService', function ($http, $q) {
         var url_join;
         switch (contractType) {
             //获取项目部下施工合同段
-            case 'constructContract' :
+            case 1 :
                 url_join = url + 'contracts/construction/' + constractId;
                 break;
             //获取项目部下监理合同段
-            case 'superviseContract':
+            case 2:
                 url_join = url + 'contracts/supervision/' + constractId;
                 break;
             //获取项目部下监理试验室合同段
-            case 'labContract':
+            case 3:
                 url_join = url + 'contracts/supervisionLaboratory/' + constractId;
                 break;
         }
@@ -480,7 +473,7 @@ angular.module('core').service('commonService', function ($http, $q) {
     /**
      * 分页查询合同清单列表
      */
-   this.getContractlist = function (contractId,chapterId,pageParam) {
+   this.Contractlist = function (contractId,chapterId,pageParam) {
         var delay = $q.defer();
         if(contractId == null) {
             return delay.promise;
@@ -502,15 +495,15 @@ angular.module('core').service('commonService', function ($http, $q) {
      /**
      * 分页查询桩号清单列表
      */
-     this.getItemizedlist = function (itemizedId,chapterId,pageParam) {
+     this.Itemizedlist = function (itemizedId,chapterId,pageParam) {
         pageParam = JSON.stringify(pageParam);
         var delay = $q.defer();
         if(itemizedId == null) {
             return delay.promise;
         }
-        var url_join = url + 'contractlist/'+ itemizedId +'/'+chapterId;
+        var url_join = url + 'itemizedlist/'+ itemizedId +'/'+chapterId;
         //var url_test = './json/list.json';
-        $http.post(url_join, pageParam, {transformRequest: angular.identity}).then(function (data) {
+        $http.post(url_join, pageParam,{transformRequest: angular.identity}).then(function (data) {
             // 后台返回的当前页码是从0开始，此处先加1
             ++data.data.number;
             delay.resolve(data.data);
@@ -543,25 +536,41 @@ angular.module('core').service('commonService', function ($http, $q) {
     this.contractlistDownload = function (contractId) {
         var delay = $q.defer();
         var url_join = url + 'contractlist/' + contractId + '/download';
-       $http.get(url_join).then(function (data) {
-            delay.resolve(data);
+       $http.get(url_join,{responseparameterType: 'arraybuffer'}).then(function (res) {
+        var blob = new Blob([res.data], {type: 'application/vnd.ms-excel'}),
+        fileName = '清单合同';
+        downFile(blob, fileName);
         }, function (error) {
-            delay.reject(error);
-        });
+                delay.reject(error);
+            });
         return delay.promise;
     };
+    function downFile(blob, fileName) {
+            if (window.navigator.msSaveOrOpenBlob) {
+                navigator.msSaveBlob(blob, fileName);
+            } else {
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = fileName;
+                link.click();
+                window.URL.revokeObjectURL(link.href);
+            }
+        }
 
     /**
      * 导出桩号清单接口
      */
+
     this.itemizedlistDownload = function (itemizedId) {
         var delay = $q.defer();
          var url_join = url + 'itemizedlist/' + itemizedId + '/download';
-       $http.get(url_join).then(function (data) {
-            delay.resolve(data);
+        $http.get(url_join,{responseparameterType: 'arraybuffer'}).then(function (res) {
+        var blob = new Blob([res.data], {type: 'application/vnd.ms-excel'}),
+        fileName = '清单桩号';
+        downFile(blob, fileName);
         }, function (error) {
-            delay.reject(error);
-        });
+                delay.reject(error);
+            });
         return delay.promise;
 
     };
@@ -846,4 +855,39 @@ angular.module('core').service('commonService', function ($http, $q) {
     };
 
 
+    ///contractlist/{contractId}/submitted/chapters  
+    //查询已提交合同清单中的章get
+    this.contractlistSubmittedChapters = function (contractId) {
+            var delay = $q.defer();
+            var url_join = url + 'contractlist/'+contractId+'/submitted/chapters';
+            $http.get(url_join,  {transformRequest: angular.identity}).then(function (data) {
+                delay.resolve(data.data);
+            }, function (error) {
+                delay.reject(error);
+            });
+            return delay.promise;
+        };
+
+    ///contractlist/{contractId}/submitted/{chapterId} 
+    //分页查询已提交合同清单列表
+    this.contractlistSubmittedList = function (contractId,chapterId,pageParam) {
+            pageParam = JSON.stringify(pageParam);
+            var delay = $q.defer();
+            var url_join = url + 'contractlist/'+contractId+'/submitted/'+chapterId;
+            $http.post(url_join, pageParam , {transformRequest: angular.identity}).then(function (data) {
+                // 后台返回的当前页码是从0开始，此处先加1
+                ++data.data.number;
+                delay.resolve(data.data);
+            }, function (error) {
+                delay.reject(error);
+            });
+            return delay.promise;
+        };
+
+
+
 });
+
+
+
+

@@ -43,6 +43,7 @@ angular.module('core').directive('contractFilesRepeatFinish', function ($timeout
         }
     }
 });
+
 //顶部导航栏active样式控制
 angular.module('core').directive('topNav', function () {
     return {
@@ -329,7 +330,6 @@ angular.module('core').directive('deleteAttachment', function ($uibModal) {
                     }
                 });
                 modalInstance.result.then(function () {
-                    // scope.selected = selectedItem;
                 });
             };
         }
@@ -441,25 +441,6 @@ angular.module('core').directive('inputSearchChildItems', function () {
         }
     }
 });
-// angular.module('core').directive('pdfSlide', function (FileUploader, $timeout) {
-//     return {
-//         restrict: 'AE',
-//         link: function (scope, element, attr) {
-//             $('#preview-body').slidePDF({
-//                 pic: ".pdf-preview",//大图框架
-//                 pnum: ".preview-menu",//小图框架
-//                 prev: ".pdf-left-arrow",//大图左箭头
-//                 next: ".pdf-right-arrow",//大图右箭头
-//                 delayTime: 400,//切换一张图片时间
-//                 order: 0,//当前显示的图片（从0开始）
-//                 picdire: true,//大图滚动方向（true为水平方向滚动）
-//                 mindire: true,//小图滚动方向（true为水平方向滚动）
-//                 min_picnum: 5,//小图显示数量
-//             })
-//         }
-//     }
-// })
-
 
 // 上传附件upload
 angular.module('core').directive('uploadFiles', function (FileUploader, $timeout) {
@@ -469,7 +450,6 @@ angular.module('core').directive('uploadFiles', function (FileUploader, $timeout
             var basePath = "http://192.168.13.215:8080/LBLD/",
                 popStateNum = 0;
 
-            var docSelectedList1 = [];
             scope.uploadDocList = [];		//上传资料list
             scope.onCompleteAllSignal = false; //是否上传成功signal
             scope.uploadErrorSignal = false; //是否上传成功signal
@@ -484,13 +464,18 @@ angular.module('core').directive('uploadFiles', function (FileUploader, $timeout
                 docsRepeatMind: false
             };
 
+            // console.log(scope.constructConstractInfos);
+            var fileLength;
+            if (scope.constructConstractInfos) {
+                fileLength = scope.constructConstractInfos.contractFiles.length;
+            }
+
             //FILTERS
             uploader.filters.push({
                 name: 'customFilter',
                 fn: function (item /*{File|FileLikeObject}*/, options) {
-                    scope.docsUploadList.push(item);
-                    popStateNum++;
-                    if (scope.docsUploadList.length > 5) {
+
+                    if ((scope.docsUploadList.length + fileLength) > 5) {
                         if (!scope.marker.docsRepeatMind) {
                             layer.alert('上传资料不能多于5个！', {
                                 closeBtn: 0,
@@ -498,12 +483,31 @@ angular.module('core').directive('uploadFiles', function (FileUploader, $timeout
                             });
                         }
                         scope.marker.docsRepeatMind = true;
-                        return this.queue.length < 5;
+                        return scope.uploader.queue.length < 5;
+                    } else {
+                        scope.docsUploadList.push(item.name);
                     }
-                    return this.queue.length < 5;
+                    return scope.uploader.queue.length < 5;
                 }
             });
-
+            /*
+             * 删除数组中的某个元素
+             * （删除附件时使用）
+             * */
+            Array.prototype.indexOf = function (val) {
+                for (var i = 0; i < this.length; i++) {
+                    if (this[i] == val) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+            Array.prototype.remove = function (val) {
+                var index = this.indexOf(val);
+                if (index > -1) {
+                    this.splice(index, 1);
+                }
+            }
             //点击上传资料按钮
             scope.docsUpload = function () {
                 scope.marker.docsRepeatMind = false;
@@ -512,17 +516,74 @@ angular.module('core').directive('uploadFiles', function (FileUploader, $timeout
                 $('.upload-docs').click();
             }
 
-
-            scope.deleteCurrentAttachment = function (ele, item) {
+            scope.deleteCurrentAttachment = function (ele) {
                 function select(ele) {
                     $(".deleteSelect").removeClass("deleteSelect");
                     $(ele).addClass("deleteSelect");
                 }
 
                 select(ele);
-                scope.uploader.queue.pop(item);
+            }
+            scope.deleteAttachmentLayer = function (windowStatus, item, uploadedStatus) {
+
+                layer.open({
+                    type: 1,
+                    title: '删除附件',
+                    area: ['400px', '200px'],
+                    shadeClose: true, //点击遮罩关闭
+                    content: '\<\div class="window-content"><div class="delete-constract-wrapper"><h3>确认要删除该附件吗？</h3></div>\<\/div>',
+                    btn: ['确定', '取消'],
+                    yes: function () {
+                        console.log(1111);
+                        // windowStatus 当前窗口状态
+                        if (windowStatus == 1) {
+                            //新建合同删除附件
+                            var $select = $(".deleteSelect");
+                            $select.parent().parent().remove();
+                            scope.uploader.queue.remove(item);
+                            scope.docsUploadList.remove(item.file.name);
+                            console.log(scope.docsUploadList);
+                            var arr = [1, 2, 34, 5];
+                            console.log(arr.remove(2));
+                        } else if (windowStatus == 2) {
+                            //预览附件删除附件
+                            console.log(1111);
+                        } else if (windowStatus == 3) {
+                            var $select = $(".deleteSelect");
+                            $select.parent().parent().remove();
+                            if (uploadedStatus == 'hasUploaded') {
+                                scope.docsUploadList.length--;
+                                console.log(scope.docsUploadList.length);
+                                if (!scope.constructConstractInfos) {
+                                    return;
+                                }
+                                scope.constructConstractInfos.contractFiles.remove(item);
+                            } else {
+
+                                scope.docsUploadList.remove(item.file.name);
+                            }
+                            scope.uploader.queue.remove(item);
+                        }
+                        layer.closeAll();
+                    },
+                    success: function () {
+                        $('#confirmDelete').on('click', function () {
+                            console.log(1111);
+                        });
+                    }
+                })
             }
 
+
+            // <div class="window-content">
+
+            // </di
+            // scope.deleteAccessory=function () {
+
+            //     console.log(_this);
+            //     console.log(scope.uploader.queue);
+            //     console.log(scope.docsUploadList);
+            //添加附件后的错误提示
             uploader.onAfterAddingFile = function (fileItem) {
                 var errorMessage = '';
                 if (fileItem.file.size <= 0) {
@@ -539,14 +600,12 @@ angular.module('core').directive('uploadFiles', function (FileUploader, $timeout
                         closeBtn: 0,
                         move: false
                     });
-
                 }
             }
-
         }
     }
 })
-
+//关联工程的下拉框下拉触发
 angular.module('core').directive('showSelect', function ($timeout) {
     return {
         restrict: 'AE',
@@ -594,8 +653,6 @@ angular.module('core').directive('editCompGroup', function (commonService) {
             var maxlevel = 0;//最大层级
             var dataList = {};
             var ppid, projType, treeObj, floor, compClass, subClass, spec, productId;
-            var selectedProject = {};
-            var selectedNodes;
             var setting = {
                 view: {
                     selectedMulti: false
@@ -766,123 +823,6 @@ angular.module('core').directive('editCompGroup', function (commonService) {
                     });
                 }
             }
-
-            // //点击确定按钮获取构件类别表单
-            // scope.ok3 = function () {
-            //     //点击确定按钮切换显示获取的构件类别openSignal
-            //     scope.flagok = true;
-            //     scope.openSignal = false;
-            //     scope.projectTree = [];
-            //     var obj = {ppid: ppid, projType: projType};
-            //     var params = JSON.stringify(obj);
-            //     var setting1 = {
-            //         // 以下注释是用来切换树的显示名字
-            //         // data:{
-            //         // 	key:{
-            //         // 		name:'value'
-            //         // 	}
-            //         // },
-            //         view: {
-            //             selectedMulti: false
-            //         },
-            //         check: {
-            //             enable: true
-            //         },
-            //         callback: {
-            //             onCheck: onCheckZtree
-            //         }
-            //     };
-            //     dataList.assembleLps = obj;
-            //
-            // }
-            //
-            // scope.ok4 = function () {
-            //     //debugger
-            //     //选中节点的组合数组(checkbox选中状态)
-            //     var selectedNodes = [];
-            //     var selectedNodesList = [];
-            //     var pNodeList = [];
-            //     var treeObj = $.fn.zTree.getZTreeObj("tree1");
-            //     //当前选中的所有的节点
-            //     selectedNodes = treeObj.getCheckedNodes(true);
-            //     console.log('selectedNodes', selectedNodes);
-            //     var lastNodeList = _.filter(selectedNodes, function (value, key) {
-            //         if (projType != 5) {
-            //             return value.type == 3;
-            //         }
-            //         return value.type == 2;
-            //     });
-            //     angular.forEach(lastNodeList, function (value, key) {
-            //         //遍历type=3的结合，递归获取父级的集合并且拼接上自己的集合
-            //         pNodeList = [];
-            //         var signalSelected = getParentNodeList(value, pNodeList).concat(value);
-            //         selectedNodesList.push(signalSelected);
-            //     });
-            //     console.log('selectedNodesList', selectedNodesList);
-            //
-            //     //递归获取父节点的集合
-            //     function getParentNodeList(treeObj) {
-            //         if (treeObj == null) return;
-            //         var pNode = treeObj.getParentNode();
-            //         if (pNode != null) {
-            //             pNodeList.push(pNode);
-            //             pNode = getParentNodeList(pNode);
-            //         }
-            //         return pNodeList;
-            //     }
-            //
-            //     switch (projType) {
-            //         case "1" :
-            //             projType = '土建预算';
-            //             break;
-            //         case "2":
-            //             projType = '钢筋预算';
-            //             break;
-            //         case "3":
-            //             projType = '安装预算';
-            //             break;
-            //         case "4":
-            //             projType = 'Revit';
-            //             break;
-            //         case "5":
-            //             projType = 'Tekla';
-            //             break;
-            //     }
-            //
-            //     /**
-            //      * 土建，钢筋，revit是楼层——大类——小类
-            //      * 安装是楼层——专业——大类——小类
-            //      * tekla是楼层——大类，tekla手机没有获取到小类
-            //      * public static final Integer COMP_NODE_ALL = -1;//全部
-            //      * public static final Integer COMP_NODE_FLOOR = 0;//楼层
-            //      * public static final Integer COMP_NODE_PROF = 1;//专业
-            //      * public static final Integer COMP_NODE_CLASS = 2;//大类
-            //      * public static final Integer COMP_NODE_SUBCLASS = 3;//小类
-            //      */
-            //     var selectedCategory = []; //组合选中数据
-            //     console.log('selectedNodesList', selectedNodesList);
-            //     angular.forEach(selectedNodesList, function (value, key1) {
-            //         var unit = {};
-            //         angular.forEach(value, function (value1, key1) {
-            //             if (value1.type === 0) {
-            //                 unit.floor = value1.value;
-            //             } else if (value1.type === 1) {
-            //                 unit.spec = value1.value;
-            //             } else if (value1.type === 2) {
-            //                 unit.compClass = value1.value;
-            //             } else if (value1.type === 3) {
-            //                 unit.subClass = value1.value;
-            //             }
-            //         })
-            //         unit.ppid = ppid;
-            //         unit.projType = projType;
-            //         selectedCategory.push(unit);
-            //     });
-            //     dataList.assembleLps = selectedCategory;
-            //     dataList.productId = productId;
-            //     console.log('dataList', dataList);
-            //     $uibModalInstance.close(dataList);
-            // }
 
             function projTypeSwitch(n) {
                 switch (n) {

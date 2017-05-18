@@ -211,6 +211,23 @@ angular.module('core').controller('projectChangeStakeCtrl', ['$scope', '$http','
                 // console.log(selectedItem);
             });
         };
+        //删除变更
+        $scope.createChangeModaldelOrder= function () {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'template/category_third/modal_create_change_delchange.html',
+                controller: 'CreateChangeDeleteorderPreview',
+                resolve: {
+                    items: function () {
+                        return $scope.deptId;
+                    }
+                }
+            });
+            modalInstance.result.then(function (sendContent) {
+                // $scope.selected = selectedItem;
+                // console.log(selectedItem);
+            });
+        };
         //添加表单
         $scope.createChangeModalAddform= function () {
             var modalInstance = $uibModal.open({

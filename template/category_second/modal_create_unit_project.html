@@ -1,4 +1,4 @@
-<div class="modal-content">
+<div class="modal-content modal-common">
     <div class="model-content ng-scope">
         <div class="window-title">
             <span> 新建单位工程</span>
@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label boinced-control-label">单位工程：</label>
                         <div class="col-sm-8">
-                            <select class="form-control selectpicker" ng-model="data.nodeName">
+                            <select class="form-control selectpicker" ng-model="createTreeNodeInfo.nodeName">
                                 <option ng-repeat="item in unitNameArr" value="{{item}}">{{item}}</option>
                             </select>
                         </div>
@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <label  class="col-sm-3 control-label boinced-control-label">编号：</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control"  placeholder="子单位工程编号，若无子单位，则为单位工程编号" ng-model="data.nodeNum">
+                          <input type="text" class="form-control"  placeholder="子单位工程编号，若无子单位，则为单位工程编号" ng-model="createTreeNodeInfo.nodeNum">
                         </div>
                     </div>
                 </form>

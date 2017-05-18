@@ -18,21 +18,22 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
             var currentContractType = currentContractType;
             $scope.id = contractId;
             commonService.getConstructConstractInfos($scope.id, currentContractType).then(function (data) {
-                data.contractFiles = [
+                $scope.constructConstractInfos = data;
+                $scope.constructConstractInfos.contractFiles=[
                     {
-                        fileName: 1111,
-                        fileSize: 2222,
-                        fileMD5: 3333,
-                        fileUUID: 4444,
+                        fileMd5:111111,
+                        fileName:111111,
+                        fileUUID:111111,
+                        fileSize:111111
                     },
                     {
-                        fileName: 2,
-                        fileSize: 2,
-                        fileMD5: 'gfvdsvgdfsbgf',
-                        fileUUID: 555,
+                        fileMd5:111222,
+                        fileName:111222,
+                        fileUUID:111222,
+                        fileSize:112221
                     }
-                ];
-                $scope.constructConstractInfos = data;
+                ]
+
                 console.log(data);
             })
 
@@ -130,11 +131,6 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
 
         });
 
-        // function select(ele) {
-        //     $(".select").removeClass("select");
-        //     $(ele).addClass("select");
-        // }
-
         // function selectProject(ele) {
         //     $(".select").removeClass("select");
         //     $(ele).addClass("select");
@@ -157,6 +153,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
             modalInstance.result.then(function (sendContent) {
                 // $scope.selected = selectedItem;
                 // console.log(selectedItem);
+                // $('#ul1-'+$scope.firstLeftTree.deptId).siblings('.project-name-span').trigger('click');
             });
         };
         // 新建监理合同
@@ -267,7 +264,7 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                     }
                 }
             });
-            modalInstance.result.then(function () {
+            modalInstance.result.then(function (id) {
 
             });
         };
@@ -316,17 +313,6 @@ angular.module('core').controller('firstCtrl', ['$scope', '$http', '$uibModal', 
                 }
             });
             modalInstance.result.then(function () {
-                $('#preview-body').slidePDF({
-                    pic: ".pdf-preview",//大图框架
-                    pnum: ".preview-menu",//小图框架
-                    // prev: ".pdf-left-arrow",//大图左箭头
-                    // next: ".pdf-right-arrow",//大图右箭头
-                    delayTime: 400,//切换一张图片时间
-                    order: 0,//当前显示的图片（从0开始）
-                    picdire: true,//大图滚动方向（true为水平方向滚动）
-                    mindire: true,//小图滚动方向（true为水平方向滚动）
-                    min_picnum: 5,//小图显示数量
-                })
             });
         };
         $scope.toggleAnimation = function () {

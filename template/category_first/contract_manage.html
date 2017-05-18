@@ -40,15 +40,18 @@
                 <button class="delete-contract" id="delete-contract">删除合同</button>
             </div>
             <div>
-                <!--<div class="attachment" id="attachment-construct" arrow-swiper ng-show="constructConstractInfos.contractFiles">-->
-                <div class="attachment" arrow-swiper>
+                <div class="attachment" id="attachment-construct" arrow-swiper
+                     ng-show="constructConstractInfos.contractFiles">
+                    <!--<div class="attachment" arrow-swiper>-->
                     <div class="arrow-left"></div>
                     <div class="wrapper">
-                        <div class="attachment-operate">
-                            <!--<a class="attachment-operate" ng-repeat="item in constructConstractInfos.contractFiles track by $index" contract-files-repeat-finish>-->
+                        <!--<div class="attachment-operate">-->
+                        <div class="attachment-operate"
+                           ng-repeat="item in constructConstractInfos.contractFiles track by $index"
+                           contract-files-repeat-finish>
                             <i class="ico-pdf"></i>
-                            <p class="attachment-name">111111111111111111</p>
-                            <!--<p class="attachment-name">{{item.fileName}}</p>-->
+                            <!--<p class="attachment-name">111111111111111111</p>-->
+                            <p class="attachment-name">{{item.fileName}}</p>
                             <div class="attachment-btn">
                                 <a class="download" href="">
                                     <i class="ico-download"></i>
@@ -70,8 +73,8 @@
                     <div class="wrapper">
                         <!--<a class="attachment-operate">-->
                         <div class="attachment-operate"
-                           ng-repeat="item in constructConstractInfos.contractFiles track by $index"
-                           contract-files-repeat-finish>
+                             ng-repeat="item in constructConstractInfos.contractFiles track by $index"
+                             contract-files-repeat-finish>
                             <i class="ico-pdf"></i>
                             <!--<p class="attachment-name">2222</p>-->
                             <p class="attachment-name">{{item.fileName}}</p>
@@ -96,11 +99,12 @@
                     <div class="wrapper">
                         <!--<a class="attachment-operate">-->
                         <div class="attachment-operate"
-                           ng-repeat="item in constructConstractInfos.contractFiles track by $index"
-                           contract-files-repeat-finish>
+                             ng-repeat="item in constructConstractInfos.contractFiles track by $index"
+                             contract-files-repeat-finish>
                             <i class="ico-pdf"></i>
                             <!--<p class="attachment-name">333</p>-->
                             <p class="attachment-name">{{item.fileName}}</p>
+                            <p class="attachment-name">{{item.fileType}}</p>
                             <div class="attachment-btn">
                                 <a class="download" href="">
                                     <i class="ico-download"></i>

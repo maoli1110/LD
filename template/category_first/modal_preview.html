@@ -12,12 +12,19 @@
     <div class="preview-body" id="preview-body" style="height: calc(100vh - 100px)" btn-wrapper pdf-slide>
         <aside class="preview-menu" style="height: calc(100vh - 100px)">
             <div class="file-wrapper">
-                <a class="file-item" ng-repeat="item in contractFiles track by $index">
+                <a class="file-item" ng-repeat="item in uploader.queue"
+                   ng-show="uploader.isHTML5&& item.file.name.split('.')[item.file.name.split('.').length-1] == 'pdf' || uploader.isHTML5 && item.file.type.substr(0,5) === 'image'"contract-files-repeat-finish>
                 <!--<a class="file-item">-->
-                    <img ng-src="imgs/pic.png" alt="" class="file-sm-pic" title="{{item.fileName}}">
-                    <p class="file-name" title="{{item.fileName}}">{{item.fileName}}</p>
+                    <img ng-src="imgs/pic.png" alt="" class="file-sm-pic" title="{{item.file.name}}">
+                    <p class="file-name" title="{{item.file.name}}">{{item.file.name}}</p>
                     <!--<img src="imgs/pic.png" alt="" class="file-sm-pic">-->
                     <!--<p class="file-name" title="">4234234</p>-->
+                </a>
+
+                <a class="file-item" ng-repeat="item in contractFiles track by $index"
+                   contract-files-repeat-finish>
+                    <img ng-src="imgs/pic.png" alt="" class="file-sm-pic" title="{{item.fileName}}">
+                    <p class="file-name" title="{{item.fileName}}">{{item.fileName}}</p>
                 </a>
                 <!--<a class="file-item">-->
                     <!--&lt;!&ndash;<img ng-src="imgs/pic.png" alt="" class="file-sm-pic" title="{{item.fileName}}">&ndash;&gt;-->
@@ -41,7 +48,7 @@
                     <a class="btn-upload upload-docs" id="btn-upload" title="上传附件" ng-click="docsUpload()">
                         <i class="ico-upload"></i>
                     </a>
-                    <a class="btn-delete" id="btn-delete" title="删除附件" ng-click="deleteAttachmentModal(2)">
+                    <a class="btn-delete" id="btn-delete" title="删除附件" ng-click="deleteAttachmentLayer(2)">
                         <i class="ico-delete"></i>
                     </a>
                     <a class="btn-download" id="btn-download" title="下载附件">
@@ -52,7 +59,8 @@
             <div class="pdf-preview" style="height: calc(100vh - 145px)">
                 <div class="pdf-left-arrow"></div>
                 <div class="pdf-wrapper">
-                    <a ng-repeat="item in contractFiles track by $index">
+                    <a ng-repeat="item in uploader.queue"
+                       ng-show="uploader.isHTML5&& item.file.name.split('.')[item.file.name.split('.').length-1] == 'pdf' || uploader.isHTML5 && item.file.type.substr(0,5) === 'image'"contract-files-repeat-finish>
                     <!--<a >-->
                         <img ng-src="imgs/b1.jpg" alt="">
                         <!--<img src="imgs/b1.jpg" alt="">-->
@@ -61,6 +69,10 @@
                         <!--&lt;!&ndash;<img ng-src="imgs/b1.jpg" alt="">&ndash;&gt;-->
                         <!--<img src="imgs/b1.jpg" alt="">-->
                     <!--</a>-->
+                    <a ng-repeat="item in contractFiles track by $index"
+                       contract-files-repeat-finish>
+                        <img ng-src="imgs/b1.jpg" alt="">
+                    </a>
                 </div>
                 <div class="pdf-right-arrow"></div>
             </div>

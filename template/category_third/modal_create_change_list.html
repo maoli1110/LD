@@ -3,7 +3,7 @@
     <div class="model-content ng-scope">
         <div class="window-title">
             <span>选择清单</span>
-            <div class="fiveLetter cancel window-close" ng-click="undo1()">
+            <div class="fiveLetter cancel window-close" ng-click="cancel()">
                 <div class="window-close-left"></div>
                 <div class="window-close-right"></div>
             </div>
@@ -15,8 +15,9 @@
                 <div class="table-construct project-change">
                     <div class="change-select">
                         <span>章节号：</span>
-                        <select class="input-select input-border ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="changeFn()" ng-model="myValue">
-                            <option value="">全部章节</option>
+                        <select class="input-select input-border" ng-change="changeFn()" ng-model="myValue">
+                            <option value="alllist">全部章节</option>
+                            <option ng-repeat="item in lists" value="{{item.id}}">{{item.id}}</option>
                         </select>
                     </div>
                     <div class="contract-operate" drop-down="" style="float:left;width:340px;">
@@ -31,24 +32,32 @@
                         </div>
                     </div>
                     <div class="division_content" style="clear: both;">
-                        <div class="clearfix">
-                            <div class="thead" style="width: 10%"><span>选择</span>
+                        <div class="clearfix change-listcreat">
+                            <div class="thead" style="width: 8%;text-align:center;"><span>选择</span>
                             </div>
-                            <div class="thead" style="width: 15%"><span>子目号</span>
+                            <div class="thead" style="width: 10%"><span>子目号</span>
                             </div>
-                            <div class="thead" style="width: 20%"><span>子名称</span>
+                            <div class="thead" style="width: 22%"><span>子名称</span>
                             </div>
                             <div class="thead" style="width: 10%"><span>计量单位</span>
                             </div>
-                            <div class="thead" style="width: 15%"><span>合同单价（元）</span>
+                            <div class="thead" style="width: 16%"><span>合同单价（元）</span>
                             </div>
-                            <div class="thead" style="width: 15%"><span>合同数量</span>
+                            <div class="thead" style="width: 16%"><span>合同数量</span>
                             </div>
-                            <div class="thead" style="width: 15%"><span>发起工程量</span>
+                            <div class="thead" style="width: 18%"><span>发起工程量</span>
                             </div>
                         </div>
                         <div class="table-list" style=" height:300px; overflow-y: scroll">
-                            <!-- ngRepeat: item in childItemizedInfos.content -->
+                            <div class="aline contractList change-listcreat" listid={{item.id}} ng-repeat="item in childItemizedInfos.content">
+                                <div class="tbody" style="width: 8%"><span ng-click="changeClass($event.target)"></span></div>
+                                <div class="tbody" style="width: 10%">{{item.listNum}}</div>
+                                <div class="tbody" style="width: 22%">{{item.itemName}}</div>
+                                <div class="tbody" style="width: 10%">{{item.measurementUnit}}</div>
+                                <div class="tbody" style="width: 16%">{{item.contractPrice}}</div>
+                                <div class="tbody" style="width: 16%">{{item.contractQuantity}}</div>
+                                <div class="tbody" style="width: 18%">{{item.contractAmount}}</div>
+                            </div>
                         </div>
                     </div>
                     <div style="text-align: center;margin-top: 10px;font-size: 14px;">
@@ -66,10 +75,10 @@
         </div>
         <div class="window-bottom">
             <div style="text-align: right">
-                <button class="btn ok fiveLetter" type="button" ng-click="oknew()">发起</button>
+                <button class="btn ok fiveLetter" type="button" ng-click="ok()">确定</button>
             </div>
             <div style="text-align: left">
-                <button class="btn fiveLetter cancel" id="closeModalCompGroup" type="button" ng-click="undo1()">取消</button>
+                <button class="btn fiveLetter cancel" type="button" ng-click="cancel()">取消</button>
             </div>
         </div>
     </div>

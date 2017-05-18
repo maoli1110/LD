@@ -3,10 +3,10 @@
 <!--清单查询-->
 
 <!---div class="list-manage-contract modal-comp-group" edit-comp-group  style="display: none;"-->
-<div class="model-content">
+<div class="model-content list-manage-contract">
     <div class="window-title">
         <span>选择清单</span>
-        <div class="window-close" id="closeModalCompGroup">
+        <div ng-click="cancel()" class="window-close">
             <div class="window-close-left"></div>
             <div class="window-close-right"></div>
         </div>
@@ -90,7 +90,7 @@
             <button class="btn ok fiveLetter" type="button" ng-click="selectOK()">确认</button>
         </div>
         <div style="text-align: left">
-            <button class="btn cancel fiveLetter" type="button" ng-click="selectCancel()">取消</button>
+            <button class="btn cancel fiveLetter" type="button" ng-click="cancel()">取消</button>
         </div>
     </div>
 </div>

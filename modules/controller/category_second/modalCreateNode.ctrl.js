@@ -16,7 +16,7 @@ angular.module('core').controller('unitModalCtrl', ['$scope', '$http', '$uibModa
         //当前选择节点的名称
         $scope.currentNodeName = $scope.selectedNodeInfo.currentNodeName;
         //关闭摸态框需要传出的创建tree节点所需参数
-        $scope.createTreeNodeInfoInfo = {
+        $scope.createTreeNodeInfo = {
             nodeName:null,
             nodeNum:null,
             nodeType:items.createNodeType,
@@ -62,8 +62,8 @@ angular.module('core').controller('unitModalCtrl', ['$scope', '$http', '$uibModa
         };
     }
 ]);
-angular.module('core').controller('subItemModalCtrl', ['$scope', '$http', '$uibModalInstance', 'items', '$timeout', 'commonService',
-    function ($scope, $http, $uibModalInstance, items, $timeout, commonService) {
+angular.module('core').controller('subItemModalCtrl', ['$scope', '$http', '$uibModal','$uibModalInstance', 'items', '$timeout', 'commonService',
+    function ($scope, $http, $uibModal, $uibModalInstance, items, $timeout, commonService) {
         /*
          * 创建子分项工程
          * */
@@ -108,6 +108,36 @@ angular.module('core').controller('subItemModalCtrl', ['$scope', '$http', '$uibM
             });
         });
         
+        // 更改构件组弹框控制开始
+        $scope.editCompGroup = function () {
+            $scope.ppid = 1;
+            if($scope.ppid != null) {
+                // 请求构件组数据
+                commonService.findCompGroupsByPpid($scope.ppid).then(function(data){
+                    // 弹框
+                    var modalInstance = $uibModal.open({
+                        //animation: true,    // 弹框的动画效果 默认是true
+                        size: 'lg',
+                        templateUrl: 'template/category_second/edit_comp_group.html',
+                        controller: 'editCompGroupCtrl',
+                        resolve: {
+                            compGroupInfos: function () {
+                                return data.data;
+                            }
+                        }
+                    });
+                    modalInstance.result.then(function (compGroupInfo) {
+                        $scope.createChildItemizedInfo.compGroupId;
+                        $scope.createChildItemizedInfo.compGroupName = compGroupInfo.name;
+                    }, function () {
+                        //console.info('Modal dismissed at: ' + new Date());
+                        console.log("取消修改构件组");
+                    });
+                });
+            }
+        };
+        // 更改构件组弹框控制结束
+
         $scope.ok = function () {
             $scope.createTreeNodeInfo.nodeName = $scope.createChildItemizedInfo.childItemizedName;
             $scope.createTreeNodeInfo.nodeNum = $scope.createChildItemizedInfo.childItemizedNum;

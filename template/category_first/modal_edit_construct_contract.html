@@ -16,15 +16,23 @@
                 </div>
                 <div class="constract" upload-files delete-attachment>
                     <element ng-if="uploader">
-                        <input class="upload-docs" type="file" nv-file-select="" uploader="uploader" style="display: none;"/>
+                        <input class="upload-docs" type="file" nv-file-select="" uploader="uploader" style="display: none;"  multiple/>
                     </element>
                     <button class="btn-upload upload-docs" ng-click="docsUpload()">上传附件</button>
                     <div class="attachment-wrapper" >
+                        <a class="wrapper-pdf" ng-repeat="item in constructConstractInfos.contractFiles track by $index"
+                           contract-files-repeat-finish >
+                            <i class="ico-pdf"></i>
+                            <span class="txt-pdf">{{item.fileName}}</span>
+                            <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target)">
+                                <i class="delete-attachment" ng-click="deleteAttachmentLayer(3,item,'hasUploaded')"></i>
+                            </div>
+                        </a>
                         <a class="wrapper-pdf" ng-repeat="item in uploader.queue" ng-show="uploader.isHTML5&& item.file.name.split('.')[item.file.name.split('.').length-1] == 'pdf' || uploader.isHTML5 && item.file.type.substr(0,5) === 'image'" >
                             <i class="ico-pdf"></i>
                             <span class="txt-pdf">{{item.file.name}}</span>
-                            <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target)">
-                                <i class="delete-attachment" ng-click="deleteAttachmentModal(1)"></i>
+                            <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target,item)">
+                                <i class="delete-attachment" ng-click="deleteAttachmentLayer(3,item,'unUploaded')"></i>
                             </div>
                         </a>
                     </div>
@@ -37,7 +45,7 @@
 
         </div>
         <div class="bottom-content">
-            <form class="table-construct" name="formConstract" ng-submit="submitForm(formConstract.$valid)" novalidate>
+            <form class="table-construct" name="formConstract">
                 <!--新建施工合同、新建监理合同、新建试验室合同以及编辑合同界面公共部分-->
                 <div class="common-content" date-picker>
                     <div class="form-group" ng-class="{ 'has-error' : formConstract.contractNumber.$invalid && !formConstract.contractNumber.$pristine }">

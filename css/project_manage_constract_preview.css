@@ -3,7 +3,9 @@
 }
 .preview-body .preview-menu {
   height: 100%;
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: #F3F4F5;
   left: 1px;
   bottom: 1px;
   position: absolute;
@@ -134,6 +136,8 @@
 .preview-body .preview-wrapper .pdf-preview {
   padding: 10px 80px;
   position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .preview-body .preview-wrapper .pdf-preview .pdf-left-arrow,
 .preview-body .preview-wrapper .pdf-preview .pdf-right-arrow {

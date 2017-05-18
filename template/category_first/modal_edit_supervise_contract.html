@@ -19,11 +19,19 @@
                 </element>
                 <button class="btn-upload upload-docs" ng-click="docsUpload()">上传附件</button>
                 <div class="attachment-wrapper" >
+                    <a class="wrapper-pdf" ng-repeat="item in constructConstractInfos.contractFiles track by $index"
+                       contract-files-repeat-finish >
+                        <i class="ico-pdf"></i>
+                        <span class="txt-pdf">{{item.fileName}}</span>
+                        <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target)">
+                            <i class="delete-attachment" ng-click="deleteAttachmentLayer(3,item)"></i>
+                        </div>
+                    </a>
                     <a class="wrapper-pdf" ng-repeat="item in uploader.queue" ng-show="uploader.isHTML5&& item.file.name.split('.')[item.file.name.split('.').length-1] == 'pdf' || uploader.isHTML5 && item.file.type.substr(0,5) === 'image'" >
                         <i class="ico-pdf"></i>
                         <span class="txt-pdf">{{item.file.name}}</span>
-                        <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target)">
-                            <i class="delete-attachment" ng-click="deleteAttachmentModal(1)"></i>
+                        <div class="inner-mask" ng-click="deleteCurrentAttachment($event.target,item)">
+                            <i class="delete-attachment" ng-click="deleteAttachmentLayer(1,item)"></i>
                         </div>
                     </a>
                 </div>
